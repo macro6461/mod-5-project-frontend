@@ -1,0 +1,123 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+h2{
+  font-size: 2vw;
+  margin: 3%;
+  marign-bottom: 0;
+}
+
+h1{
+  text-align: center;
+}
+
+.openImg {
+  width: 50%;
+}
+
+.sponseeCard {
+  height: 20%;
+  width: 20%;
+  border: solid 2px black;
+  padding: 2%;
+  margin: 2%;
+  display: inline-block;
+}
+
+p {
+  font-size: 1.5vw;
+}
+
+a {
+  font-size: 1vw;
+}
+
+.mailto{
+  text-decoration: none;
+}
+
+.mailto:hover {
+  font-size: vw;
+  text-decoration: underline;
+}
+
+.moreInfo{
+  text-decoration: none;
+}
+
+.signUp {
+  padding: 1%;
+  width: 50%;
+  height: 50%;
+  background-color: white;
+  position: fixed;
+  left: 20%;
+  top: 20%;
+  z-index: 2;
+}
+
+.signUp h1{
+  margin-left: 20%;
+}
+
+.moreInfo:hover{
+  font-size: 1vw;
+  text-decoration: underline;
+}
+
+.facilityCard {
+  margin-left: 34%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  height: 20%;
+  width: 30%;
+  border: solid 2px black;
+  padding: 2%;
+}
+
+.facilityCard:hover{
+  background-color: lightblue;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+form {
+  margin-left: 36%;
+  border: solid 2px black;
+  padding: 4%;
+  width: 20%;
+}
+
+.signUpForm{
+  margin-left: 30% !important;
+  border: solid 2px black !important;
+  padding: 4% !important;
+  padding-top: 6% !important;
+  padding-bottom: 1% !important;
+  width: 50% !important;
+  height: 60% !important;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
