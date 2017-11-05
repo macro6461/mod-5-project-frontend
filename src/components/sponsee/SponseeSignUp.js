@@ -12,6 +12,7 @@ class SponseeSignUp extends Component {
     gender: "",
     bio: "",
     email: "",
+    address: "",
     local: false
   }
 
@@ -23,12 +24,13 @@ class SponseeSignUp extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    let sponsee = {username: this.state.username, password: this.state.password, age: this.state.age, gender: this.state.gender, bio: this.state.bio, email: this.state.email}
+    let sponsee = {username: this.state.username, password: this.state.password, age: this.state.age, gender: this.state.gender, bio: this.state.bio, email: this.state.email, address: this.state.address}
     this.props.addSponsee(sponsee)
     this.afterSubmit(sponsee)
   }
 
   afterSubmit = (sponsee) => {
+    debugger
     this.setLocalStorage(sponsee)
   }
 
@@ -48,7 +50,8 @@ class SponseeSignUp extends Component {
       age: "",
       gender: "",
       bio: "",
-      email: ""
+      email: "",
+      address: ""
     }, ()=>{this.sendState()})
   }
 
@@ -71,13 +74,19 @@ class SponseeSignUp extends Component {
         Password: <input name="password" type="password" value={this.state.password} onChange={this.handleOnChange} required/>
           <br/>
           <br/>
+        Address: <input name="address" type="text" value={this.state.address} onChange={this.handleOnChange} required/>
+            <br/>
+          <br/>
+        (address will not be visible)
+            <br/>
+          <br/>
         Age: <input name="age" type="text" value={this.state.age} onChange={this.handleOnChange} required/>
           <br/>
           <br/>
         Gender: <input name="gender" type="text" value={this.state.gender} onChange={this.handleOnChange} required/>
           <br/>
           <br/>
-        Bio: <input name="bio" type="text" value={this.state.bio} onChange={this.handleOnChange} required/>
+          Bio: <textarea name="bio" value={this.state.bio} onChange={this.handleOnChange} required></textarea>
           <br/>
           <br/>
         Email: <input name="email" type="text" value={this.state.email} onChange={this.handleOnChange} required/>

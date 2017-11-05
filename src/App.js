@@ -42,7 +42,6 @@ class App extends Component {
       <div className="App">
         <h1>The Next Step</h1>
       <Nav remove={this.removeLocalStorage} submit={this.retrieveSubmitData} navClicked={this.navClicked} navUnClick={this.navUnClick}/>
-
       </div>
     );
   }

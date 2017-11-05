@@ -45,7 +45,6 @@ class SponseeLogIn extends Component {
   }
 
   setLocalStorage = (data) => {
-    debugger
     if (data.sponsee === undefined){
       this.setState({
         error: true
@@ -76,6 +75,9 @@ class SponseeLogIn extends Component {
   render(){
     return(
       <div>
+        <br/>
+      <br/>
+    <br/>
       <h3> Please Login Sponsee </h3>
       <form onSubmit={this.handleSubmit}>
         {this.state.error === true
@@ -88,12 +90,24 @@ class SponseeLogIn extends Component {
         <br/>
       <input type="submit" value="Sign In"/>
       </form>
+      <br/>
+    <br/>
+    <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
       <h3> Don't have an account?</h3>
-    <button onClick={this.clicked}>Sponsee Sign Up</button>
       { this.state.clicked === true
-        ? <SponseeSignUp submit={this.props.submit}/>
-        : null
+        ? <button onClick={this.clicked}>back</button>
+        : <button onClick={this.clicked}>Sign Up</button>
       }
+        { this.state.clicked === true
+          ? <SponseeSignUp submit={this.props.submit} clicked={this.setClicked}/>
+          : null
+        }
       </div>
     )
   }

@@ -19,6 +19,7 @@ export default class FacilityCard extends Component{
       if (this.props.facility.longitude === null || this.props.facility.latitude === null){
         return "No Data"
       } else {
+        this.props.facility.distance = haversineCoords
         return parseFloat(haversineCoords).toFixed(0) + " miles away"
       }
     }

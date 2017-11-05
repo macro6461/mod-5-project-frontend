@@ -78,6 +78,9 @@ class SponsorLogIn extends Component {
     return(
 
       <div>
+        <br/>
+      <br/>
+    <br/>
       <h3> Please Login Sponsor </h3>
       <form onSubmit={this.handleSubmit}>
         { this.state.error === true
@@ -90,8 +93,20 @@ class SponsorLogIn extends Component {
         <br/>
       <input type="submit" value="Sign In"/>
       </form>
+      <br/>
+    <br/>
+    <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
       <h3> Don't have an account?</h3>
-      <button onClick={this.clicked}>Sponsor Sign Up</button>
+    { this.state.clicked === true
+      ? <button onClick={this.clicked}>back</button>
+      : <button onClick={this.clicked}>Sign Up</button>
+    }
       { this.state.clicked === true
         ? <SponsorSignUp submit={this.props.submit} clicked={this.setClicked}/>
         : null

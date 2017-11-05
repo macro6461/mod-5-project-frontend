@@ -11,7 +11,8 @@ export function addSponsor(sponsor){
         age: sponsor.age,
         gender: sponsor.gender,
         bio: sponsor.bio,
-        email: sponsor.email
+        email: sponsor.email,
+        address: sponsor.address
       })
     })
     .then(res => res.json())
@@ -54,7 +55,8 @@ export function addSponsee(sponsee){
         age: sponsee.age,
         gender: sponsee.gender,
         bio: sponsee.bio,
-        email: sponsee.email
+        email: sponsee.email,
+        address: sponsee.address
       })
     })
     .then(res => res.json())
@@ -63,15 +65,10 @@ export function addSponsee(sponsee){
 }
 
 export function renderAddSponsee(data){
-  debugger
-  return {
-    type: "RENDER_ADD_SPONSEE",
-    payload: data
-  }
-}
-
-export function loginSponsee(data){
-  
+    return {
+      type: "RENDER_ADD_SPONSEE",
+      payload: data
+    }
 }
 
 export function fetchSponseesRequest(){

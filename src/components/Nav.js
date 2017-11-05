@@ -19,21 +19,20 @@ class Nav extends Component {
       if (localStorage.role === undefined){
         return (
           <div>
-            <Link className="link" to="/sponsors" onClick={this.props.navClicked}>Sponsor</Link> <br/>
-            <Link className="link" to="/sponsees" onClick={this.props.navClicked}>Sponsee</Link> <br/>
+            <Link className="link" to="/sponsors" onClick={this.props.navClicked}>Sponsor</Link><Link className="link" to="/sponsees" onClick={this.props.navClicked}>Sponsee</Link>
           </div>
         )
       } else if (localStorage.role === "sponsor"){
-        return (<div><Link className="link" to="/sponsors" onClick={this.props.navClicked}>Sponsor</Link> <br/></div>)
+        return (<Link className="link" to="/sponsors" onClick={this.props.navClicked}>Sponsor</Link>)
       } else if (localStorage.role === "sponsee"){
-        return (<div><Link className="link" to="/sponsees" onClick={this.props.navClicked}>Sponsee</Link> <br/></div>)
+        return (<Link className="link" to="/sponsees" onClick={this.props.navClicked}>Sponsee</Link>)
       }
     }
 
     return(
       <div>
         {sponsorOrSponseeOrUndefined()}
-      <Link className="link" to="/facilities" onClick={this.props.navClicked}>Facilities</Link> <br/>
+      <Link className="link" to="/facilities" onClick={this.props.navClicked}>Facilities</Link>
       <Link className="link" to="/" onClick={this.props.navUnClick}>Home</Link>
       <Route exact path="/" component = {Home} />
       <Route exact path='/sponsors' render={(props) => (

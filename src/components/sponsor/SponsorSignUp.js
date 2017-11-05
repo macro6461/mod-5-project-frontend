@@ -14,8 +14,8 @@ class SponsorSignUp extends Component {
     gender: "",
     bio: "",
     email: "",
-    local: false,
-    clicked: false
+    address: "",
+    local: false
   }
 
   handleOnChange = (event) => {
@@ -26,16 +26,18 @@ class SponsorSignUp extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    let sponsor = {username: this.state.username, password: this.state.password, age: this.state.age, gender: this.state.gender, bio: this.state.bio, email: this.state.email}
+    let sponsor = {username: this.state.username, password: this.state.password, age: this.state.age, gender: this.state.gender, bio: this.state.bio, email: this.state.email, address: this.state.address}
     this.props.addSponsor(sponsor)
     this.afterSubmit(sponsor)
   }
 
   afterSubmit = (sponsor) => {
+    debugger
     this.setLocalStorage(sponsor)
   }
 
   setLocalStorage = (data) => {
+    debugger
     localStorage.setItem('jwt', data.jwt)
     localStorage.setItem('username', data.username)
     localStorage.setItem('role', "sponsor")
@@ -50,26 +52,18 @@ class SponsorSignUp extends Component {
       age: "",
       gender: "",
       bio: "",
-      email: ""
+      email: "",
+      address: ""
     }, ()=>{this.sendState()})
   }
 
-  setClicked = () => {
-    this.setState({
-      clicked: true
-    })
-  }
-
-  sendStateClicked = () => {
-    this.props.clicked(true)
-  }
 
   sendState = () => {
+    debugger
     this.setState({
       local: true
     }, () => {this.props.submit(this.state.local)})
   }
-
   render(){
     return(
         <div className="signUp">
@@ -79,6 +73,9 @@ class SponsorSignUp extends Component {
             <br/>
             <br/>
           Password: <input name="password" type="password" value={this.state.password} onChange={this.handleOnChange} required/>
+            <br/>
+            <br/>
+          Address: <input name="address" type="text" value={this.state.address} onChange={this.handleOnChange} required/> (this will not be visible)
             <br/>
             <br/>
           Age: <input name="age" type="text" value={this.state.age} onChange={this.handleOnChange} required/>
@@ -94,7 +91,6 @@ class SponsorSignUp extends Component {
             <br/>
             <br/>
             <input type="submit" />
-            <button onClick={this.sendStateClicked}>back</button>
           </form>
         </div>
     )
