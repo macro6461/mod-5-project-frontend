@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import SponseeCard from '../sponsee/SponseeCard'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import { fetchSponseesRequest } from '../../actions/actions'
-import { fetchSponseesRequestResolved } from '../../actions/actions'
+import { fetchSponseesRequest } from '../../actions/sponseeActions'
+import { fetchSponseesRequestResolved } from '../../actions/sponseeActions'
+import { removeSponsorLogin } from '../../actions/sponsorActions'
 
 
 
@@ -40,8 +41,12 @@ class SponsorLoggedIn extends Component {
     }
   }
 
+  removeLogin = () => {
+    this.props.removeSponsorLogin()
+  }
+
   render(){
-    debugger
+
     const sponsees = this.props.sponsees.map((sponsee, index) => {
       return(
         <SponseeCard key={index} sponsee={sponsee} currentLatitude={this.state.latitude} currentLongitude={this.state.longitude}/>
@@ -51,7 +56,7 @@ class SponsorLoggedIn extends Component {
       <div>
         <h3> Welcome Sponsor {localStorage.username}!</h3>
         <p>You are now logged in.</p>
-      <Link to="/"><button onClick={this.props.remove}>Sign Out</button></Link>
+      <Link to="/"><button onClick={this.removeLogin}>Sign Out</button></Link>
         <br/>
       <div className="sponseeDiv">
         {sponsees}
@@ -62,9 +67,11 @@ class SponsorLoggedIn extends Component {
 }
 
 const mapStateToProps = (state) => {
+
   return {
-    sponsees: state.sponseesReducer.sponsees
+    sponsees: state.sponseesReducer.sponsees,
+    currentSponsor: state.sponsorsReducer.currentSponsor
   }
 }
 
-export default connect(mapStateToProps, {fetchSponseesRequest, fetchSponseesRequestResolved})(SponsorLoggedIn)
+export default connect(mapStateToProps, {removeSponsorLogin, fetchSponseesRequest, fetchSponseesRequestResolved})(SponsorLoggedIn)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import { addSponsee } from '../../actions/actions'
+import { addSponsee } from '../../actions/sponseeActions'
 import { connect } from 'react-redux';
 
 class SponseeSignUp extends Component {
@@ -30,12 +30,11 @@ class SponseeSignUp extends Component {
   }
 
   afterSubmit = (sponsee) => {
-    debugger
     this.setLocalStorage(sponsee)
   }
 
   setLocalStorage = (data) => {
-    debugger
+
     localStorage.setItem('jwt', data.jwt)
     localStorage.setItem('username', data.username)
     localStorage.setItem('role', "sponsee")
@@ -57,7 +56,7 @@ class SponseeSignUp extends Component {
 
 
   sendState = () => {
-    debugger
+
     this.setState({
       local: true
     }, () => {this.props.submit(this.state.local)})

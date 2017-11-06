@@ -1,18 +1,30 @@
 import React, { Component } from 'react'
 import SponseeLoggedIn from './SponseeLoggedIn'
 import SponseeLogIn from './SponseeLogIn'
+import { connect } from 'react-redux';
 
+class SponseeHome extends Component {
 
-export default class SponseeHome extends Component {
   render(){
+
     return(
 
       <div>
-        {localStorage.length === 0
-          ? <SponseeLogIn submit={this.props.submit}/>
-          : <SponseeLoggedIn remove={this.props.remove} submit={this.props.submit}/>
+        {localStorage.getItem('jwt')
+          ? <SponseeLoggedIn remove={this.props.remove} submit={this.props.submit}/>
+          : <SponseeLogIn submit={this.props.submit}/>
         }
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+
+  return {
+    sponsors: state.sponsorsReducer.sponsors,
+    currentSponsee: state.sponseesReducer.sponsee
+  }
+}
+
+export default connect(mapStateToProps)(SponseeHome)

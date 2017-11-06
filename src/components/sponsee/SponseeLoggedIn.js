@@ -3,8 +3,8 @@ import SponsorCard from '../sponsor/SponsorCard'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import { fetchSponsorsRequest } from '../../actions/actions'
-import { fetchSponsorsRequestResolved } from '../../actions/actions'
+import { fetchSponsorsRequest } from '../../actions/sponsorActions'
+import { fetchSponsorsRequestResolved } from '../../actions/sponsorActions'
 
 class SponseeLoggedIn extends Component {
 
@@ -40,7 +40,7 @@ class SponseeLoggedIn extends Component {
 
   render(){
     const sponsors = this.props.sponsors.map((sponsor, index) => {
-      debugger
+
       return(
         <SponsorCard key={index} sponsor={sponsor} currentLatitude={this.state.latitude} currentLongitude={this.state.longitude}/>
       )

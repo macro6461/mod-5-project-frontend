@@ -85,7 +85,6 @@ a {
 .facilityCard:hover{
   background-color: lightblue;
 }
-
 .sort{
   margin-left: 10%;
   float: left;
@@ -108,6 +107,13 @@ form {
   border: solid 2px black;
   padding: 4%;
   width: 20%;
+}
+
+.sortForm{
+  margin-left: 36%;
+  border: none !important;
+  padding: 4%;
+  width: 100%;
 }
 
 .signUpForm{

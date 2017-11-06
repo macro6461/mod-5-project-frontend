@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import SponseeSignUp from './SponseeSignUp'
 import { connect } from 'react-redux';
+import { loginSponsee } from '../../actions/sponseeActions'
 
 class SponseeLogIn extends Component {
 
@@ -26,34 +27,21 @@ class SponseeLogIn extends Component {
   }
 
   handleSubmit = (event) => {
-    const token = localStorage.getItem("jwt")
     event.preventDefault()
-    fetch('http://localhost:3000/sponsee/login', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
-              },
-      body: JSON.stringify({username: this.state.username, password: this.state.password})
-    }).then(res => res.json()).then(json => {
-      this.setLocalStorage(json)
-    }).then(this.setState({
-      username: '',
-      password: ''
-    })
-    )
+    const token = localStorage.getItem("jwt")
+    let sponsee = {username: this.state.username, password: this.state.password}
+    this.props.loginSponsee(sponsee)
+    this.afterSubmit(sponsee)
+  }
+
+  afterSubmit = (sponsee) => {
+    this.setLocalStorage(sponsee)
   }
 
   setLocalStorage = (data) => {
-    if (data.sponsee === undefined){
-      this.setState({
-        error: true
-      })
-    } else {
-      localStorage.setItem('jwt', data.jwt)
-      localStorage.setItem('username', data.sponsee.username)
-      localStorage.setItem('role', data.sponsee.role)
-    }
+    localStorage.setItem('jwt', data.jwt)
+    localStorage.setItem('username', data.username)
+    localStorage.setItem('role', "sponsee")
     this.setStateAfterLocal()
   }
 
@@ -115,4 +103,4 @@ class SponseeLogIn extends Component {
 
 
 
-export default SponseeLogIn
+export default connect(null, {loginSponsee})(SponseeLogIn)

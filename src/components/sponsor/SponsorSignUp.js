@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import { addSponsor } from '../../actions/actions'
+import { addSponsor } from '../../actions/sponsorActions'
 import { connect } from 'react-redux';
-import { Link, Route } from 'react-router-dom'
 import SponsorLogIn from './SponsorLogIn'
 
 class SponsorSignUp extends Component {
@@ -32,12 +31,11 @@ class SponsorSignUp extends Component {
   }
 
   afterSubmit = (sponsor) => {
-    debugger
     this.setLocalStorage(sponsor)
   }
 
   setLocalStorage = (data) => {
-    debugger
+
     localStorage.setItem('jwt', data.jwt)
     localStorage.setItem('username', data.username)
     localStorage.setItem('role', "sponsor")
@@ -59,7 +57,7 @@ class SponsorSignUp extends Component {
 
 
   sendState = () => {
-    debugger
+
     this.setState({
       local: true
     }, () => {this.props.submit(this.state.local)})

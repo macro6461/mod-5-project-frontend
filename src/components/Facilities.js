@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import FacilityCard from './FacilityCard'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import { fetchFacilitiesRequest } from '../actions/actions'
-import { fetchFacilitiesRequestResolved } from '../actions/actions'
-// import GoogleMapReact from 'google-map-react';
+import { fetchFacilitiesRequest } from '../actions/facilityActions'
+import { fetchFacilitiesRequestResolved } from '../actions/facilityActions'
+import GoogleMapReact from 'google-map-react';
+import FacilitiesMap from './FacilitiesMap'
 
 class Facilities extends Component {
 
@@ -12,7 +13,8 @@ class Facilities extends Component {
     facilities: [],
     latitude: "",
     longitude: "",
-    selected: false
+    checkedValue: "",
+    value: ""
   }
 
   showPosition = (position) => {
@@ -35,36 +37,87 @@ class Facilities extends Component {
     }
   }
 
+  handleChange = (event) => {
+    this.setState({
+      value: event.target.value
+    })
+  }
+
+  handleOnChecked = (event) => {
+    this.setState({
+      checkedValue: event.target.value
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    const value = this.state.value
+    const sortedFacilities = this.props.fetchedFacilities.sort(function(a, b){
+      return a.distance - b.distance
+    })
+    this.filterSorted(sortedFacilities)
+  }
+
+  filterSorted = (data) => {
+    debugger
+    const newFacilities = data.filter((facility) =>{
+      return facility.distance !== null
+    }, this.setState({
+      facilities: newFacilities
+    }) )
+  }
+
+  sortFacilities = () => {
+    const sortedFacilities = this.props.facilities.sort(function(a, b){
+      debugger
+      if (a.distance !== null || b.distance !== null){
+          return a.distance - b.distance
+      }
+    })
+    this.setState({
+      facilities: sortedFacilities
+    })
+  }
+
   componentDidMount = () => {
+    debugger
     this.props.fetchFacilitiesRequest()
+    this.setState({
+      facilities: this.props.fetchedFacilities
+    })
     this.getCurrentGeoLocation()
   }
 
   render(){
-    const facilities = this.props.facilities.map((facility, index) => {
-      return <FacilityCard currentLatitude={this.state.latitude} currentLongitude={this.state.longitude} key={index} facility={facility} facilities={this.props.facilities}/>
+    const facilities = this.props.fetchedFacilities.map((facility, index) => {
+      if (facility.latitude === null || facility.longitude === null){
+        return null
+      } else{
+        return <FacilityCard currentLatitude={this.state.latitude} currentLongitude={this.state.longitude} key={index} facility={facility} facilities={this.props.facilities}/>
+      }
     })
-    console.log(this.props.facilities)
     return(
       <div>
+        <GoogleMapReact
+         defaultCenter={this.props.center}
+         defaultZoom={this.props.zoom}
+       ></GoogleMapReact>
         <br/>
-      <br/>
-      <br/>
-    <br/>
-  <div className="sort">
-  Sort By:
-<br/>
-  City <select>
-          <option value="city">Brooklyn</option>
-      </select>
-      <br/>
-    Distance<select value="distance">
-        <option value="distance">closest</option>
-    </select>
-    <br/>
-  Rating<select>
-      <option value="rating">rating</option>
-        </select>
+        <br/>
+        <br/>
+        <br/>
+        <div className="sort">
+        <br/>
+        <form className="sortForm" onSubmit={this.handleSubmit}>
+          <div className="radio">
+            <label>
+              <input type="radio" value="yes" onChange={this.handleOnChecked} checked={this.state.checkedValue === "yes"}/>
+            nearest to you
+              </label>
+              <br/>
+            <input type="submit" value="Submit" />
+          </div>
+      </form>
       </div>
         <br/>
         <br/>
@@ -77,8 +130,9 @@ class Facilities extends Component {
 }
 
 const mapStateToProps = (state) => {
+  debugger
   return {
-    facilities: state.facilitiesReducer.facilities
+    fetchedFacilities: state.facilitiesReducer.facilities
   }
 }
 

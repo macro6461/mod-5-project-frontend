@@ -1,5 +1,5 @@
 export function addSponsor(sponsor){
-  debugger
+
   return (dispatch) => {
     fetch('http://localhost:3000/sponsors', {
       headers: {"Content-Type": "application/json",
@@ -21,10 +21,42 @@ export function addSponsor(sponsor){
 }
 
 export function renderAddSponsor(data){
-  debugger
+
   return {
     type: "RENDER_ADD_SPONSOR",
     payload: data
+  }
+}
+
+export function loginSponsor(sponsor){
+
+  return (dispatch) => {
+    fetch('http://localhost:3000/sponsor/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json',
+                'Accept': 'application/json',
+              },
+      body: JSON.stringify({username: sponsor.username, password: sponsor.password})
+    }).then(res => res.json()).then(json =>
+      dispatch(setSponsorLocal(json)))
+  }
+}
+
+export function setSponsorLocal(data){
+  if (data.sponsor === undefined){
+    return null
+  } else{
+    return {
+      type: "LOGIN_SPONSOR",
+      payload: data
+    }
+  }
+}
+
+export function removeSponsorLogin(){
+  return {
+    type: "REMOVE_SPONSOR_LOGIN",
+    payload: ""
   }
 }
 
@@ -44,6 +76,7 @@ export function fetchSponsorsRequestResolved(data){
 }
 
 export function addSponsee(sponsee){
+  debugger
   return (dispatch) => {
     fetch('http://localhost:3000/sponsees', {
       headers: {"Content-Type": "application/json",
@@ -65,10 +98,45 @@ export function addSponsee(sponsee){
 }
 
 export function renderAddSponsee(data){
+  debugger
     return {
       type: "RENDER_ADD_SPONSEE",
       payload: data
     }
+}
+
+export function loginSponsee(sponsee){
+
+  return (dispatch) => {
+    fetch('http://localhost:3000/sponsee/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json',
+                'Accept': 'application/json',
+              },
+      body: JSON.stringify({username: sponsee.username, password: sponsee.password})
+    }).then(res => res.json()).then(json =>
+      dispatch(setSponseeLocal(json)))
+  }
+}
+
+export function setSponseeLocal(data){
+
+  if (data.sponsee === undefined){
+    return null
+  } else{
+
+    return {
+      type: "LOGIN_SPONSEE",
+      payload: data
+    }
+  }
+}
+
+export function removeSponseeLogin(){
+  return {
+    type: "REMOVE_SPONSEE_LOGIN",
+    payload: ""
+  }
 }
 
 export function fetchSponseesRequest(){
@@ -101,4 +169,16 @@ export function fetchFacilitiesRequestResolved(data){
     type: "RENDER_FACILITIES",
     payload: data
   }
+}
+
+export function getCurrentGeoLocation(){
+    if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition((position) => {
+          let geoPosition = {latitude: position.coords.latitude, longitude: position.coords.longitude}
+          return {
+            type: "CURRENT_POSITION",
+            payload: geoPosition
+          }
+        })
+    } 
 }

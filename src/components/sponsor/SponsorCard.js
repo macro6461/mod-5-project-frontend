@@ -29,7 +29,7 @@ export default class SponsorCard extends Component{
   render(){
     const email = "mailto:" + this.props.sponsor.email
     const distance = this.haversineFunction()
-    debugger
+    
     return(
       <div className="sponseeCard">
         <h2>{this.props.sponsor.username}, {this.props.sponsor.age}, {this.props.sponsor.gender}</h2>
