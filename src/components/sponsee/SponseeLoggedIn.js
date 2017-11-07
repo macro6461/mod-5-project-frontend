@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import SponsorCard from '../sponsor/SponsorCard'
 import { Link } from 'react-router-dom'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { fetchSponsorsRequest } from '../../actions/sponsorActions'
 import { fetchSponsorsRequestResolved } from '../../actions/sponsorActions'
+import { Button } from 'semantic-ui-react'
 
 class SponseeLoggedIn extends Component {
 
@@ -52,7 +52,7 @@ class SponseeLoggedIn extends Component {
       <br/>
         <h3> Welcome Sponsee {localStorage.username}!</h3>
         <p>You are now logged in.</p>
-        <Link to="/"><button onClick={this.props.remove}>Sign Out</button></Link>
+      <Link to="/"><Button onClick={this.props.remove}>Sign Out</Button></Link>
         <br/>
       <div className="sponseeDiv">
         {sponsors}

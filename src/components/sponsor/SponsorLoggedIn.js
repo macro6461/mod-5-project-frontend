@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import SponseeCard from '../sponsee/SponseeCard'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { fetchSponseesRequest } from '../../actions/sponseeActions'
 import { fetchSponseesRequestResolved } from '../../actions/sponseeActions'
 import { removeSponsorLogin } from '../../actions/sponsorActions'
+import { Button } from 'semantic-ui-react'
 
 
 
@@ -54,9 +54,11 @@ class SponsorLoggedIn extends Component {
     })
     return(
       <div>
+        <br/>
+        <br/>
         <h3> Welcome Sponsor {localStorage.username}!</h3>
         <p>You are now logged in.</p>
-      <Link to="/"><button onClick={this.removeLogin}>Sign Out</button></Link>
+      <Link to="/"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
         <br/>
       <div className="sponseeDiv">
         {sponsees}

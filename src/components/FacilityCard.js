@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 // import haversineDistance from '../haversine'
+import { Card } from 'semantic-ui-react'
 export default class FacilityCard extends Component{
 
   haversineFunction = () => {
@@ -28,16 +29,16 @@ export default class FacilityCard extends Component{
   render(){
     const distance = this.haversineFunction()
     return(
-      <div className="facilityCard">
+      <Card className="facilityCard">
         <h2>{this.props.facility.name}</h2>
       <h3>{this.props.facility.address}</h3>
       {distance === NaN
         ? <h4>No Data</h4>
         : <h4>Distance: {distance}</h4>
       }
-      <br/>
       <a className="moreInfo" href={this.props.facility.url}>More Info</a>
-      </div>
+      <br/>
+  </Card>
     )
   }
 }

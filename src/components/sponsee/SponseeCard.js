@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Card } from 'semantic-ui-react'
+
 
 export default class SponseeCard extends Component{
 
@@ -32,7 +34,7 @@ export default class SponseeCard extends Component{
     const email = "mailto:" + this.props.sponsee.email
     const distance = this.haversineFunction()
     return(
-      <div className="sponseeCard">
+      <Card className="sponseeCard">
         <h2>{this.props.sponsee.username}, {this.props.sponsee.age}, {this.props.sponsee.gender}</h2>
         <p>{this.props.sponsee.bio}</p>
         {distance === NaN
@@ -40,7 +42,7 @@ export default class SponseeCard extends Component{
           : <h4>Distance: {distance}</h4>
         }
       <a className="mailto" href={email}>email {this.props.sponsee.username}</a>
-      </div>
+    </Card>
     )
   }
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
 import SponseeSignUp from './SponseeSignUp'
 import { connect } from 'react-redux';
 import { loginSponsee } from '../../actions/sponseeActions'
+import { Button, Checkbox, Form} from 'semantic-ui-react'
 
 class SponseeLogIn extends Component {
 
@@ -66,31 +66,35 @@ class SponseeLogIn extends Component {
         <br/>
       <br/>
     <br/>
-      <h3> Please Login Sponsee </h3>
-      <form onSubmit={this.handleSubmit}>
-        {this.state.error === true
-          ? <h4>Sponsee not found</h4>
-          : null
-        }
-          Username: <input name="username" type="text" value={this.state.username} onChange={this.handleOnChange} required/><br/>
-          <br/>
-          Password: <input name="password" type="password" value={this.state.password} onChange={this.handleOnChange} required/><br/>
-        <br/>
-      <input type="submit" value="Sign In"/>
-      </form>
       <br/>
     <br/>
-    <br/>
+        <h3> Please Login Sponsee </h3>
+        <Form onSubmit={this.handleSubmit}>
+          {this.state.error === true
+            ? <h4>Sponsee not found</h4>
+            : null
+          }
+    <Form.Field>
+      <label>Username</label>
+    <input placeholder='Username' name="username" type="text" value={this.state.username} onChange={this.handleOnChange} required/>
+    </Form.Field>
+    <Form.Field>
+      <label>Password</label>
+    <input placeholder='Password' name="password" type="password" value={this.state.password} onChange={this.handleOnChange} required/>
+    </Form.Field>
+    <Button type='submit'>Submit</Button>
+  </Form>
   <br/>
   <br/>
   <br/>
   <br/>
   <br/>
   <br/>
-      <h3> Don't have an account?</h3>
       { this.state.clicked === true
-        ? <button onClick={this.clicked}>back</button>
-        : <button onClick={this.clicked}>Sign Up</button>
+        ? <div><h3 className="backH3">Bla</h3>
+          <Button onClick={this.clicked}>back</Button></div>
+        : <div><h3> Don't have an account?</h3>
+      <Button onClick={this.clicked}>Sign Up</Button></div>
       }
         { this.state.clicked === true
           ? <SponseeSignUp submit={this.props.submit} clicked={this.setClicked}/>

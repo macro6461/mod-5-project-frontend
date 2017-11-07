@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import FacilityCard from './FacilityCard'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { fetchFacilitiesRequest } from '../actions/facilityActions'
 import { fetchFacilitiesRequestResolved } from '../actions/facilityActions'
 import GoogleMapReact from 'google-map-react';
+import { Radio } from 'semantic-ui-react'
 import FacilitiesMap from './FacilitiesMap'
 
 class Facilities extends Component {
@@ -13,7 +13,7 @@ class Facilities extends Component {
     facilities: [],
     latitude: "",
     longitude: "",
-    checkedValue: "",
+    checked: false,
     value: ""
   }
 
@@ -44,9 +44,14 @@ class Facilities extends Component {
   }
 
   handleOnChecked = (event) => {
+    debugger
     this.setState({
-      checkedValue: event.target.value
+      checkedValue: !this.state.checked
     })
+    const sortedFacilities = this.props.fetchedFacilities.sort(function(a, b){
+      return a.distance - b.distance
+    })
+    this.filterSorted(sortedFacilities)
   }
 
   handleSubmit = (event) => {
@@ -65,18 +70,6 @@ class Facilities extends Component {
     }, this.setState({
       facilities: newFacilities
     }) )
-  }
-
-  sortFacilities = () => {
-    const sortedFacilities = this.props.facilities.sort(function(a, b){
-      debugger
-      if (a.distance !== null || b.distance !== null){
-          return a.distance - b.distance
-      }
-    })
-    this.setState({
-      facilities: sortedFacilities
-    })
   }
 
   componentDidMount = () => {
@@ -98,32 +91,34 @@ class Facilities extends Component {
     })
     return(
       <div>
-        <GoogleMapReact
-         defaultCenter={this.props.center}
-         defaultZoom={this.props.zoom}
-       ></GoogleMapReact>
+      <div className="googleMap">
+        <FacilitiesMap>
+       </FacilitiesMap>
+     </div>
         <br/>
         <br/>
         <br/>
         <br/>
         <div className="sort">
         <br/>
-        <form className="sortForm" onSubmit={this.handleSubmit}>
+        <form className="sortForm">
           <div className="radio">
             <label>
-              <input type="radio" value="yes" onChange={this.handleOnChecked} checked={this.state.checkedValue === "yes"}/>
-            nearest to you
-              </label>
+             <Radio toggle label='closest' className="radioButton" type="radio" onChange={this.handleOnChecked}/>
+            </label>
               <br/>
-            <input type="submit" value="Submit" />
           </div>
       </form>
       </div>
         <br/>
         <br/>
         <br/>
-        <br/>
-      {facilities}
+
+      <div className="facilities">
+        {facilities}
+      </div>
+      <br/>
+      <br/>
       </div>
     )
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
 import { addSponsee } from '../../actions/sponseeActions'
 import { connect } from 'react-redux';
+import { Button, Checkbox, Form} from 'semantic-ui-react'
 
 class SponseeSignUp extends Component {
 
@@ -66,33 +66,20 @@ class SponseeSignUp extends Component {
     return(
       <div className="signUp">
         <h1>Sponsee Sign Up</h1>
-        <form className="signUpForm" onSubmit={this.handleSubmit}>
-          Username: <input name="username" type="text" value={this.state.username} onChange={this.handleOnChange} required/>
-          <br/>
-          <br/>
-        Password: <input name="password" type="password" value={this.state.password} onChange={this.handleOnChange} required/>
-          <br/>
-          <br/>
-        Address: <input name="address" type="text" value={this.state.address} onChange={this.handleOnChange} required/>
-            <br/>
-          <br/>
-        (address will not be visible)
-            <br/>
-          <br/>
-        Age: <input name="age" type="text" value={this.state.age} onChange={this.handleOnChange} required/>
-          <br/>
-          <br/>
-        Gender: <input name="gender" type="text" value={this.state.gender} onChange={this.handleOnChange} required/>
-          <br/>
-          <br/>
-          Bio: <textarea name="bio" value={this.state.bio} onChange={this.handleOnChange} required></textarea>
-          <br/>
-          <br/>
-        Email: <input name="email" type="text" value={this.state.email} onChange={this.handleOnChange} required/>
-          <br/>
-          <br/>
-          <input type="submit" />
-        </form>
+        <Form className="signUpForm" onSubmit={this.handleSubmit}>
+         <Form.Group widths='equal'>
+           <Form.Input label='Username' placeholder='Username' name="username" value={this.state.username} onChange={this.handleOnChange} required/>
+         <Form.Input label='Password' placeholder='Password' type="password" name="password" value={this.state.password} onChange={this.handleOnChange} required/>
+            <Form.Input label='Gender' placeholder='Gender' type="text" name="gender" value={this.state.gender} onChange={this.handleOnChange} required/>
+          <Form.Input label='Age' placeholder='Age' type="text" name="age" value={this.state.age} onChange={this.handleOnChange} required/>
+         </Form.Group>
+         <Form.Group inline>
+           <Form.Input label='Address' name="address" value={this.state.address} placeholder='Street, City, State, Zip' onChange={this.handleOnChange} required/>
+         </Form.Group>
+         <Form.TextArea label='About' name="bio" value={this.state.bio} placeholder='Tell us more about you...' onChange={this.handleOnChange} required/>
+       <Form.Input label='Email' placeholder='email' name="email" value={this.state.email} onChange={this.handleOnChange} required/>
+     <Form.Button type="submit">Save</Form.Button>
+       </Form>
       </div>
     )
   }

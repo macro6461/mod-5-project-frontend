@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Card } from 'semantic-ui-react'
 
 export default class SponsorCard extends Component{
 
@@ -29,17 +30,17 @@ export default class SponsorCard extends Component{
   render(){
     const email = "mailto:" + this.props.sponsor.email
     const distance = this.haversineFunction()
-    
+
     return(
-      <div className="sponseeCard">
+      <Card className="sponseeCard">
         <h2>{this.props.sponsor.username}, {this.props.sponsor.age}, {this.props.sponsor.gender}</h2>
-      <p>{this.props.sponsor.bio}</p>
+      <p className="sponsorP">{this.props.sponsor.bio}</p>
       {distance === NaN
         ? <h4>No Data</h4>
         : <h4>Distance: {distance}</h4>
       }
     <a className="mailto" href={email}>email {this.props.sponsor.username}</a>
-      </div>
+  </Card>
     )
   }
 }
