@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { fetchSponseesRequest } from '../../actions/sponseeActions'
 import { fetchSponseesRequestResolved } from '../../actions/sponseeActions'
 import { removeSponsorLogin } from '../../actions/sponsorActions'
-import { Button } from 'semantic-ui-react'
+import { Button, Form, Radio } from 'semantic-ui-react'
 
 
 
@@ -60,6 +60,18 @@ class SponsorLoggedIn extends Component {
         <p>You are now logged in.</p>
       <Link to="/"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
         <br/>
+      <form className="sortSponsees">
+          <div className="radio">
+            <label>
+             <Radio toggle label='age' className="radioButton" type="radio"/>
+            </label>
+          </div>
+      </form>
+      <form className="sortSponsees">
+            <label>
+             <Radio toggle label='gender' className="radioButton" type="radio"/>
+            </label>
+      </form>
       <div className="sponseeDiv">
         {sponsees}
       </div>

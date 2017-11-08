@@ -6,7 +6,8 @@ class App extends Component {
 
   state = {
     username: '',
-    local: false
+    local: false,
+    currentPosition: ""
   }
 
   componentDidMount = () => {

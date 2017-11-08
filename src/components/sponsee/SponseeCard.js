@@ -36,7 +36,7 @@ export default class SponseeCard extends Component{
     return(
       <Card className="sponseeCard">
         <h2>{this.props.sponsee.username}, {this.props.sponsee.age}, {this.props.sponsee.gender}</h2>
-        <p>{this.props.sponsee.bio}</p>
+        <p className="sponsorP">{this.props.sponsee.bio}</p>
         {distance === NaN
           ? <h4>No Data</h4>
           : <h4>Distance: {distance}</h4>

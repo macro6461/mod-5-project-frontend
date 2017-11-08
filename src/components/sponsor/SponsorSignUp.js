@@ -70,7 +70,7 @@ class SponsorSignUp extends Component {
   render(){
     return(
         <div className="signUp">
-          <h1>Sponsor Sign Up</h1>
+          <h1>Sign Up</h1>
         <Form className="signUpForm" onSubmit={this.handleSubmit}>
          <Form.Group widths='equal'>
            <Form.Input label='Username' placeholder='Username' name="username" value={this.state.username} onChange={this.handleOnChange} required/>

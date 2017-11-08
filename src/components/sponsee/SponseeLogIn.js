@@ -68,7 +68,7 @@ class SponseeLogIn extends Component {
     <br/>
       <br/>
     <br/>
-        <h3> Please Login Sponsee </h3>
+  <h3> Please Login </h3>
         <Form onSubmit={this.handleSubmit}>
           {this.state.error === true
             ? <h4>Sponsee not found</h4>

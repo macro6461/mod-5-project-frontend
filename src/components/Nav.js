@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Facilities from './Facilities'
+import Facilities from './facility/Facilities'
 import { Link, Route } from 'react-router-dom'
 import SponsorHome from './sponsor/SponsorHome'
 import SponseeHome from './sponsee/SponseeHome'
@@ -31,8 +31,9 @@ class Nav extends Component {
       }
     }
     return(
-      <div>
+      <div className="navDiv">
         {sponsorOrSponseeOrUndefined()}
+        <div className="navDiv">
       <Link className="link" to="/facilities">Facilities</Link>
       <Link className="link" to="/">Home</Link>
       <Route exact path="/" component = {Home} />
@@ -45,6 +46,7 @@ class Nav extends Component {
       <Route exact path='/facilities' render={(props) => (
             <Facilities remove={this.props.remove} submit={this.props.submit}/>
           )}/>
+          </div>
       </div>
   )}
 }

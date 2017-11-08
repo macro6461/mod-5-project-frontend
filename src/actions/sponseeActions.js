@@ -37,22 +37,21 @@ export function loginSponsee(sponsee){
                 'Accept': 'application/json',
               },
       body: JSON.stringify({username: sponsee.username, password: sponsee.password})
-    }).then(res => res.json()).then(json =>
-      dispatch(setSponseeLocal(json)))
+    }).then(res => res.json())
+      .then(json => {
+        if (json.sponsee === undefined){
+          return null
+        } else{
+          dispatch({
+            type: "LOGIN_SPONSEE",
+            payload: json
+          })
+        }
+      })
   }
 }
 
 export function setSponseeLocal(data){
-
-  if (data.sponsee === undefined){
-    return null
-  } else{
-
-    return {
-      type: "LOGIN_SPONSEE",
-      payload: data
-    }
-  }
 }
 
 export function removeSponseeLogin(){
