@@ -30,6 +30,10 @@ h1{
   box-shadow: 4px 4px 2px #888888 !important;
 }
 
+footer .madeFooter {
+  font-size: 1px !important;
+}
+
 .openImg {
   margin-left: 25%;
   width: 50%;

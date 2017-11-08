@@ -39,10 +39,18 @@ class App extends Component {
   }
 
   render() {
+    const pStyle = {
+      fontSize: '10px',
+      paddingTop: '10px'
+    }
     return (
       <div className="App">
         <h1>The Next Step</h1>
       <Nav remove={this.removeLocalStorage} submit={this.retrieveSubmitData} navClicked={this.navClicked} navUnClick={this.navUnClick}/>
+      <br/>
+    <br/>
+  <br/>
+  <p className="madeFooter" style={pStyle}>made with ❤️  by &copy;MC Media 2017</p>
       </div>
     );
   }
