@@ -32,7 +32,7 @@ class SponsorSignUp extends Component {
     event.preventDefault()
     let sponsor = {username: this.state.username, password: this.state.password, age: this.state.age, gender: this.state.gender, bio: this.state.bio, email: this.state.email, address: this.state.address}
     this.props.addSponsor(sponsor)
-    this.afterSubmit(sponsor)
+    this.setStateAfterLocal()
   }
 
   afterSubmit = (sponsor) => {
@@ -72,22 +72,32 @@ class SponsorSignUp extends Component {
         <div className="signUp">
           <h1>Sign Up</h1>
         <Form className="signUpForm" onSubmit={this.handleSubmit}>
-         <Form.Group widths='equal'>
-           <Form.Input label='Username' placeholder='Username' name="username" value={this.state.username} onChange={this.handleOnChange} required/>
-         <Form.Input label='Password' placeholder='Password' type="password" name="password" value={this.state.password} onChange={this.handleOnChange} required/>
-            <Form.Input label='Gender' placeholder='Gender' type="text" name="gender" value={this.state.gender} onChange={this.handleOnChange} required/>
-          <Form.Input label='Age' placeholder='Age' type="text" name="age" value={this.state.age} onChange={this.handleOnChange} required/>
-         </Form.Group>
-         <Form.Group inline>
-           <Form.Input label='Address' name="address" value={this.state.address} placeholder='Street, City, State, Zip' onChange={this.handleOnChange} required/>
-         </Form.Group>
-         <Form.TextArea label='About' name="bio" value={this.state.bio} placeholder='Tell us more about you...' onChange={this.handleOnChange} required/>
-       <Form.Input label='Email' placeholder='email' name="email" value={this.state.email} onChange={this.handleOnChange} required/>
-     <Form.Button type="submit">Save</Form.Button>
+          {this.props.error === ""
+            ? null
+            : <h3 className="pleaseTryAgain">Please try again.</h3>
+          }
+          <Form.Group widths='equal'>
+            <Form.Input className="mediumInput" label='Username' placeholder='Username' name="username" value={this.state.username} onChange={this.handleOnChange} required/>
+          <Form.Input className="mediumInput" label='Password' placeholder='Password' type="password" name="password" value={this.state.password} onChange={this.handleOnChange} required/>
+        <Form.Input className="mediumInput" label='Gender' placeholder='Gender' type="text" name="gender" value={this.state.gender} onChange={this.handleOnChange} required/>
+           <Form.Input className="shorterInput" label='Age' placeholder='Age' type="text" name="age" value={this.state.age} onChange={this.handleOnChange} required/>
+          </Form.Group>
+          <Form.Group inline>
+            <Form.Input label='Address' name="address" value={this.state.address} placeholder='Street, City, State, Zip' onChange={this.handleOnChange} required/>
+          </Form.Group>
+          <Form.TextArea label='About' name="bio" value={this.state.bio} placeholder='Tell us more about you...' onChange={this.handleOnChange} required/>
+        <Form.Input label='Email' placeholder='email' name="email" value={this.state.email} onChange={this.handleOnChange} required/>
+      <Form.Button type="submit">Save</Form.Button>
        </Form>
         </div>
     )
   }
 }
 
-export default connect(null, {addSponsor})(SponsorSignUp)
+const mapStateToProps = (state) => {
+  return {
+    error: state.sponsorsReducer.error
+  }
+}
+
+export default connect(mapStateToProps, {addSponsor})(SponsorSignUp)

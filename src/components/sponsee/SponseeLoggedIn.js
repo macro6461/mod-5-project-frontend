@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { fetchSponsorsRequest } from '../../actions/sponsorActions'
 import { fetchSponsorsRequestResolved } from '../../actions/sponsorActions'
+import { removeSponseeLogin } from '../../actions/sponseeActions'
 import { Button } from 'semantic-ui-react'
 
 class SponseeLoggedIn extends Component {
@@ -38,6 +39,10 @@ class SponseeLoggedIn extends Component {
     this.getCurrentGeoLocation()
   }
 
+  removeLogin = () => {
+    this.props.removeSponseeLogin()
+  }
+
   render(){
     const sponsors = this.props.sponsors.map((sponsor, index) => {
 
@@ -52,7 +57,7 @@ class SponseeLoggedIn extends Component {
       <br/>
         <h3> Welcome Sponsee {localStorage.username}!</h3>
         <p>You are now logged in.</p>
-      <Link to="/"><Button onClick={this.props.remove}>Sign Out</Button></Link>
+      <Link to="/"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
         <br/>
       <div className="sponseeDiv">
         {sponsors}
@@ -68,4 +73,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {fetchSponsorsRequest, fetchSponsorsRequestResolved})(SponseeLoggedIn)
+export default connect(mapStateToProps, {fetchSponsorsRequest, fetchSponsorsRequestResolved, removeSponseeLogin})(SponseeLoggedIn)

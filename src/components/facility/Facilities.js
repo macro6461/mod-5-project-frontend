@@ -108,9 +108,12 @@ class Facilities extends Component {
         <br/>
         <form className="sortForm">
           <div className="radio">
-            <label>
-             <Radio toggle label='closest' className="radioButton" type="radio" onChange={this.handleOnChecked}/>
-            </label>
+            {this.state.latitude === "" || this.state.longitude === ""
+              ? null
+              : <label>
+               <Radio toggle label='closest' className="radioButton" type="radio" onChange={this.handleOnChecked}/>
+              </label>
+            }
               <br/>
           </div>
       </form>

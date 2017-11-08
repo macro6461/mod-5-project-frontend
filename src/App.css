@@ -16,8 +16,26 @@ h1{
   text-align: center;
 }
 
+.shorterInput{
+  width: 15% !important;
+}
+
+.mediumInput{
+  width: 25% !important;
+}
+
 .radio{
   width: 100%;
+}
+
+.pleaseTryAgain{
+  color: red;
+  text-shadow: 0.5px 0.5px black;
+}
+
+.notFound{
+  color: red;
+  text-shadow: 0.5px 0.5px black;
 }
 
 .googleMap{
@@ -28,10 +46,6 @@ h1{
   top: 12%;
   border: solid 1px black;
   box-shadow: 4px 4px 2px #888888 !important;
-}
-
-footer .madeFooter {
-  font-size: 1px !important;
 }
 
 .openImg {

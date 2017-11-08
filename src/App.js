@@ -41,16 +41,18 @@ class App extends Component {
   render() {
     const pStyle = {
       fontSize: '10px',
-      paddingTop: '10px'
+      paddingTop: '10px',
+      wordSpacing: '3px'
     }
     return (
       <div className="App">
         <h1>The Next Step</h1>
-      <Nav remove={this.removeLocalStorage} submit={this.retrieveSubmitData} navClicked={this.navClicked} navUnClick={this.navUnClick}/>
+      <Nav remove={this.removeLocalStorage} submit={this.retrieveSubmitData}/>
       <br/>
     <br/>
   <br/>
-  <p className="madeFooter" style={pStyle}>made with ❤️  by &copy;MC Media 2017</p>
+  <p className="madeFooter" style={pStyle}>made with❤️  by &copy;MC Media 2017</p>
+<br/>
       </div>
     );
   }

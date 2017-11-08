@@ -26,7 +26,7 @@ class SponseeSignUp extends Component {
     event.preventDefault()
     let sponsee = {username: this.state.username, password: this.state.password, age: this.state.age, gender: this.state.gender, bio: this.state.bio, email: this.state.email, address: this.state.address}
     this.props.addSponsee(sponsee)
-    this.afterSubmit(sponsee)
+    this.setStateAfterLocal()
   }
 
   afterSubmit = (sponsee) => {
@@ -34,7 +34,6 @@ class SponseeSignUp extends Component {
   }
 
   setLocalStorage = (data) => {
-
     localStorage.setItem('jwt', data.jwt)
     localStorage.setItem('username', data.username)
     localStorage.setItem('role', "sponsee")
@@ -67,11 +66,15 @@ class SponseeSignUp extends Component {
       <div className="signUp">
         <h1>Sign Up</h1>
         <Form className="signUpForm" onSubmit={this.handleSubmit}>
+          {this.props.error === ""
+            ? null
+            : <h3 className="pleaseTryAgain">Please try again.</h3>
+          }
          <Form.Group widths='equal'>
-           <Form.Input label='Username' placeholder='Username' name="username" value={this.state.username} onChange={this.handleOnChange} required/>
-         <Form.Input label='Password' placeholder='Password' type="password" name="password" value={this.state.password} onChange={this.handleOnChange} required/>
-            <Form.Input label='Gender' placeholder='Gender' type="text" name="gender" value={this.state.gender} onChange={this.handleOnChange} required/>
-          <Form.Input label='Age' placeholder='Age' type="text" name="age" value={this.state.age} onChange={this.handleOnChange} required/>
+           <Form.Input className="mediumInput" label='Username' placeholder='Username' name="username" value={this.state.username} onChange={this.handleOnChange} required/>
+         <Form.Input className="mediumInput" label='Password' placeholder='Password' type="password" name="password" value={this.state.password} onChange={this.handleOnChange} required/>
+       <Form.Input className="mediumInput" label='Gender' placeholder='Gender' type="text" name="gender" value={this.state.gender} onChange={this.handleOnChange} required/>
+          <Form.Input className="shorterInput" label='Age' placeholder='Age' type="text" name="age" value={this.state.age} onChange={this.handleOnChange} required/>
          </Form.Group>
          <Form.Group inline>
            <Form.Input label='Address' name="address" value={this.state.address} placeholder='Street, City, State, Zip' onChange={this.handleOnChange} required/>
@@ -85,4 +88,10 @@ class SponseeSignUp extends Component {
   }
 }
 
-export default connect(null, {addSponsee})(SponseeSignUp)
+const mapStateToProps = (state) => {
+  return {
+    error: state.sponseesReducer.error
+  }
+}
+
+export default connect(mapStateToProps, {addSponsee})(SponseeSignUp)

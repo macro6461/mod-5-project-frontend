@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SponseeSignUp from './SponseeSignUp'
 import { connect } from 'react-redux';
-import { loginSponsee } from '../../actions/sponseeActions'
+import { loginSponsee, removeSponseeError } from '../../actions/sponseeActions'
 import { Button, Checkbox, Form} from 'semantic-ui-react'
 
 class SponseeLogIn extends Component {
@@ -24,14 +24,14 @@ class SponseeLogIn extends Component {
     this.setState({
       clicked: !this.state.clicked
     })
+    this.props.removeSponseeError()
   }
-
   handleSubmit = (event) => {
     event.preventDefault()
     const token = localStorage.getItem("jwt")
     let sponsee = {username: this.state.username, password: this.state.password}
     this.props.loginSponsee(sponsee)
-    this.afterSubmit(sponsee)
+    this.setStateAfterLocal()
   }
 
   afterSubmit = (sponsee) => {
@@ -70,9 +70,9 @@ class SponseeLogIn extends Component {
     <br/>
   <h3> Please Login </h3>
         <Form onSubmit={this.handleSubmit}>
-          {this.state.error === true
-            ? <h4>Sponsee not found</h4>
-            : null
+          {this.props.error === ""
+            ? null
+            : <h3 className="notFound">Sponsee Not Found.</h3>
           }
     <Form.Field>
       <label>Username</label>
@@ -90,11 +90,13 @@ class SponseeLogIn extends Component {
   <br/>
   <br/>
   <br/>
+  <br/>
+  <br/>
       { this.state.clicked === true
         ? <div><h3 className="backH3">Bla</h3>
           <Button onClick={this.clicked}>back</Button></div>
         : <div><h3> Don't have an account?</h3>
-      <Button onClick={this.clicked}>Sign Up</Button></div>
+          <Button onClick={this.clicked}>Sign Up</Button></div>
       }
         { this.state.clicked === true
           ? <SponseeSignUp submit={this.props.submit} clicked={this.setClicked}/>
@@ -105,6 +107,12 @@ class SponseeLogIn extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    error: state.sponseesReducer.error
+  }
+}
 
 
-export default connect(null, {loginSponsee})(SponseeLogIn)
+
+export default connect(mapStateToProps, {loginSponsee, removeSponseeError})(SponseeLogIn)

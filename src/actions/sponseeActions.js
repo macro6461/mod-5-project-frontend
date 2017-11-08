@@ -16,9 +16,32 @@ export function addSponsee(sponsee){
       })
     })
     .then(res => res.json())
-    .then(json => dispatch(renderAddSponsee(json)))
+    .then(json => {
+      if (json.sponsee === undefined){
+        dispatch(renderSignUpError({error: "invalid signup"}))
+      } else{
+        dispatch(renderAddSponsee(json))
+      }
+    })
   }
 }
+
+export function removeSponseeError(){
+  return{
+    type: "REMOVE_SPONSEE_ERROR",
+    payload: ""
+  }
+}
+
+export function renderSignUpError(data){
+  debugger
+    return {
+      type: "RENDER_ADD_SPONSEE_FAILED",
+      payload: data
+    }
+}
+
+
 
 export function renderAddSponsee(data){
   debugger
@@ -40,7 +63,7 @@ export function loginSponsee(sponsee){
     }).then(res => res.json())
       .then(json => {
         if (json.sponsee === undefined){
-          return null
+          dispatch(sponseeLoginError({error: "invalid login"}))
         } else{
           dispatch({
             type: "LOGIN_SPONSEE",
@@ -51,7 +74,11 @@ export function loginSponsee(sponsee){
   }
 }
 
-export function setSponseeLocal(data){
+export function sponseeLoginError(data){
+  return {
+    type: "LOGIN_SPONSEE_FAILED",
+    payload: data
+  }
 }
 
 export function removeSponseeLogin(){

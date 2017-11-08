@@ -1,4 +1,4 @@
-export default function sponseesReducer(state={sponsees: [], sponsee: "", role: ""}, action){
+export default function sponseesReducer(state={sponsees: [], sponsee: "", role: "", error: ""}, action){
   switch(action.type){
     case "FETCH_SPONSEES":
       return {...state, sponsees: action.payload}
@@ -8,16 +8,23 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
     localStorage.setItem('jwt', action.payload.jwt)
     localStorage.setItem('role', action.payload.sponsee.role)
     localStorage.setItem('username', action.payload.sponsee.username)
-    debugger
       return {sponsees: state.sponsees.concat(action.sponsee), sponsee: action.payload.sponsee.username, role: action.payload.sponsee.role}
     case "LOGIN_SPONSEE":
+    debugger
       localStorage.setItem('jwt', action.payload.jwt)
       localStorage.setItem('role', action.payload.sponsee.role)
       localStorage.setItem('username', action.payload.sponsee.username)
       return {...state, sponsee: action.payload.sponsee.username, role: action.payload.sponsee.role}
     case "REMOVE_SPONSEE_LOGIN":
-      localStorage.clear()
-      return {...state, sponsee: action.payload, role: action.payload}
+    localStorage.clear()
+      return {...state, currentSponsor: action.payload, currentRole: action.payload, error: action.payload}
+    case "RENDER_ADD_SPONSEE_FAILED":
+    debugger
+      return {...state, error: action.payload.error}
+      case "REMOVE_SPONSEE_ERROR":
+        return {...state, error: action.payload}
+      case "LOGIN_SPONSEE_FAILED":
+        return {...state, error: action.payload.error}
   default:
     return state
   }

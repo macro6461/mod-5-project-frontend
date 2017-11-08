@@ -1,5 +1,5 @@
 export function addSponsor(sponsor){
-
+  debugger
   return (dispatch) => {
     fetch('http://localhost:3000/sponsors', {
       headers: {"Content-Type": "application/json",
@@ -16,12 +16,25 @@ export function addSponsor(sponsor){
       })
     })
     .then(res => res.json())
-    .then(json => dispatch(renderAddSponsor(json)))
+    .then(json => {
+      if (json.sponsor === undefined){
+        dispatch(renderSignUpError({error: "invalid signup"}))
+      } else{
+        dispatch(renderAddSponsor(json))
+      }
+    })
   }
 }
 
-export function renderAddSponsor(data){
+export function renderSignUpError(data){
+  debugger
+    return {
+      type: "RENDER_ADD_SPONSOR_FAILED",
+      payload: data
+    }
+}
 
+export function renderAddSponsor(data){
   return {
     type: "RENDER_ADD_SPONSOR",
     payload: data
@@ -40,7 +53,7 @@ export function loginSponsor(sponsor){
     }).then(res => res.json())
       .then(json => {
         if (json.sponsor === undefined){
-          return null
+          dispatch(sponsorLoginError({error: "invalid login"}))
         } else{
           dispatch({
             type: "LOGIN_SPONSOR",
@@ -48,6 +61,20 @@ export function loginSponsor(sponsor){
           })
         }
       })
+  }
+}
+
+export function sponsorLoginError(data){
+  return {
+    type: "LOGIN_SPONSOR_FAILED",
+    payload: data
+  }
+}
+
+export function removeSponsorError(){
+  return{
+    type: "REMOVE_SPONSOR_ERROR",
+    payload: ""
   }
 }
 

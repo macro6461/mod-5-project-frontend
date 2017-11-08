@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SponsorSignUp from './SponsorSignUp'
 import { connect } from 'react-redux';
-import { loginSponsor } from '../../actions/sponsorActions'
+import { loginSponsor, removeSponsorError } from '../../actions/sponsorActions'
 import { Button, Checkbox, Form} from 'semantic-ui-react'
 
 class SponsorLogIn extends Component {
@@ -24,6 +24,7 @@ class SponsorLogIn extends Component {
     this.setState({
       clicked: !this.state.clicked
     })
+    this.props.removeSponsorError()
   }
 
   handleSubmit = (event) => {
@@ -31,7 +32,7 @@ class SponsorLogIn extends Component {
     const token = localStorage.getItem("jwt")
     let sponsor = {username: this.state.username, password: this.state.password}
     this.props.loginSponsor(sponsor)
-    this.afterSubmit(sponsor)
+    this.setStateAfterLocal()
   }
 
   afterSubmit = (sponsor) => {
@@ -77,9 +78,9 @@ class SponsorLogIn extends Component {
   <br/>
 <h3> Please Login </h3>
       <Form onSubmit={this.handleSubmit}>
-        {this.state.error === true
-          ? <h4>Sponsee not found</h4>
-          : null
+        {this.props.error === ""
+          ? null
+          : <h3 className="notFound">Sponsor Not Found.</h3>
         }
   <Form.Field>
     <label>Username</label>
@@ -91,6 +92,8 @@ class SponsorLogIn extends Component {
   </Form.Field>
   <Button type='submit'>Submit</Button>
 </Form>
+<br/>
+<br/>
 <br/>
 <br/>
 <br/>
@@ -113,6 +116,10 @@ class SponsorLogIn extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    error: state.sponsorsReducer.error
+  }
+}
 
-
-export default connect(null, {loginSponsor})(SponsorLogIn)
+export default connect(mapStateToProps, {loginSponsor, removeSponsorError})(SponsorLogIn)
