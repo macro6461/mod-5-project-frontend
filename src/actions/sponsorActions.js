@@ -78,6 +78,13 @@ export function removeSponsorError(){
   }
 }
 
+export function getCurrentSponsorRole(data){
+  return{
+    type: "GET_CURRENT_SPONSOR_ROLE",
+    payload: data
+  }
+}
+
 export function setSponsorLocal(data){
   if (data.sponsor === undefined){
     return null
@@ -89,10 +96,10 @@ export function setSponsorLocal(data){
   }
 }
 
-export function removeSponsorLogin(){
+export function removeSponsorLogin(data){
   return {
     type: "REMOVE_SPONSOR_LOGIN",
-    payload: ""
+    payload: data
   }
 }
 

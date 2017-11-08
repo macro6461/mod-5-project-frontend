@@ -42,7 +42,7 @@ class SponsorLoggedIn extends Component {
   }
 
   removeLogin = () => {
-    this.props.removeSponsorLogin()
+    this.props.removeSponsorLogin("")
   }
 
   render(){

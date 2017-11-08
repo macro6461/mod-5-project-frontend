@@ -33,6 +33,13 @@ export function removeSponseeError(){
   }
 }
 
+export function getCurrentSponseeRole(data){
+  return{
+    type: "GET_CURRENT_SPONSEE_ROLE",
+    payload: data
+  }
+}
+
 export function renderSignUpError(data){
   debugger
     return {
@@ -81,10 +88,10 @@ export function sponseeLoginError(data){
   }
 }
 
-export function removeSponseeLogin(){
+export function removeSponseeLogin(data){
   return {
     type: "REMOVE_SPONSEE_LOGIN",
-    payload: ""
+    payload: data
   }
 }
 

@@ -40,7 +40,7 @@ class SponseeLoggedIn extends Component {
   }
 
   removeLogin = () => {
-    this.props.removeSponseeLogin()
+    this.props.removeSponseeLogin("")
   }
 
   render(){
