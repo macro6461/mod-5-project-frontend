@@ -85,8 +85,10 @@ class Facilities extends Component {
   render(){
     const facilities = this.props.fetchedFacilities.map((facility, index) => {
       if (facility.latitude === null || facility.longitude === null){
+
         return null
       } else{
+        console.log(facility)
         return <FacilityCard hover={this.state.hover} currentLatitude={this.state.latitude} currentLongitude={this.state.longitude} key={index} facility={facility} facilities={this.props.facilities}/>
       }
     })

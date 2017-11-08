@@ -72,20 +72,28 @@ export default class FacilitiesMap extends React.Component {
 
 
   onChildMouseEnter = (num, childProps) => {
-    this.setState({
-      facilityName: childProps.facility.name,
-      lat: childProps.lat,
-      lng: childProps.lng,
-      hover: true
-    })
+    if (childProps.facility === undefined){
+      return null
+    } else {
+      this.setState({
+        facilityName: childProps.facility.name,
+        lat: childProps.lat,
+        lng: childProps.lng,
+        hover: true
+      })
+    }
   }
 
   onChildMouseLeave = (num, childProps) => {
-    this.setState({
-      lat: "",
-      lng: "",
-      hover: false
-    })
+    if (childProps.facility === undefined){
+      return null
+    } else {
+      this.setState({
+        lat: "",
+        lng: "",
+        hover: false
+      })
+    }
   }
 
   render() {
@@ -98,6 +106,10 @@ export default class FacilitiesMap extends React.Component {
     })
     return (
        <GoogleMapReact
+         bootstrapURLKeys={{
+           key:'AIzaSyBg7ZOFcWttJvTq1H_tnV8q13lPjQUiW1c',
+           language: 'en',
+         }}
         defaultCenter={this.props.center}
         defaultZoom={this.props.zoom}
         currentPosition={this.state.center}

@@ -37,8 +37,17 @@ export function loginSponsor(sponsor){
                 'Accept': 'application/json',
               },
       body: JSON.stringify({username: sponsor.username, password: sponsor.password})
-    }).then(res => res.json()).then(json =>
-      dispatch(setSponsorLocal(json)))
+    }).then(res => res.json())
+      .then(json => {
+        if (json.sponsor === undefined){
+          return null
+        } else{
+          dispatch({
+            type: "LOGIN_SPONSOR",
+            payload: json
+          })
+        }
+      })
   }
 }
 
