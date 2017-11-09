@@ -10,55 +10,80 @@ import { Button } from 'semantic-ui-react'
 class SponseeLoggedIn extends Component {
 
   state = {
-    latitude: "",
-    longitude: "",
+    searchTerm: "",
+    sponsors: []
   }
 
-  showPosition = (position) => {
-    let geoPosition = {latitude: position.coords.latitude, longitude: position.coords.longitude}
-    this.setGeoState(geoPosition)
-  }
-
-  setGeoState = (data) => {
+  componentDidMount = () =>{
     this.setState({
-      latitude: data.latitude,
-      longitude: data.longitude
+      sponsees: this.props.sponsees
     })
-  }
-
-  getCurrentGeoLocation = () =>{
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.showPosition);
-    } else {
-        console.log("Geolocation is not supported by this browser.")
-    }
-  }
-
-  componentDidMount = () => {
-    this.props.fetchSponsorsRequest()
-    this.getCurrentGeoLocation()
   }
 
   removeLogin = () => {
     this.props.removeSponseeLogin("")
   }
 
-  render(){
-    const sponsors = this.props.sponsors.map((sponsor, index) => {
+  filterOnChange = (event) =>{
+    console.log(event.target.value)
+    this.setState({
+      searchTerm: event.target.value
+    }, () => this.filterGender())
+  }
 
-      return(
-        <SponsorCard key={index} sponsor={sponsor} currentLatitude={this.state.latitude} currentLongitude={this.state.longitude}/>
-      )
-    })
+  filterGender = () => {
+    console.log(this.props.sponsors)
+    const searchTerm = this.state.searchTerm
+    if (searchTerm === ""){
+      this.setState({
+        sponsors: this.props.sponsors
+      })
+    } else {
+      let filteredSponsors = this.props.sponsors.filter((sponsor) => {
+        debugger
+        return sponsor.gender.toLowerCase() === searchTerm.toLowerCase()
+      })
+        this.setState({
+          sponsors: filteredSponsors
+        })
+    }
+  }
+
+  render(){
+    let sponsors;
+    if (this.state.sponsors.length > 0){
+      sponsors = this.state.sponsors.map((sponsor, index) => {
+        return(
+          <SponsorCard key={index} sponsor={sponsor} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
+        )
+      })
+    } else {
+      sponsors = this.props.sponsors.map((sponsor, index) => {
+        return(
+          <SponsorCard key={index} sponsor={sponsor} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
+        )
+      })
+    }
     return(
       <div>
-          <br/>
         <br/>
-      <br/>
+        <br/>
         <h3> Welcome Sponsee {localStorage.username}!</h3>
         <p>You are now logged in.</p>
       <Link to="/"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
         <br/>
+      <form className="sortSponsees">
+            <label>
+              gender:
+              <input
+              style={{marginLeft: 10 + "px"}}
+              type="text"
+              onChange={this.filterOnChange}
+              placeholder={"gender preference..."}
+              value={this.state.searchTerm}
+            />
+            </label>
+      </form>
       <div className="sponseeDiv">
         {sponsors}
       </div>
@@ -69,7 +94,9 @@ class SponseeLoggedIn extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    sponsors: state.sponsorsReducer.sponsors
+    sponsors: state.sponsorsReducer.sponsors,
+    currentSponsee: state.sponseesReducer.currentSponsee,
+    currentPosition: state.currentReducer.currentPosition
   }
 }
 

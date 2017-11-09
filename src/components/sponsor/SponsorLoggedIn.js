@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 import SponseeCard from '../sponsee/SponseeCard'
 import { connect } from 'react-redux';
 import { fetchSponseesRequest } from '../../actions/sponseeActions'
-import { fetchSponseesRequestResolved } from '../../actions/sponseeActions'
 import { removeSponsorLogin } from '../../actions/sponsorActions'
-import { Button, Form, Radio } from 'semantic-ui-react'
+import { Button, Form, Radio, Search } from 'semantic-ui-react'
 
 
 
@@ -14,44 +13,60 @@ class SponsorLoggedIn extends Component {
   state = {
     latitude: "",
     longitude: "",
+    searchTerm: "",
+    sponsees: []
   }
 
-  componentDidMount = () => {
-    this.props.fetchSponseesRequest()
-    this.getCurrentGeoLocation()
-  }
-
-  showPosition = (position) => {
-    let geoPosition = {latitude: position.coords.latitude, longitude: position.coords.longitude}
-    this.setGeoState(geoPosition)
-  }
-
-  setGeoState = (data) => {
+  componentDidMount = () =>{
     this.setState({
-      latitude: data.latitude,
-      longitude: data.longitude
+      sponsees: this.props.sponsees
     })
-  }
-
-  getCurrentGeoLocation = () =>{
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.showPosition);
-    } else {
-        console.log("Geolocation is not supported by this browser.")
-    }
   }
 
   removeLogin = () => {
     this.props.removeSponsorLogin("")
   }
 
-  render(){
+  filterOnChange = (event) =>{
+    console.log(event.target.value)
+    this.setState({
+      searchTerm: event.target.value
+    }, () => this.filterGender())
+  }
 
-    const sponsees = this.props.sponsees.map((sponsee, index) => {
-      return(
-        <SponseeCard key={index} sponsee={sponsee} currentLatitude={this.state.latitude} currentLongitude={this.state.longitude}/>
-      )
-    })
+  filterGender = () => {
+    console.log(this.props.sponsees)
+    const searchTerm = this.state.searchTerm
+    if (searchTerm === ""){
+      this.setState({
+        sponsees: this.props.sponsees
+      })
+    } else {
+      let filteredSponsees = this.props.sponsees.filter((sponsee) => {
+        debugger
+        return sponsee.gender.toLowerCase() === searchTerm.toLowerCase()
+      })
+        this.setState({
+          sponsees: filteredSponsees
+        })
+    }
+  }
+
+  render(){
+    let sponsees;
+    if (this.state.sponsees.length > 0){
+      sponsees = this.state.sponsees.map((sponsee, index) => {
+        return(
+          <SponseeCard key={index} sponsee={sponsee} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
+        )
+      })
+    } else {
+      sponsees = this.props.sponsees.map((sponsee, index) => {
+        return(
+          <SponseeCard key={index} sponsee={sponsee} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
+        )
+      })
+    }
     return(
       <div>
         <br/>
@@ -61,15 +76,15 @@ class SponsorLoggedIn extends Component {
       <Link to="/"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
         <br/>
       <form className="sortSponsees">
-          <div className="radio">
             <label>
-             <Radio toggle label='age' className="radioButton" type="radio"/>
-            </label>
-          </div>
-      </form>
-      <form className="sortSponsees">
-            <label>
-             <Radio toggle label='gender' className="radioButton" type="radio"/>
+              gender:
+              <input
+              style={{marginLeft: 10 + "px"}}
+              type="text"
+              onChange={this.filterOnChange}
+              placeholder={"gender preference..."}
+              value={this.state.searchTerm}
+            />
             </label>
       </form>
       <div className="sponseeDiv">
@@ -84,8 +99,9 @@ const mapStateToProps = (state) => {
 
   return {
     sponsees: state.sponseesReducer.sponsees,
-    currentSponsor: state.sponsorsReducer.currentSponsor
+    currentSponsor: state.sponsorsReducer.currentSponsor,
+    currentPosition: state.currentReducer.currentPosition
   }
 }
 
-export default connect(mapStateToProps, {removeSponsorLogin, fetchSponseesRequest, fetchSponseesRequestResolved})(SponsorLoggedIn)
+export default connect(mapStateToProps, {removeSponsorLogin, fetchSponseesRequest})(SponsorLoggedIn)

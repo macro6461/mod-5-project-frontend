@@ -60,11 +60,12 @@ class Nav extends Component {
       }
     }
     return(
-      <div className="navDiv">
+      <div>
         {sponsorOrSponseeOrUndefined()}
         <div className="navDiv">
       <Link className="link" to="/facilities" onClick={this.removeErrors}>Facilities</Link>
-    <Link className="link" to="/" onClick={this.removeErrors}>Home</Link>
+      <Link className="link" to="/" onClick={this.removeErrors}>Home</Link>
+      </div>
       <Route exact path="/" component = {Home} />
       <Route exact path='/sponsors' render={(props) => (
           <SponsorHome remove={this.props.remove} submit={this.props.submit}/>
@@ -76,7 +77,6 @@ class Nav extends Component {
             <Facilities remove={this.props.remove} submit={this.props.submit}/>
           )}/>
           </div>
-      </div>
   )}
 }
 

@@ -4,6 +4,7 @@ import GoogleMapReact from 'google-map-react';
 import FacilityCard from './FacilityCard'
 // import FacilityPinImage from '../../src/map-pin.png'
 import FacilityPin from './FacilityPin'
+import { Icon } from 'semantic-ui-react'
 
 
 
@@ -17,16 +18,21 @@ const boxStyle = {
 }
 
 
+const iconStyle = {
+  borderRadius: '10px',
+  boxShadow: '3px 3px 1px #888888'
+}
+
+
 
 const InfoBox = (props) => {
-  console.log(props)
-  return(<div style={boxStyle}><p className="infoBoxP">{props.facility}</p></div>)
+  return(<div onClick={this.setPinAsCenter}><p style={boxStyle} className="infoBoxP">{props.facility}</p></div>)
 }
 
 const CurrentPin = ({text}) => {
   return(
-    <div className="currentPin">
-      <img className="pinImage"/>
+    <div>
+      <Icon name="user circle outline" color='blue' size='big' style={iconStyle}/>
       {text}
   </div>
   )
@@ -54,7 +60,7 @@ export default class FacilitiesMap extends React.Component {
 
   static defaultProps = {
     center: {lat: 40.73, lng: -73.93},
-    zoom: 11
+    zoom: 12
   };
 
   componentDidMount = () =>{
@@ -96,12 +102,16 @@ export default class FacilitiesMap extends React.Component {
     }
   }
 
+  setPinAsCenter = () => {
+    console.log("clicked")
+  }
+
   render() {
     const facilityPins = this.props.facilities.map((facility, index) => {
       if (facility.latitude === null || facility.longitude === null){
         return null
       } else{
-        return <FacilityPin key={index} onChildMouseEnter={this.onChildMouseEnter} onChildMouseLeave={this.onChildMouseLeave} handlePinClick={this.handleOnClick} facility={facility} hover={this.state.hover} lat={facility.latitude} lng={facility.longitude}/>
+        return <FacilityPin onClick={()=>this.setPinAsCenter(facility)} key={index} onChildMouseEnter={this.onChildMouseEnter} onChildMouseLeave={this.onChildMouseLeave} handlePinClick={this.handleOnClick} facility={facility} hover={this.state.hover} lat={facility.latitude} lng={facility.longitude}/>
       }
     })
     return (
@@ -111,22 +121,20 @@ export default class FacilitiesMap extends React.Component {
            language: 'en',
          }}
         defaultCenter={this.props.center}
-        defaultZoom={this.props.zoom}
-        currentPosition={this.state.center}
+        center={this.state.center}
+        defaultZoom={this.state.zoom}
+        currentPosition={this.props.current}
         onChildMouseEnter={this.onChildMouseEnter}
         onChildMouseLeave={this.onChildMouseLeave}
         >
           {facilityPins}
-          {this.state.currentPosition === true
-            ?  <CurrentPin
-              lat={this.state.center.lat}
-              lng={this.state.center.lng}
-              text={'You are here'}
+          <CurrentPin
+              lat={this.props.current.lat}
+              lng={this.props.current.lng}
+              text={'You'}
               />
-            : null
-          }
           {this.state.hover === true
-            ? <InfoBox lat={this.state.lat} lng={this.state.lng} facility={this.state.facilityName}/>
+            ? <InfoBox onClick={()=>this.setPinAsCenter({lat: this.state.lat, lng: this.state.lng})} lat={this.state.lat} lng={this.state.lng} facility={this.state.facilityName}/>
             : null
           }
       </GoogleMapReact>

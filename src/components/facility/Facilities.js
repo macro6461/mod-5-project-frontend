@@ -73,23 +73,12 @@ class Facilities extends Component {
     }) )
   }
 
-  componentDidMount = () => {
-    debugger
-    this.props.fetchFacilitiesRequest()
-    this.setState({
-      facilities: this.props.fetchedFacilities
-    })
-    this.getCurrentGeoLocation()
-  }
-
   render(){
     const facilities = this.props.fetchedFacilities.map((facility, index) => {
       if (facility.latitude === null || facility.longitude === null){
-
         return null
       } else{
-        console.log(facility)
-        return <FacilityCard hover={this.state.hover} currentLatitude={this.state.latitude} currentLongitude={this.state.longitude} key={index} facility={facility} facilities={this.props.facilities}/>
+        return <FacilityCard hover={this.state.hover} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng} key={index} facility={facility} facilities={this.props.facilities}/>
       }
     })
 
@@ -97,7 +86,7 @@ class Facilities extends Component {
     return(
       <div>
       <div className="googleMap">
-        <FacilitiesMap facilities={this.props.fetchedFacilities} currentLocation={this.getCurrentGeoLocation}>
+        <FacilitiesMap facilities={this.props.fetchedFacilities} current={this.props.currentPosition}>
        </FacilitiesMap>
      </div>
         <br/>
@@ -108,7 +97,7 @@ class Facilities extends Component {
         <br/>
         <form className="sortForm">
           <div className="radio">
-            {this.state.latitude === "" || this.state.longitude === ""
+            {this.props.currentPosition.lat === "" || this.props.currentPosition.lng === ""
               ? null
               : <label>
                <Radio toggle label='closest' className="radioButton" type="radio" onChange={this.handleOnChecked}/>
@@ -135,6 +124,7 @@ class Facilities extends Component {
 const mapStateToProps = (state) => {
   debugger
   return {
+    currentPosition: state.currentReducer.currentPosition,
     fetchedFacilities: state.facilitiesReducer.facilities
   }
 }

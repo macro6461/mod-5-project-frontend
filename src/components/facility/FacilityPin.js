@@ -4,6 +4,11 @@ import GoogleMapReact from 'google-map-react';
 import FacilityCard from './FacilityCard'
 // import { Marker } from "google-map-react"
 
+const pinStyle={
+  backgroundColor: "white",
+  borderRadius: '10px',
+  boxShadow: '2px 2px 1px #888888'
+}
 
 class FacilityPin extends React.Component {
 
@@ -22,8 +27,8 @@ class FacilityPin extends React.Component {
 
   render(){
     return(
-      <div className="facilityPin" >
-        
+      <div onClick={()=>{this.props.onClick}}>
+        <i class="building icon" style={pinStyle} onClick={this.props.onClick}></i>
       </div>
     )
   }

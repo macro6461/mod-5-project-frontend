@@ -15,14 +15,14 @@ export function fetchFacilitiesRequestResolved(data){
   }
 }
 
-export function getCurrentGeoLocation(){
-    if (navigator.geolocation){
-        navigator.geolocation.getCurrentPosition((position) => {
-          let geoPosition = {latitude: position.coords.latitude, longitude: position.coords.longitude}
-          return {
-            type: "CURRENT_POSITION",
-            payload: geoPosition
-          }
-        })
-    }
-}
+// export function getCurrentGeoLocation(){
+//     if (navigator.geolocation){
+//         navigator.geolocation.getCurrentPosition((position) => {
+//           let geoPosition = {latitude: position.coords.latitude, longitude: position.coords.longitude}
+//           return {
+//             type: "CURRENT_POSITION",
+//             payload: geoPosition
+//           }
+//         })
+//     }
+// }

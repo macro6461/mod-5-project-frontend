@@ -12,8 +12,15 @@ body{
   height: 80px;
 }
 
-h1{
+.nextStepHeader {
   text-align: center;
+  padding-top: 2% !important;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  padding: 0;
 }
 
 .shorterInput{
@@ -49,8 +56,8 @@ h1{
 }
 
 .openImg {
-  margin-left: 25%;
-  width: 50%;
+  margin-left: 26%;
+  width: 45%;
   border-radius: 10px !important;
   box-shadow: 8px 8px 2px #888888 !important;
 }
@@ -101,7 +108,7 @@ a {
   height: 550px;
   background-color: AliceBlue;
   position: fixed;
-  top: 10%;
+  top: 15%;
   z-index: 2;
 }
 
@@ -114,6 +121,11 @@ a {
 
 .backH3{
   color: AliceBlue !important;
+}
+
+h3 {
+  font-size: 1vw !important;
+  padding-top: 0px !important;
 }
 
 .facilityCard {
@@ -170,17 +182,16 @@ form {
   border-radius: 10px;
 }
 
+.madeByAnchor{
+  font-size: 10px;
+}
+
 .currentPin{
   border: solid 2px red;
   width: 15px;
   height: 15px;
   background-color: blue !important;
   border-radius: 10px;
-  /*width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 25px solid black;*/
 }
 
 .sortForm{
@@ -194,12 +205,15 @@ form {
   width: 2%;
 }
 
-/*.navDiv{
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-}*/
+.navDiv{
+  background-color: white;
+}
+
+.link:hover{
+  background-color: white;
+  border-radius: 10px;
+  transform: scale(1.1)
+}
 
 .sortSponsees{
   margin-left: 36%;
@@ -220,10 +234,9 @@ form {
 }
 
 .link {
-  font-size: 1.5vw;
+  font-size: 1vw;
   display: inline-block;
   float: left;
-  margin-left: 10%;
-  margin-right: 8%;
-  padding-bottom: 2%;
+  margin-left: 1%;
+  padding: 1%;
 }

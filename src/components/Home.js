@@ -7,7 +7,7 @@ export default class Home extends Component {
   render(){
     return(
 
-      <div>
+      <div className="home">
         <br/>
       <br/>
     <br/>
@@ -15,7 +15,7 @@ export default class Home extends Component {
         <h3>-Bill W. Founder of Alcoholic Anonymous</h3>
       <Image className="openImg" src="https://ak0.picdn.net/shutterstock/videos/4691870/thumb/3.jpg?i10c=img.resize" alt="embrace"/>
         <h3> Welcome to The Next Step! Your online resource for addiction and substance abuse.</h3>
-        <p>Whether you are on step twelve or trying to reach step one, the next step is a step forward.</p>
+        <h3>Whether you are on step twelve or trying to reach step one, the next step is a step forward.</h3>
       </div>
     )
   }

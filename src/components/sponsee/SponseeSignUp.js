@@ -33,14 +33,6 @@ class SponseeSignUp extends Component {
     this.setLocalStorage(sponsee)
   }
 
-  setLocalStorage = (data) => {
-    localStorage.setItem('jwt', data.jwt)
-    localStorage.setItem('username', data.username)
-    localStorage.setItem('role', "sponsee")
-    this.setStateAfterLocal()
-  }
-
-
   setStateAfterLocal = () => {
     this.setState({
       username: "",
@@ -50,15 +42,7 @@ class SponseeSignUp extends Component {
       bio: "",
       email: "",
       address: ""
-    }, ()=>{this.sendState()})
-  }
-
-
-  sendState = () => {
-
-    this.setState({
-      local: true
-    }, () => {this.props.submit(this.state.local)})
+    })
   }
 
   render(){

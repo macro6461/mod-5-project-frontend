@@ -35,18 +35,6 @@ class SponsorSignUp extends Component {
     this.setStateAfterLocal()
   }
 
-  afterSubmit = (sponsor) => {
-    this.setLocalStorage(sponsor)
-  }
-
-  setLocalStorage = (data) => {
-
-    localStorage.setItem('jwt', data.jwt)
-    localStorage.setItem('username', data.username)
-    localStorage.setItem('role', "sponsor")
-    this.setStateAfterLocal()
-  }
-
 
   setStateAfterLocal = () => {
     this.setState({
@@ -57,16 +45,9 @@ class SponsorSignUp extends Component {
       bio: "",
       email: "",
       address: ""
-    }, ()=>{this.sendState()})
+    })
   }
 
-
-  sendState = () => {
-
-    this.setState({
-      local: true
-    }, () => {this.props.submit(this.state.local)})
-  }
   render(){
     return(
         <div className="signUp">
