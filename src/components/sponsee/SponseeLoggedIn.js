@@ -27,31 +27,61 @@ class SponseeLoggedIn extends Component {
     this.props.removeSponseeLogin("")
   }
 
-  filterGenderOnChange = (event) =>{
+  filterOnChange = (event) =>{
     this.setState({
-      genderSearch: event.target.value
-    }, () => this.filterGender())
+      [event.target.name]: event.target.value
+    }, () => this.filterSponsors())
   }
 
-  filterGender = () => {
+  filterSponsors = () => {
+    let filteredSponsors;
+    let filteredAges;
+    let filteredGenders;
     const genderSearch = this.state.genderSearch
-    if (genderSearch === ""){
+    const ageSearch = this.state.ageSearch
+    if (genderSearch === "" && ageSearch === ""){
       this.setState({
         sponsors: this.props.sponsors
       })
     } else {
-      let filteredSponsors = this.props.sponsors.filter((sponsor) => {
-        return sponsor.gender.toLowerCase() === genderSearch.toLowerCase()
-      })
+      if (genderSearch === "" && ageSearch.length > 0){
+        filteredAges = this.props.sponsors.filter((sponsor) => {
+          return sponsor.age === ageSearch
+        })
+        this.setState({
+          sponsors: filteredAges
+        })
+      } else if (genderSearch.length > 0 && ageSearch === "") {
+        filteredGenders = this.props.sponsors.filter((sponsor) => {
+          return sponsor.gender.toLowerCase() === genderSearch.toLowerCase()
+        })
+        this.setState({
+          sponsors: filteredGenders
+        })
+      }
+      if (filteredGenders && ageSearch.length > 0){
+        debugger
+        filteredSponsors = filteredGenders.filter((sponsor) => {
+          return sponsor.age === ageSearch
+        })
         this.setState({
           sponsors: filteredSponsors
         })
+      }
+      if (filteredAges && genderSearch.length > 0){
+        filteredSponsors = filteredAges.filter((sponsor) => {
+          return sponsor.gender.toLowerCase() === genderSearch.toLowerCase()
+        })
+        this.setState({
+          sponsors: filteredSponsors
+        })
+      }
     }
   }
 
 
-  filterAgeOnChange = (event) =>{
 
+  filterAgeOnChange = (event) =>{
     this.setState({
       ageSearch: event.target.value
     }, () => this.filterAge())
@@ -103,9 +133,10 @@ class SponseeLoggedIn extends Component {
               <label>
                 gender:
                 <input
+                name="genderSearch"
                 style={{marginLeft: 10 + "px"}}
                 type="text"
-                onChange={this.filterGenderOnChange}
+                onChange={this.filterOnChange}
 
                 value={this.state.genderSearch}
               />
@@ -115,9 +146,10 @@ class SponseeLoggedIn extends Component {
               <label>
                 age:
                 <input
+                name="ageSearch"
                 style={{marginLeft: 10 + "px"}}
                 type="text"
-                onChange={this.filterAgeOnChange}
+                onChange={this.filterOnChange}
 
                 value={this.state.ageSearch}
               />
