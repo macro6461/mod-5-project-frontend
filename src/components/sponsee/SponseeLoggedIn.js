@@ -10,7 +10,10 @@ import { Button } from 'semantic-ui-react'
 class SponseeLoggedIn extends Component {
 
   state = {
-    searchTerm: "",
+    latitude: "",
+    longitude: "",
+    genderSearch: "",
+    ageSearch: "",
     sponsors: []
   }
 
@@ -24,30 +27,54 @@ class SponseeLoggedIn extends Component {
     this.props.removeSponseeLogin("")
   }
 
-  filterOnChange = (event) =>{
-    console.log(event.target.value)
+  filterGenderOnChange = (event) =>{
     this.setState({
-      searchTerm: event.target.value
+      genderSearch: event.target.value
     }, () => this.filterGender())
   }
 
   filterGender = () => {
-    console.log(this.props.sponsors)
-    const searchTerm = this.state.searchTerm
-    if (searchTerm === ""){
+    const genderSearch = this.state.genderSearch
+    if (genderSearch === ""){
       this.setState({
         sponsors: this.props.sponsors
       })
     } else {
       let filteredSponsors = this.props.sponsors.filter((sponsor) => {
-        debugger
-        return sponsor.gender.toLowerCase() === searchTerm.toLowerCase()
+        return sponsor.gender.toLowerCase() === genderSearch.toLowerCase()
       })
         this.setState({
           sponsors: filteredSponsors
         })
     }
   }
+
+
+  filterAgeOnChange = (event) =>{
+
+    this.setState({
+      ageSearch: event.target.value
+    }, () => this.filterAge())
+  }
+
+  filterAge = () => {
+
+    const ageSearch = this.state.ageSearch
+    if (ageSearch === ""){
+      this.setState({
+        sponsors: this.props.sponsors
+      })
+    } else {
+      let filteredSponsors = this.props.sponsors.filter((sponsor) => {
+
+        return sponsor.age === ageSearch
+      })
+        this.setState({
+          sponsors: filteredSponsors
+        })
+    }
+  }
+
 
   render(){
     let sponsors;
@@ -72,18 +99,30 @@ class SponseeLoggedIn extends Component {
         <p>You are now logged in.</p>
       <Link to="/"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
         <br/>
-      <form className="sortSponsees">
-            <label>
-              gender:
-              <input
-              style={{marginLeft: 10 + "px"}}
-              type="text"
-              onChange={this.filterOnChange}
-              placeholder={"gender preference..."}
-              value={this.state.searchTerm}
-            />
-            </label>
-      </form>
+        <form className="sortSponsees">
+              <label>
+                gender:
+                <input
+                style={{marginLeft: 10 + "px"}}
+                type="text"
+                onChange={this.filterGenderOnChange}
+
+                value={this.state.genderSearch}
+              />
+              </label>
+        </form>
+        <form className="sortSponsees">
+              <label>
+                age:
+                <input
+                style={{marginLeft: 10 + "px"}}
+                type="text"
+                onChange={this.filterAgeOnChange}
+
+                value={this.state.ageSearch}
+              />
+              </label>
+        </form>
       <div className="sponseeDiv">
         {sponsors}
       </div>

@@ -1,5 +1,5 @@
 export function addSponsor(sponsor){
-  debugger
+  
   return (dispatch) => {
     fetch('http://localhost:3000/sponsors', {
       headers: {"Content-Type": "application/json",
@@ -27,7 +27,7 @@ export function addSponsor(sponsor){
 }
 
 export function renderSignUpError(data){
-  debugger
+  
     return {
       type: "RENDER_ADD_SPONSOR_FAILED",
       payload: data

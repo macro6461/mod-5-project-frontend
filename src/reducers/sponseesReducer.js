@@ -10,7 +10,7 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
     localStorage.setItem('username', action.payload.sponsee.username)
       return {sponsees: state.sponsees.concat(action.sponsee), sponsee: action.payload.sponsee.username, role: action.payload.sponsee.role}
     case "LOGIN_SPONSEE":
-    debugger
+    
       localStorage.setItem('jwt', action.payload.jwt)
       localStorage.setItem('role', action.payload.sponsee.role)
       localStorage.setItem('username', action.payload.sponsee.username)
@@ -19,7 +19,7 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
     localStorage.clear()
       return {...state, sponsee: action.payload, role: action.payload, error: action.payload}
     case "RENDER_ADD_SPONSEE_FAILED":
-    debugger
+    
       return {...state, error: action.payload.error}
       case "REMOVE_SPONSEE_ERROR":
         return {...state, error: action.payload}

@@ -24,7 +24,7 @@ class App extends Component {
     this.props.fetchFacilitiesRequest()
     if (navigator.geolocation){
         navigator.geolocation.getCurrentPosition((position) => {
-          debugger
+
           let currentPosition = {latitude: position.coords.latitude, longitude: position.coords.longitude}
           this.props.getCurrentUserPosition(currentPosition)
         })
@@ -82,7 +82,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  debugger
+
   return {
     currentPosition: state.currentReducer.currentPosition
   }

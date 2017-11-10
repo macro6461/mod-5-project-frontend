@@ -13,7 +13,8 @@ class SponsorLoggedIn extends Component {
   state = {
     latitude: "",
     longitude: "",
-    searchTerm: "",
+    genderSearch: "",
+    ageSearch: "",
     sponsees: []
   }
 
@@ -27,24 +28,48 @@ class SponsorLoggedIn extends Component {
     this.props.removeSponsorLogin("")
   }
 
-  filterOnChange = (event) =>{
-    console.log(event.target.value)
+  filterGenderOnChange = (event) =>{
+
     this.setState({
-      searchTerm: event.target.value
+      genderSearch: event.target.value
     }, () => this.filterGender())
   }
 
   filterGender = () => {
-    console.log(this.props.sponsees)
-    const searchTerm = this.state.searchTerm
-    if (searchTerm === ""){
+    const genderSearch = this.state.genderSearch
+    if (genderSearch === ""){
       this.setState({
         sponsees: this.props.sponsees
       })
     } else {
       let filteredSponsees = this.props.sponsees.filter((sponsee) => {
-        debugger
-        return sponsee.gender.toLowerCase() === searchTerm.toLowerCase()
+
+        return sponsee.gender.toLowerCase() === genderSearch.toLowerCase()
+      })
+        this.setState({
+          sponsees: filteredSponsees
+        })
+    }
+  }
+
+  filterAgeOnChange = (event) =>{
+
+    this.setState({
+      ageSearch: event.target.value
+    }, () => this.filterAge())
+  }
+
+  filterAge = () => {
+
+    const ageSearch = this.state.ageSearch
+    if (ageSearch === ""){
+      this.setState({
+        sponsees: this.props.sponsees
+      })
+    } else {
+      let filteredSponsees = this.props.sponsees.filter((sponsee) => {
+
+        return sponsee.age === ageSearch
       })
         this.setState({
           sponsees: filteredSponsees
@@ -81,9 +106,21 @@ class SponsorLoggedIn extends Component {
               <input
               style={{marginLeft: 10 + "px"}}
               type="text"
-              onChange={this.filterOnChange}
-              placeholder={"gender preference..."}
-              value={this.state.searchTerm}
+              onChange={this.filterGenderOnChange}
+
+              value={this.state.genderSearch}
+            />
+            </label>
+      </form>
+      <form className="sortSponsees">
+            <label>
+              age:
+              <input
+              style={{marginLeft: 10 + "px"}}
+              type="text"
+              onChange={this.filterAgeOnChange}
+
+              value={this.state.ageSearch}
             />
             </label>
       </form>

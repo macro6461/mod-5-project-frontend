@@ -2,7 +2,6 @@ import React from 'react'
 import Facilities from './Facilities'
 import GoogleMapReact from 'google-map-react';
 import FacilityCard from './FacilityCard'
-// import FacilityPinImage from '../../src/map-pin.png'
 import FacilityPin from './FacilityPin'
 import { Icon } from 'semantic-ui-react'
 

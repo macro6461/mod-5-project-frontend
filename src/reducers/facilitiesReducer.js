@@ -3,7 +3,7 @@ export default function facilitiesReducer(state={facilities: [], currentPosition
     case "FETCH_FACILITIES":
       return {...state, facilities: action.payload}
     case "RENDER_FACILITIES":
-    debugger
+    
         return {...state, facilities: action.payload}
     case "CURRENT_POSITION":
       return{...state, currentPosition: action.payload }

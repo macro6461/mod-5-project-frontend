@@ -21,7 +21,6 @@ export default class SponsorCard extends Component{
         return "No Data"
       } else {
         this.props.sponsor.distance = haversineCoords
-        // this.props.sponsors.push(this.props.sponsor)
         return parseFloat(haversineCoords).toFixed(0) + " miles away"
       }
     }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import haversineDistance from '../haversine'
 import { Card } from 'semantic-ui-react'
 export default class FacilityCard extends Component{
 

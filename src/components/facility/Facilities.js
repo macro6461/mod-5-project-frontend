@@ -45,7 +45,7 @@ class Facilities extends Component {
   }
 
   handleOnChecked = (event) => {
-    debugger
+
     this.setState({
       checkedValue: !this.state.checked
     })
@@ -65,7 +65,7 @@ class Facilities extends Component {
   }
 
   filterSorted = (data) => {
-    debugger
+
     const newFacilities = data.filter((facility) =>{
       return facility.distance !== null
     }, this.setState({
@@ -122,7 +122,7 @@ class Facilities extends Component {
 }
 
 const mapStateToProps = (state) => {
-  debugger
+
   return {
     currentPosition: state.currentReducer.currentPosition,
     fetchedFacilities: state.facilitiesReducer.facilities

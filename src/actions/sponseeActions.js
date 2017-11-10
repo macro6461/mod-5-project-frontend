@@ -1,5 +1,5 @@
 export function addSponsee(sponsee){
-  debugger
+
   return (dispatch) => {
     fetch('http://localhost:3000/sponsees', {
       headers: {"Content-Type": "application/json",
@@ -41,7 +41,7 @@ export function getCurrentSponseeRole(data){
 }
 
 export function renderSignUpError(data){
-  debugger
+
     return {
       type: "RENDER_ADD_SPONSEE_FAILED",
       payload: data
@@ -51,7 +51,7 @@ export function renderSignUpError(data){
 
 
 export function renderAddSponsee(data){
-  debugger
+
     return {
       type: "RENDER_ADD_SPONSEE",
       payload: data

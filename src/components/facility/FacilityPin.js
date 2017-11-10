@@ -2,7 +2,6 @@ import React from 'react'
 import Facilities from './Facilities'
 import GoogleMapReact from 'google-map-react';
 import FacilityCard from './FacilityCard'
-// import { Marker } from "google-map-react"
 
 const pinStyle={
   backgroundColor: "white",
@@ -18,7 +17,7 @@ class FacilityPin extends React.Component {
 
 
   handleOnHover = (event) => {
-    debugger
+
     this.setState({
       hover: !this.state.hover
     })
