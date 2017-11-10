@@ -26,20 +26,31 @@ export default class SponsorCard extends Component{
     }
   }
 
+  checkBio = () => {
+    let cutBio
+    if (this.props.sponsor.bio.length > 80){
+      let arr = this.props.sponsor.bio.split("").slice(0, 80)
+      let cutBio = arr.join("") + "..."
+      return <p className="sponsorP">{cutBio}</p>
+    } else {
+      return <p className="sponsorP">{this.props.sponsor.bio}</p>
+    }
+  }
+
   render(){
     const email = "mailto:" + this.props.sponsor.email
     const distance = this.haversineFunction()
 
     return(
-      <Card className="sponseeCard">
+      <div className="sponseeCard">
         <h2>{this.props.sponsor.username}, {this.props.sponsor.age}, {this.props.sponsor.gender}</h2>
-      <p className="sponsorP">{this.props.sponsor.bio}</p>
-      {distance === NaN
+          {this.checkBio()}
+          {distance === NaN
         ? <h4>No Data</h4>
         : <h4>Distance: {distance}</h4>
       }
     <a className="mailto" href={email}>email {this.props.sponsor.username}</a>
-  </Card>
+</div>
     )
   }
 }

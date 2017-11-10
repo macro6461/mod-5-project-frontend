@@ -13,9 +13,10 @@ class Facilities extends Component {
     facilities: [],
     latitude: "",
     longitude: "",
-    checked: false,
+    checked: true,
     value: "",
-    hover: false
+    hover: false,
+    citySearch: ""
   }
 
   showPosition = (position) => {
@@ -39,42 +40,46 @@ class Facilities extends Component {
   }
 
   handleChange = (event) => {
+    console.log(event.target.value)
+    debugger
     this.setState({
-      value: event.target.value
-    })
+      [event.target.name]: event.target.value
+    }, () => this.filterByTerms())
   }
 
-  handleOnChecked = (event) => {
-
-    this.setState({
-      checkedValue: !this.state.checked
+  filterByTerms = () => {
+    const search = this.state.citySearch
+    let facilities = this.props.fetchedFacilities.filter((facility) => {
+      return facility.address.split(", ")[1].toLowerCase() === search.toLowerCase()
     })
-    const sortedFacilities = this.props.fetchedFacilities.sort(function(a, b){
+    let distanceFacilities;
+    let facilitiesData = facilities.length > 0 ? facilities : this.props.fetchedFacilities
+    distanceFacilities = facilitiesData.sort(function(a, b){
       return a.distance - b.distance
     })
-    this.filterSorted(sortedFacilities)
+    this.setState({
+      facilities: distanceFacilities.length > 0 ? distanceFacilities : facilities
+    })
   }
 
   handleSubmit = (event) => {
+    let facilities
     event.preventDefault()
-    const value = this.state.value
-    const sortedFacilities = this.props.fetchedFacilities.sort(function(a, b){
+    if (this.state.facilities.length > 0){
+      facilities = this.state.facilities
+    } else {
+      facilities = this.props.facilities
+    }
+    const sortedFacilities = facilities.sort(function(a, b){
       return a.distance - b.distance
     })
     this.filterSorted(sortedFacilities)
   }
 
-  filterSorted = (data) => {
-
-    const newFacilities = data.filter((facility) =>{
-      return facility.distance !== null
-    }, this.setState({
-      facilities: newFacilities
-    }) )
-  }
-
   render(){
-    const facilities = this.props.fetchedFacilities.map((facility, index) => {
+    debugger
+    const finalFacilities = this.state.facilities && this.state.facilities.length > 0 ? (this.state.facilities) : (this.props.fetchedFacilities)
+    const facilityData = finalFacilities.map((facility, index) => {
       if (facility.latitude === null || facility.longitude === null){
         return null
       } else{
@@ -100,19 +105,41 @@ class Facilities extends Component {
             {this.props.currentPosition.lat === "" || this.props.currentPosition.lng === ""
               ? null
               : <label>
-               <Radio toggle label='closest' className="radioButton" type="radio" onChange={this.handleOnChecked}/>
+               <Radio toggle style={{display: 'none'}} label='closest' className="radioButton" type="radio" onChange={this.handleChange} value={this.state.checkedValue}/>
               </label>
             }
               <br/>
           </div>
       </form>
+      <label>
+        city:
+        <input
+        name="citySearch"
+        style={{marginLeft: 10 + "px"}}
+        type="text"
+        onChange={this.handleChange}
+        value={this.state.citySearch}
+      />
+      </label>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
       </div>
         <br/>
         <br/>
         <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
 
       <div className="facilities">
-        {facilities}
+        {facilityData}
       </div>
       <br/>
       <br/>

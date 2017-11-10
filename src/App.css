@@ -69,24 +69,18 @@ h1 {
 }
 
 .sponsorP{
-  font-size: 1vw;
+  font-size: 20px !important;
 }
 
 .sponseeCard {
+  border-radius: 10px;
+  background-color: white;
   height: 300px !important;
-  width: 18% !important;
+  width: 300px !important;
   border: solid 2px black !important;
   padding: 2% !important;
   margin: 1% !important;
   float: left;
-}
-
-p {
-  font-size: 1.5vw;
-}
-
-a {
-  font-size: 1vw;
 }
 
 .mailto{
@@ -186,6 +180,10 @@ form {
   font-size: 10px;
 }
 
+.madeFooter{
+  font-size: 10px !important;
+}
+
 .currentPin{
   border: solid 2px red;
   width: 15px;
@@ -216,9 +214,11 @@ form {
 }
 
 .sortSponsees{
-  margin-left: 36%;
+  margin-left: 0%;
+  text-align: left;
+  padding-top: 1% !important;
+  padding-bottom: 0% !important;
   border: none !important;
-  padding: 1% !important;
   width: 100%;
 }
 

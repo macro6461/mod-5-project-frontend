@@ -10,7 +10,7 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
     localStorage.setItem('username', action.payload.sponsor.username)
       return {sponsors: state.sponsors.concat(action.payload), sponsor: action.payload.sponsor.username, role: action.payload.sponsor.role}
     case "LOGIN_SPONSOR":
-    
+    debugger
     localStorage.setItem('jwt', action.payload.jwt)
     localStorage.setItem('role', action.payload.role)
     localStorage.setItem('username', action.payload.sponsor)
@@ -20,7 +20,7 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
     localStorage.clear()
       return {...state, sponsor: action.payload, role: action.payload, error: action.payload}
     case "RENDER_ADD_SPONSOR_FAILED":
-    
+
       return {...state, error: action.payload.error}
     case "REMOVE_SPONSOR_ERROR":
       return {...state, error: action.payload}

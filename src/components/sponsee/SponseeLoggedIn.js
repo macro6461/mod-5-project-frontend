@@ -17,110 +17,41 @@ class SponseeLoggedIn extends Component {
     sponsors: []
   }
 
-  componentDidMount = () =>{
-    this.setState({
-      sponsees: this.props.sponsees
-    })
-  }
-
   removeLogin = () => {
     this.props.removeSponseeLogin("")
   }
 
+
+
+
   filterOnChange = (event) =>{
     this.setState({
       [event.target.name]: event.target.value
-    }, () => this.filterSponsors())
+    }, () => this.filterBySearchTerms())
   }
 
-  filterSponsors = () => {
-    let filteredSponsors;
-    let filteredAges;
-    let filteredGenders;
-    const genderSearch = this.state.genderSearch
-    const ageSearch = this.state.ageSearch
-    if (genderSearch === "" && ageSearch === ""){
+  filterBySearchTerms = () => {
+    let sponsors = this.props.sponsors.filter((sponsor) => {
+      return sponsor.gender.toLowerCase() === this.state.genderSearch.toLowerCase()
+    })
+    let ageFilteredSponsors;
+    let sponsorsData = sponsors.length > 0 ? sponsors:this.props.sponsors
+      ageFilteredSponsors = sponsorsData.filter((sponsor) => {
+        return sponsor.age == this.state.ageSearch
+      })
       this.setState({
-        sponsors: this.props.sponsors
+        sponsors: ageFilteredSponsors.length > 0 ? ageFilteredSponsors : sponsors
       })
-    } else {
-      if (genderSearch === "" && ageSearch.length > 0){
-        filteredAges = this.props.sponsors.filter((sponsor) => {
-          return sponsor.age === ageSearch
-        })
-        this.setState({
-          sponsors: filteredAges
-        })
-      } else if (genderSearch.length > 0 && ageSearch === "") {
-        filteredGenders = this.props.sponsors.filter((sponsor) => {
-          return sponsor.gender.toLowerCase() === genderSearch.toLowerCase()
-        })
-        this.setState({
-          sponsors: filteredGenders
-        })
-      }
-      if (filteredGenders && ageSearch.length > 0){
-        debugger
-        filteredSponsors = filteredGenders.filter((sponsor) => {
-          return sponsor.age === ageSearch
-        })
-        this.setState({
-          sponsors: filteredSponsors
-        })
-      }
-      if (filteredAges && genderSearch.length > 0){
-        filteredSponsors = filteredAges.filter((sponsor) => {
-          return sponsor.gender.toLowerCase() === genderSearch.toLowerCase()
-        })
-        this.setState({
-          sponsors: filteredSponsors
-        })
-      }
-    }
-  }
-
-
-
-  filterAgeOnChange = (event) =>{
-    this.setState({
-      ageSearch: event.target.value
-    }, () => this.filterAge())
-  }
-
-  filterAge = () => {
-
-    const ageSearch = this.state.ageSearch
-    if (ageSearch === ""){
-      this.setState({
-        sponsors: this.props.sponsors
-      })
-    } else {
-      let filteredSponsors = this.props.sponsors.filter((sponsor) => {
-
-        return sponsor.age === ageSearch
-      })
-        this.setState({
-          sponsors: filteredSponsors
-        })
-    }
   }
 
 
   render(){
-    let sponsors;
-    if (this.state.sponsors.length > 0){
-      sponsors = this.state.sponsors.map((sponsor, index) => {
-        return(
-          <SponsorCard key={index} sponsor={sponsor} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
-        )
-      })
-    } else {
-      sponsors = this.props.sponsors.map((sponsor, index) => {
-        return(
-          <SponsorCard key={index} sponsor={sponsor} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
-        )
-      })
-    }
+    let sponsors = this.state.sponsors.length > 0 ? (this.state.sponsors) : (this.props.sponsors)
+    const sponsorsData = sponsors.map((sponsor, index) => {
+      return(
+        <SponsorCard key={index} sponsor={sponsor} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
+      )
+    })
     return(
       <div>
         <br/>
@@ -136,6 +67,7 @@ class SponseeLoggedIn extends Component {
                 name="genderSearch"
                 style={{marginLeft: 10 + "px"}}
                 type="text"
+
                 onChange={this.filterOnChange}
 
                 value={this.state.genderSearch}
@@ -149,6 +81,7 @@ class SponseeLoggedIn extends Component {
                 name="ageSearch"
                 style={{marginLeft: 10 + "px"}}
                 type="text"
+
                 onChange={this.filterOnChange}
 
                 value={this.state.ageSearch}
@@ -156,7 +89,7 @@ class SponseeLoggedIn extends Component {
               </label>
         </form>
       <div className="sponseeDiv">
-        {sponsors}
+        {sponsorsData}
       </div>
       </div>
     )

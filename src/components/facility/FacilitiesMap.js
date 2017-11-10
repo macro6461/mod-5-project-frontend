@@ -59,10 +59,10 @@ export default class FacilitiesMap extends React.Component {
 
   static defaultProps = {
     center: {lat: 40.73, lng: -73.93},
-    zoom: 12
+    zoom: 14
   };
 
-  componentDidMount = () =>{
+  componentDidMount = () => {
     navigator.geolocation.getCurrentPosition(this.currentCoords)
   }
 
@@ -121,8 +121,7 @@ export default class FacilitiesMap extends React.Component {
          }}
         defaultCenter={this.props.center}
         center={this.state.center}
-        defaultZoom={this.state.zoom}
-        currentPosition={this.props.current}
+        defaultZoom={this.props.zoom}
         onChildMouseEnter={this.onChildMouseEnter}
         onChildMouseLeave={this.onChildMouseLeave}
         >

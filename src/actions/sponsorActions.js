@@ -1,5 +1,5 @@
 export function addSponsor(sponsor){
-  
+
   return (dispatch) => {
     fetch('http://localhost:3000/sponsors', {
       headers: {"Content-Type": "application/json",
@@ -27,7 +27,7 @@ export function addSponsor(sponsor){
 }
 
 export function renderSignUpError(data){
-  
+
     return {
       type: "RENDER_ADD_SPONSOR_FAILED",
       payload: data
@@ -42,7 +42,7 @@ export function renderAddSponsor(data){
 }
 
 export function loginSponsor(sponsor){
-
+  debugger
   return (dispatch) => {
     fetch('http://localhost:3000/sponsor/login', {
       method: 'POST',

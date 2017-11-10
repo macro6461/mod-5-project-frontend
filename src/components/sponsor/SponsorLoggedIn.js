@@ -18,80 +18,38 @@ class SponsorLoggedIn extends Component {
     sponsees: []
   }
 
-  componentDidMount = () =>{
-    this.setState({
-      sponsees: this.props.sponsees
-    })
-  }
-
   removeLogin = () => {
     this.props.removeSponsorLogin("")
   }
 
-  filterGenderOnChange = (event) =>{
-
+  filterOnChange = (event) =>{
     this.setState({
-      genderSearch: event.target.value
-    }, () => this.filterGender())
+      [event.target.name]: event.target.value
+    }, () => this.filterBySearchTerms())
   }
 
-  filterGender = () => {
-    const genderSearch = this.state.genderSearch
-    if (genderSearch === ""){
+  filterBySearchTerms = () => {
+    let sponsees = this.props.sponsees.filter((sponsee) => {
+      return sponsee.gender.toLowerCase() === this.state.genderSearch.toLowerCase()
+    })
+    let ageFilteredSponsees;
+    let sponseesData = sponsees.length > 0 ? sponsees:this.props.sponsees
+      ageFilteredSponsees = sponseesData.filter((sponsee) => {
+        return sponsee.age == this.state.ageSearch
+      })
+      debugger
       this.setState({
-        sponsees: this.props.sponsees
+        sponsees: ageFilteredSponsees.length > 0 ? ageFilteredSponsees : sponsees
       })
-    } else {
-      let filteredSponsees = this.props.sponsees.filter((sponsee) => {
-
-        return sponsee.gender.toLowerCase() === genderSearch.toLowerCase()
-      })
-        this.setState({
-          sponsees: filteredSponsees
-        })
-    }
-  }
-
-  filterAgeOnChange = (event) =>{
-
-    this.setState({
-      ageSearch: event.target.value
-    }, () => this.filterAge())
-  }
-
-  filterAge = () => {
-
-    const ageSearch = this.state.ageSearch
-    if (ageSearch === ""){
-      this.setState({
-        sponsees: this.props.sponsees
-      })
-    } else {
-      let filteredSponsees = this.props.sponsees.filter((sponsee) => {
-
-        return sponsee.age === ageSearch
-      })
-        this.setState({
-          sponsees: filteredSponsees
-        })
-    }
   }
 
   render(){
-    let sponsees;
-    if (this.state.sponsees.length > 0){
-      sponsees = this.state.sponsees.map((sponsee, index) => {
-        return(
-          <SponseeCard key={index} sponsee={sponsee} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
-        )
-      })
-    } else {
-      sponsees = this.props.sponsees.map((sponsee, index) => {
-        return(
-          <SponseeCard key={index} sponsee={sponsee} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
-        )
-      })
-    }
+    let sponsees = this.state.sponsees.length > 0 ? (this.state.sponsees) : (this.props.sponsees)
+    const sponseesData = sponsees.map((sponsee, index) => {
+      return(
+        <SponseeCard key={index} sponsee={sponsee} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
+      )
+    })
     return(
       <div>
         <br/>
@@ -100,13 +58,15 @@ class SponsorLoggedIn extends Component {
         <p>You are now logged in.</p>
       <Link to="/"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
         <br/>
+
       <form className="sortSponsees">
             <label>
               gender:
               <input
+              name="genderSearch"
               style={{marginLeft: 10 + "px"}}
               type="text"
-              onChange={this.filterGenderOnChange}
+              onChange={this.filterOnChange}
 
               value={this.state.genderSearch}
             />
@@ -116,16 +76,17 @@ class SponsorLoggedIn extends Component {
             <label>
               age:
               <input
+              name="ageSearch"
               style={{marginLeft: 10 + "px"}}
               type="text"
-              onChange={this.filterAgeOnChange}
-
+              onChange={this.filterOnChange}
               value={this.state.ageSearch}
             />
             </label>
       </form>
+      <br/>
       <div className="sponseeDiv">
-        {sponsees}
+        {sponseesData}
       </div>
       </div>
     )
