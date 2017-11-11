@@ -12,7 +12,10 @@ export function addSponsor(sponsor){
         gender: sponsor.gender,
         bio: sponsor.bio,
         email: sponsor.email,
-        address: sponsor.address
+        street: sponsor.street,
+        city: sponsor.city,
+        state: sponsor.state,
+        zip: sponsor.zip
       })
     })
     .then(res => res.json())

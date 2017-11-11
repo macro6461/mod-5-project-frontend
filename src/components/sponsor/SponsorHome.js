@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 class SponsorHome extends Component {
 
   render(){
-    
+
     return(
 
       <div>
@@ -20,7 +20,7 @@ class SponsorHome extends Component {
 }
 
 const mapStateToProps = (state) => {
-  
+
   return {
     sponsees: state.sponseesReducer.sponsees,
     currentSponsor: state.sponsorsReducer.sponsor

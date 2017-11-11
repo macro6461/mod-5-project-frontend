@@ -25,10 +25,12 @@ h1 {
 
 .shorterInput{
   width: 15% !important;
+  margin-left: 1% !important;
 }
 
 .mediumInput{
   width: 25% !important;
+  margin-left: 1% !important;
 }
 
 .radio{
@@ -156,8 +158,9 @@ h3 {
 }
 
 form {
+  border: solid 2px lightblue !important;
+  border-radius: 10px;
   margin-left: 40%;
-  border: solid 2px black;
   padding: 4%;
   width: 20%;
 }
@@ -225,10 +228,10 @@ form {
 .signUpForm{
   margin-left: 25% !important;
   background-color: AliceBlue;
-  border: solid 2px black !important;
+  border-radius: 10px;
+  border: solid 2px lightblue !important;
+  /*padding-top: 6% !important;*/
   padding: 4% !important;
-  padding-top: 6% !important;
-  padding-bottom: 1% !important;
   width: 50% !important;
   height: 100% !important;
 }

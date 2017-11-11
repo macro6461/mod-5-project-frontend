@@ -105,7 +105,7 @@ class Facilities extends Component {
             {this.props.currentPosition.lat === "" || this.props.currentPosition.lng === ""
               ? null
               : <label>
-               <Radio toggle style={{display: 'none'}} label='closest' className="radioButton" type="radio" onChange={this.handleChange} value={this.state.checkedValue}/>
+               <Radio toggle label='closest' className="radioButton" type="radio" onChange={this.handleChange} value={this.state.checkedValue}/>
               </label>
             }
               <br/>

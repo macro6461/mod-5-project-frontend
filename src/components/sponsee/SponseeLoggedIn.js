@@ -21,8 +21,20 @@ class SponseeLoggedIn extends Component {
     this.props.removeSponseeLogin("")
   }
 
-
-
+  deleteAccount = () => {
+    console.log("hello")
+    // fetch(`http://localhost:3000/sponsors/${deleteData.user.id}`, {
+    //   headers: {"Content-Type": "application/json",
+    //   "Accept":"application/json"},
+    //   method: "DELETE",
+    //   body: JSON.stringify({
+    //     name: deleteData.user.name,
+    //     age: deleteData.user.age,
+    //     gender: deleteData.user.gender,
+    //     city: newCity, state: newState, picture_url: deleteData.user.picture_url, bio: deleteData.user.bio, password: deleteData.user.password
+    //   })
+    // })
+  }
 
   filterOnChange = (event) =>{
     this.setState({

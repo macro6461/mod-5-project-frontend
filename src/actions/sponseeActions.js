@@ -12,7 +12,10 @@ export function addSponsee(sponsee){
         gender: sponsee.gender,
         bio: sponsee.bio,
         email: sponsee.email,
-        address: sponsee.address
+        street: sponsee.street,
+        city: sponsee.city,
+        state: sponsee.state,
+        zip: sponsee.zip
       })
     })
     .then(res => res.json())
@@ -94,6 +97,10 @@ export function removeSponseeLogin(data){
     payload: data
   }
 }
+
+// export function deleteSponseeAccount(data){
+//
+// }
 
 export function fetchSponseesRequest(){
   return (dispatch) =>{
