@@ -30,6 +30,7 @@ class SponsorLogIn extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     const token = localStorage.getItem("jwt")
+    debugger
     let sponsor = {username: this.state.username, password: this.state.password}
     this.props.loginSponsor(sponsor)
     this.setStateAfterLocal()

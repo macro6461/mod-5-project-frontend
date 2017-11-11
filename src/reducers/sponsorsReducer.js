@@ -8,7 +8,7 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
     localStorage.setItem('jwt', action.payload.jwt)
     localStorage.setItem('role', action.payload.sponsor.role)
     localStorage.setItem('username', action.payload.sponsor.username)
-      return {sponsors: state.sponsors.concat(action.payload), sponsor: action.payload.sponsor.username, role: action.payload.sponsor.role}
+      return {sponsors: state.sponsors.concat(action.payload), sponsor: action.payload.sponsor, role: action.payload.sponsor.role}
     case "LOGIN_SPONSOR":
     debugger
     localStorage.setItem('jwt', action.payload.jwt)
