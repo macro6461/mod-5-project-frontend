@@ -98,9 +98,29 @@ export function removeSponseeLogin(data){
   }
 }
 
-// export function deleteSponseeAccount(data){
-//
-// }
+export function deleteSponseeAccount(data){
+  debugger
+  return (dispatch) => {
+    fetch(`http://localhost:3000/sponsees/${data.id}`, {
+        headers: {"Content-Type": "application/json",
+        "Accept":"application/json"},
+        method: "DELETE",
+        body: JSON.stringify({
+          id: data.id
+        })
+      })
+    .then(() => dispatch(sendDeleteData(data)))
+  }
+}
+
+export function sendDeleteData(data){
+  debugger
+  return {
+    type: "DELETE_SPONSEE_ACCOUNT",
+    payload: data
+  }
+}
+
 
 export function fetchSponseesRequest(){
   return (dispatch) =>{

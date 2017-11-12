@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { addSponsor } from '../../actions/sponsorActions'
+import { addSponsor, removeSponsorError } from '../../actions/sponsorActions'
 import { connect } from 'react-redux';
 import SponsorLogIn from './SponsorLogIn'
 import { Button, Checkbox, Form} from 'semantic-ui-react'
@@ -22,7 +22,8 @@ class SponsorSignUp extends Component {
     city: "",
     state: "",
     zip: "",
-    local: false
+    local: false,
+    clicked: false
   }
 
   handleOnChange = (event) => {
@@ -50,6 +51,15 @@ class SponsorSignUp extends Component {
     } else {
       return {color: 'black'}
     }
+  }
+
+  setClicked = (event) => {
+    event.preventDefault()
+
+    this.setState({
+      clicked: !this.state.clicked
+    }, this.props.changeClicked(this.state.clicked) )
+    this.props.removeSponsorError()
   }
 
 
@@ -92,7 +102,8 @@ class SponsorSignUp extends Component {
           <Form.TextArea label='About' name="bio" value={this.state.bio} placeholder='Tell us more about you...' onCount={this.checkBioCount} onChange={this.handleOnChange} maxLength="200" required/>
         <p style={checkStyle} onChange={this.checkStyle}>remaining characters: {this.checkBioCount()}</p>
         <Form.Input label='Email' placeholder='email' name="email" value={this.state.email} onChange={this.handleOnChange} required/>
-      <Form.Button type="submit">Save</Form.Button>
+      <Form.Button className="save" type="submit">Save</Form.Button>
+      <Form.Button className="backButton" onClick= {this.setClicked} type="submit">back</Form.Button>
        </Form>
         </div>
     )
@@ -105,4 +116,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {addSponsor})(SponsorSignUp)
+export default connect(mapStateToProps, {addSponsor, removeSponsorError})(SponsorSignUp)

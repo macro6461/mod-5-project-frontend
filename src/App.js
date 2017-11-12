@@ -41,7 +41,6 @@ class App extends Component {
         username: ''
       })
     }
-    console.log(this.props.currentPosition)
   }
 
   removeLocalStorage = () => {

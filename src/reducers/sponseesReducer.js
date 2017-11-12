@@ -10,7 +10,6 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
     localStorage.setItem('username', action.payload.sponsee.username)
       return {sponsees: state.sponsees.concat(action.sponsee), sponsee: action.payload.sponsee.username, role: action.payload.sponsee.role}
     case "LOGIN_SPONSEE":
-
       localStorage.setItem('jwt', action.payload.jwt)
       localStorage.setItem('role', action.payload.sponsee.role)
       localStorage.setItem('username', action.payload.sponsee.username)
@@ -26,6 +25,11 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
         return {...state, error: action.payload.error}
       case "GET_CURRENT_SPONSEE_ROLE":
         return {...state, role: action.payload}
+      case "DELETE_SPONSEE_ACCOUNT":
+        var index = state.sponsees.indexOf(action.payload)
+        var stateSponsees = state.sponsees.splice(index, 1)
+        localStorage.clear()
+        return {sponsees: state.sponsees, sponsee: "", role: "", error: ""}
   default:
     return state
   }

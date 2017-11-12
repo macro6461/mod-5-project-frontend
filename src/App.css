@@ -70,8 +70,23 @@ h1 {
   display: inline-block;
 }
 
+.deleteButton{
+  color: white !important;
+  background-color: red !important;
+}
+
+.backButton{
+  float: right !important;
+}
+
+.save{
+  float: left !important;
+}
+
 .sponsorP{
   font-size: 20px !important;
+  width: 250px;
+  word-wrap: break-word;
 }
 
 .sponseeCard {
@@ -140,10 +155,12 @@ h3 {
 .facilityCard:hover{
   background-color: lightblue !important;
 }
+
 .sort{
-  margin-left: 10%;
-  float: left;
-  text-align: left;
+  border: none !important;
+  margin-left: 4%;
+  float: left !important;
+  text-align: left !important;
 }
 
 .App-header {

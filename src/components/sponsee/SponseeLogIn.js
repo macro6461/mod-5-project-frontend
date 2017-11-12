@@ -52,6 +52,12 @@ class SponseeLogIn extends Component {
     }, () => {this.sendState()})
   }
 
+  changeClicked = (data) => {
+    this.setState({
+      clicked: data
+    })
+  }
+
 
   sendState = () => {
     this.setState({
@@ -68,22 +74,25 @@ class SponseeLogIn extends Component {
     <br/>
       <br/>
     <br/>
-  <h3> Please Login </h3>
-        <Form onSubmit={this.handleSubmit}>
-          {this.props.error === ""
-            ? null
-            : <h3 className="notFound">Sponsee Not Found.</h3>
-          }
-    <Form.Field>
-      <label>Username</label>
-    <input placeholder='Username' name="username" type="text" value={this.state.username} onChange={this.handleOnChange} required/>
-    </Form.Field>
-    <Form.Field>
-      <label>Password</label>
-    <input placeholder='Password' name="password" type="password" value={this.state.password} onChange={this.handleOnChange} required/>
-    </Form.Field>
-    <Button type='submit'>Submit</Button>
-  </Form>
+    {this.state.clicked === true
+    ? null
+    : <div>
+    <h3> Please Login </h3>
+          <Form onSubmit={this.handleSubmit}>
+            {this.props.error === ""
+              ? null
+              : <h3 className="notFound">Sponsee Not Found.</h3>
+            }
+      <Form.Field>
+        <label>Username</label>
+      <input placeholder='Username' name="username" type="text" value={this.state.username} onChange={this.handleOnChange} required/>
+      </Form.Field>
+      <Form.Field>
+        <label>Password</label>
+      <input placeholder='Password' name="password" type="password" value={this.state.password} onChange={this.handleOnChange} required/>
+      </Form.Field>
+      <Button type='submit'>Submit</Button>
+    </Form>
   <br/>
   <br/>
   <br/>
@@ -92,18 +101,20 @@ class SponseeLogIn extends Component {
   <br/>
   <br/>
   <br/>
-
-      { this.state.clicked === true
-        ? <div><h3 className="backH3">Bla</h3>
-          <Button onClick={this.clicked}>back</Button></div>
-        : <div><h3> Don't have an account?</h3>
-          <Button onClick={this.clicked}>Sign Up</Button></div>
-      }
-        { this.state.clicked === true
-          ? <SponseeSignUp submit={this.props.submit} clicked={this.setClicked}/>
-          : null
-        }
-      </div>
+</div>
+}
+{ this.state.clicked === true
+  ? <div><h3 className="backH3">Bla</h3>
+  <Button onClick={this.clicked}>back</Button></div>
+  : <div><h3> Don't have an account?</h3>
+  <Button onClick={this.clicked}>Sign Up</Button>
+  </div>
+}
+  { this.state.clicked === true
+    ? <SponseeSignUp changeClicked={this.changeClicked} submit={this.props.submit} clicked={this.setClicked}/>
+    : null
+  }
+  </div>
     )
   }
 }

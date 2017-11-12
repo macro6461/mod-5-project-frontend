@@ -50,6 +50,12 @@ class SponsorLogIn extends Component {
     })
   }
 
+  changeClicked = (data) => {
+    this.setState({
+      clicked: data
+    })
+  }
+
   render(){
     return(
       <div>
@@ -58,6 +64,9 @@ class SponsorLogIn extends Component {
   <br/>
     <br/>
   <br/>
+{this.state.clicked === true
+? null
+: <div>
 <h3> Please Login </h3>
       <Form onSubmit={this.handleSubmit}>
         {this.props.error === ""
@@ -82,6 +91,8 @@ class SponsorLogIn extends Component {
 <br/>
 <br/>
 <br/>
+</div>
+}
     { this.state.clicked === true
       ? <div><h3 className="backH3">Bla</h3>
       <Button onClick={this.clicked}>back</Button></div>
@@ -90,7 +101,7 @@ class SponsorLogIn extends Component {
       </div>
     }
       { this.state.clicked === true
-        ? <SponsorSignUp submit={this.props.submit} clicked={this.setClicked}/>
+        ? <SponsorSignUp changeClicked={this.changeClicked} submit={this.props.submit} clicked={this.setClicked}/>
         : null
       }
       </div>

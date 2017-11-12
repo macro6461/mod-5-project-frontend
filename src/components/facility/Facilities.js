@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchFacilitiesRequest } from '../../actions/facilityActions'
 import { fetchFacilitiesRequestResolved } from '../../actions/facilityActions'
 import GoogleMapReact from 'google-map-react';
-import { Radio } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 import FacilitiesMap from './FacilitiesMap'
 
 class Facilities extends Component {
@@ -16,7 +16,8 @@ class Facilities extends Component {
     checked: true,
     value: "",
     hover: false,
-    citySearch: ""
+    citySearch: "",
+    insuranceSearch: ""
   }
 
   showPosition = (position) => {
@@ -41,25 +42,69 @@ class Facilities extends Component {
 
   handleChange = (event) => {
     console.log(event.target.value)
-    debugger
     this.setState({
       [event.target.name]: event.target.value
     }, () => this.filterByTerms())
   }
 
   filterByTerms = () => {
-    const search = this.state.citySearch
+    const citySearch = this.state.citySearch
+    const insuranceSearch = this.state.insuranceSearch
     let facilities = this.props.fetchedFacilities.filter((facility) => {
-      return facility.address.split(", ")[1].toLowerCase() === search.toLowerCase()
+      return facility.address.split(", ")[1].toLowerCase() === citySearch.toLowerCase()
     })
-    let distanceFacilities;
+    let insuranceFacilities;
     let facilitiesData = facilities.length > 0 ? facilities : this.props.fetchedFacilities
-    distanceFacilities = facilitiesData.sort(function(a, b){
-      return a.distance - b.distance
+    insuranceFacilities = facilitiesData.filter((facility) => {
+      return facility.insurance.split(", ").includes(insuranceSearch)
     })
     this.setState({
-      facilities: distanceFacilities.length > 0 ? distanceFacilities : facilities
+      facilities: insuranceFacilities.length > 0 ? insuranceFacilities : facilities
     })
+  }
+
+  haversineFunction = (data) => {
+
+    var haversine = require('haversine')
+    let start = {
+      latitude: this.props.currentPosition.lat,
+      longitude: this.props.currentPosition.lng
+    }
+    let end = {
+      latitude: data.latitude,
+      longitude: data.longitude
+    }
+    const haversineCoords = (haversine(start, end, {unit: 'mile'}))
+    if (this.props.currentPosition.lat === "" || this.props.currentPosition.lng === ""){
+      return "Calculating..."
+    } else {
+      if (data.longitude === null || data.latitude === null){
+        return "No Data"
+      } else {
+        data.distance = haversineCoords
+        return parseFloat(haversineCoords).toFixed(0) + " miles away"
+      }
+    }
+  }
+
+  sortFacilities = (data) => {
+    let sortedFacilities = data.sort(function(a, b){
+      if (a === null || b === null){
+        null
+      } else {
+        return a.distance.split(" ")[0] - b.distance.split(" ")[0]
+      }
+    })
+
+    return (
+      sortedFacilities.map((facility, index) => {
+        if (facility === null){
+          null
+        } else {
+          return <FacilityCard distance={facility.distance} hover={this.state.hover} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng} key={index} facility={facility} facilities={this.props.facilities}/>
+        }
+      })
+    )
   }
 
   handleSubmit = (event) => {
@@ -77,43 +122,33 @@ class Facilities extends Component {
   }
 
   render(){
-    debugger
     const finalFacilities = this.state.facilities && this.state.facilities.length > 0 ? (this.state.facilities) : (this.props.fetchedFacilities)
     const facilityData = finalFacilities.map((facility, index) => {
       if (facility.latitude === null || facility.longitude === null){
         return null
       } else{
-        return <FacilityCard hover={this.state.hover} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng} key={index} facility={facility} facilities={this.props.facilities}/>
+        facility.distance = this.haversineFunction(facility)
+        return facility
       }
     })
-
-    const facilityCoord = this.props.fetchedFacilities
+    const newFacilities = this.sortFacilities(facilityData)
     return(
       <div>
       <div className="googleMap">
         <FacilitiesMap facilities={this.props.fetchedFacilities} current={this.props.currentPosition}>
        </FacilitiesMap>
      </div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <div className="sort">
-        <br/>
-        <form className="sortForm">
-          <div className="radio">
-            {this.props.currentPosition.lat === "" || this.props.currentPosition.lng === ""
-              ? null
-              : <label>
-               <Radio toggle label='closest' className="radioButton" type="radio" onChange={this.handleChange} value={this.state.checkedValue}/>
-              </label>
-            }
-              <br/>
-          </div>
-      </form>
+     <br/>
+     <br/>
+     <br/>
+     <br/>
+
+      <Form className="sort">
+      <Form.Field >
       <label>
         city:
         <input
+        placeholder="New York"
         name="citySearch"
         style={{marginLeft: 10 + "px"}}
         type="text"
@@ -121,12 +156,30 @@ class Facilities extends Component {
         value={this.state.citySearch}
       />
       </label>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-      </div>
+    </Form.Field>
+    <Form.Field >
+    <label>
+      provider:
+      <input
+      placeholder="Aetna"
+      name="insuranceSearch"
+      style={{marginLeft: 10 + "px"}}
+      type="text"
+      onChange={this.handleChange}
+      value={this.state.insuranceSearch}
+    />
+    </label>
+    </Form.Field>
+</Form>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <br/>
         <br/>
         <br/>
@@ -139,7 +192,7 @@ class Facilities extends Component {
 
 
       <div className="facilities">
-        {facilityData}
+        {newFacilities}
       </div>
       <br/>
       <br/>
