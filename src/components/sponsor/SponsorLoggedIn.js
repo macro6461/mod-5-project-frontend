@@ -7,6 +7,7 @@ import { removeSponsorLogin, deleteSponsorAccount } from '../../actions/sponsorA
 import { Button, Form } from 'semantic-ui-react'
 import SponsorConfirmDelete from './SponsorConfirmDelete'
 import SponsorEdit from './SponsorEdit'
+import SponseeModal from '../sponsee/SponseeModal'
 
 class SponsorLoggedIn extends Component {
 
@@ -20,7 +21,9 @@ class SponsorLoggedIn extends Component {
     confirmDelete: false,
     confirm: false,
     edit: false,
-    currentSponsor: ""
+    currentSponsor: "",
+    modal: false,
+    modalSponsee: ""
   }
 
 
@@ -84,17 +87,28 @@ class SponsorLoggedIn extends Component {
       this.props.deleteSponsorAccount(deleteSponsor)
   }
 
+  openModal = (data) => {
+    console.log(data)
+    this.setState({
+      modal: !this.state.modal,
+      modalSponsee: data
+    })
+  }
+
 
   render(){
-    debugger
     let sponsees = this.state.sponsees.length > 0 ? (this.state.sponsees) : (this.props.sponsees)
     const sponseesData = sponsees.map((sponsee, index) => {
       return(
-        <SponseeCard key={index} sponsee={sponsee} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
+        <SponseeCard openModal={this.openModal} key={index} sponsee={sponsee} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
       )
     })
     return(
       <div>
+        {this.state.modal === true
+          ? <SponseeModal openModal={this.openModal} sponsee={this.state.modalSponsee}/>
+          : null
+        }
         <br/>
         <br/>
       <h3> Welcome Sponsor {localStorage.username}!</h3>

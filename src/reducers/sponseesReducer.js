@@ -1,4 +1,4 @@
-cxzv xzc xc export default function sponseesReducer(state={sponsees: [], sponsee: "", role: "", error: ""}, action){
+export default function sponseesReducer(state={sponsees: [], sponsee: "", role: "", error: ""}, action){
   switch(action.type){
     case "FETCH_SPONSEES":
       return {...state, sponsees: action.payload}

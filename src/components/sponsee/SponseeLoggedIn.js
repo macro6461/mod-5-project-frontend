@@ -63,6 +63,8 @@ class SponseeLoggedIn extends Component {
     }
   }
 
+
+
   handleEdit = () => {
     let currentSponsee = localStorage.getItem('username')
     let editSponsee = this.props.sponsees.find((sponsee)=>{
