@@ -10,6 +10,7 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
     localStorage.setItem('username', action.payload.sponsor.username)
       return {sponsors: state.sponsors.concat(action.payload), sponsor: action.payload.sponsor.username, role: action.payload.sponsor.role}
     case "LOGIN_SPONSOR":
+    debugger
     localStorage.setItem('jwt', action.payload.jwt)
     localStorage.setItem('role', action.payload.role)
     localStorage.setItem('username', action.payload.sponsor)
@@ -30,7 +31,10 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
       var index = state.sponsors.indexOf(action.payload)
       var stateSponsors = state.sponsors.splice(index, 1)
       localStorage.clear()
-      return {sponsors: state.sponsors, sponsor: "", role: "", error: ""}
+    return {sponsors: state.sponsors, sponsor: "", role: "", error: ""}
+      case "SUBMIT_EDIT_SPONSOR":
+      localStorage.setItem('username', action.payload.username)
+        return {...state, sponsors: [action.payload, ...state.sponsors], sponsor: action.payload.username}
   default:
     return state
   }

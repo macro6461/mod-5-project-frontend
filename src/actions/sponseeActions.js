@@ -99,7 +99,6 @@ export function removeSponseeLogin(data){
 }
 
 export function deleteSponseeAccount(data){
-  debugger
   return (dispatch) => {
     fetch(`http://localhost:3000/sponsees/${data.id}`, {
         headers: {"Content-Type": "application/json",
@@ -133,6 +132,40 @@ export function fetchSponseesRequest(){
 export function fetchSponseesRequestResolved(data){
   return {
     type: "RENDER_SPONSEES",
+    payload: data
+  }
+}
+
+export function editSponsee(data){
+  debugger
+  return (dispatch) =>{
+    fetch(`http://localhost:3000/sponsees/${data.id}`, {
+        headers: {"Content-Type": "application/json",
+        "Accept":"application/json"},
+        method: "POST",
+        body: JSON.stringify({
+          id: data.id,
+          username: data.username,
+          password: data.password,
+          age: data.age,
+          gender: data.gender,
+          bio: data.bio,
+          email: data.email,
+          street: data.street,
+          city: data.city,
+          state: data.state,
+          zip: data.zip
+        })
+      })
+    .then(res => res.json())
+    .then(json => dispatch(submitEditSponsee(json)))
+  }
+}
+
+export function submitEditSponsee(data){
+  debugger
+  return{
+    type: "SUBMIT_EDIT_SPONSEE",
     payload: data
   }
 }

@@ -159,7 +159,7 @@ class Facilities extends Component {
     </Form.Field>
     <Form.Field >
     <label>
-      provider:
+      insurance:
       <input
       placeholder="Aetna"
       name="insuranceSearch"

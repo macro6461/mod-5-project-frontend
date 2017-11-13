@@ -7,6 +7,7 @@ import { fetchSponsorsRequestResolved } from '../../actions/sponsorActions'
 import { removeSponseeLogin, deleteSponseeAccount } from '../../actions/sponseeActions'
 import { Button, Form } from 'semantic-ui-react'
 import SponseeConfirmDelete from './SponseeConfirmDelete'
+import SponseeEdit from './SponseeEdit'
 
 class SponseeLoggedIn extends Component {
 
@@ -18,7 +19,9 @@ class SponseeLoggedIn extends Component {
     sponsors: [],
     showWindow: false,
     confirmDelete: false,
-    confirm: false
+    confirm: false,
+    edit: false,
+    currentSponsee: ""
   }
 
 
@@ -52,21 +55,24 @@ class SponseeLoggedIn extends Component {
     })
   }
 
-  // confirmDelete = (data) => {
-  //   console.log(this.props)
-  //   if (data === false){
-  //     this.setState({
-  //       showWindow: false
-  //     })
-  //   }
-  // }
-
   confirmDelete = () => {
     var result = window.confirm("Are you sure you want to delete your account?");
     if (result) {
       debugger
       this.deleteAccount()
     }
+  }
+
+  handleEdit = () => {
+    let currentSponsee = localStorage.getItem('username')
+    let editSponsee = this.props.sponsees.find((sponsee)=>{
+      return sponsee.username === currentSponsee
+    })
+    console.log(editSponsee)
+    this.setState({
+      currentSponsee: editSponsee,
+      edit: !this.state.edit
+    }, ()=>{ console.log(this.state.currentSponsee)})
   }
 
   deleteAccount = () => {
@@ -94,11 +100,16 @@ class SponseeLoggedIn extends Component {
         <h3> Welcome Sponsee {localStorage.username}!</h3>
         <p>You are now logged in.</p>
       <Link to="/"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
-    <Button className="deleteButton" onClick={this.confirmDelete}>Delete Account</Button>
+      <Button className="deleteButton" onClick={this.confirmDelete}>Delete Account</Button>
+      <Button className="editButton" onClick={this.handleEdit}>Edit</Button>
         <br/>
       {this.state.showWindow === true
         ? <SponseeConfirmDelete confirmDelete={this.confirmDelete}/>
         : null
+      }
+      {this.state.edit === false
+        ? null
+        : <SponseeEdit sponsee={this.state.currentSponsee} className="sponseeEdit" handleEdit={this.handleEdit}/>
       }
         <Form className="sort">
           <Form.Field>

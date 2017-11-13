@@ -1,4 +1,4 @@
-export default function sponseesReducer(state={sponsees: [], sponsee: "", role: "", error: ""}, action){
+cxzv xzc xc export default function sponseesReducer(state={sponsees: [], sponsee: "", role: "", error: ""}, action){
   switch(action.type){
     case "FETCH_SPONSEES":
       return {...state, sponsees: action.payload}
@@ -25,11 +25,20 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
         return {...state, error: action.payload.error}
       case "GET_CURRENT_SPONSEE_ROLE":
         return {...state, role: action.payload}
+        case "GET_CURRENT_SPONSEE":
+        var sponsee = state.sponsees.find((sponsee)=>{
+          return sponsee.username === action.payload
+        })
+          return {...state, role: action.payload}
       case "DELETE_SPONSEE_ACCOUNT":
         var index = state.sponsees.indexOf(action.payload)
         var stateSponsees = state.sponsees.splice(index, 1)
         localStorage.clear()
         return {sponsees: state.sponsees, sponsee: "", role: "", error: ""}
+      case "SUBMIT_EDIT_SPONSEE":
+
+      localStorage.setItem('username', action.payload.username)
+        return {...state, sponsees: [action.payload, ...state.sponsees], sponsee: action.payload.username}
   default:
     return state
   }

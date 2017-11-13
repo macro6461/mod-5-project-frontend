@@ -11,19 +11,6 @@ const pinStyle={
 
 class FacilityPin extends React.Component {
 
-  state = {
-    hover: false
-  }
-
-
-  handleOnHover = (event) => {
-
-    this.setState({
-      hover: !this.state.hover
-    })
-    this.props.hover = false
-  }
-
   render(){
     return(
       <div onClick={()=>{this.props.onClick}}>

@@ -143,3 +143,37 @@ export function fetchSponsorsRequestResolved(data){
     payload: data
   }
 }
+
+export function editSponsor(data){
+  debugger
+  return (dispatch) =>{
+    fetch(`http://localhost:3000/sponsors/${data.id}`, {
+        headers: {"Content-Type": "application/json",
+        "Accept":"application/json"},
+        method: "POST",
+        body: JSON.stringify({
+          id: data.id,
+          username: data.username,
+          password: data.password,
+          age: data.age,
+          gender: data.gender,
+          bio: data.bio,
+          email: data.email,
+          street: data.street,
+          city: data.city,
+          state: data.state,
+          zip: data.zip
+        })
+      })
+    .then(res => res.json())
+    .then(json => dispatch(submitEditSponsor(json)))
+  }
+}
+
+export function submitEditSponsor(data){
+  debugger
+  return{
+    type: "SUBMIT_EDIT_SPONSOR",
+    payload: data
+  }
+}

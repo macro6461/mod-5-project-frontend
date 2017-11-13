@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Nav from './components/Nav'
-import { getCurrentUserPosition } from './actions/actions'
+import { getCurrentUserPosition, getCurrentPerson } from './actions/actions'
 import { fetchFacilitiesRequest } from './actions/facilityActions'
 import { fetchSponseesRequest } from './actions/sponseeActions'
 import { fetchSponsorsRequest } from './actions/sponsorActions'
@@ -18,10 +18,19 @@ class App extends Component {
     currentPosition: ""
   }
 
+  getCurrentSponsorRole = () => {
+    let sponsor = localStorage.getItem("username")
+    let currentSponsor = this.props.sponsors.find((sponsor)=>{
+      return sponsor.username === sponsor
+    })
+    console.log(currentSponsor)
+  }
+
   componentDidMount = () => {
     this.props.fetchSponsorsRequest()
     this.props.fetchSponseesRequest()
     this.props.fetchFacilitiesRequest()
+    this.getCurrentSponsorRole
     if (navigator.geolocation){
         navigator.geolocation.getCurrentPosition((position) => {
           let currentPosition = {latitude: position.coords.latitude, longitude: position.coords.longitude}
@@ -80,11 +89,14 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-
+  console.log(state.sponsorsReducer.sponsors)
   return {
+    currentPerson: state.currentReducer.currentPerson,
+    sponsees: state.sponseesReducer.sponsees,
+    sponsors: state.sponsorsReducer.sponsors,
     currentPosition: state.currentReducer.currentPosition
   }
 }
 
 
-export default withRouter(connect(mapStateToProps, { getCurrentUserPosition, fetchFacilitiesRequest, fetchSponseesRequest, fetchSponsorsRequest })(App))
+export default withRouter(connect(mapStateToProps, { getCurrentUserPosition, fetchFacilitiesRequest, fetchSponseesRequest, fetchSponsorsRequest, getCurrentPerson })(App))

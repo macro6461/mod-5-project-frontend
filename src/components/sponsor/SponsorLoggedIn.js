@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import SponseeCard from '../sponsee/SponseeCard'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { fetchSponseesRequest } from '../../actions/sponseeActions'
+import { fetchSponseesRequest, fetchSponseesRequestResolved } from '../../actions/sponseeActions'
 import { removeSponsorLogin, deleteSponsorAccount } from '../../actions/sponsorActions'
-import { Button, Form, Radio, Search } from 'semantic-ui-react'
-
-
+import { Button, Form } from 'semantic-ui-react'
+import SponsorConfirmDelete from './SponsorConfirmDelete'
+import SponsorEdit from './SponsorEdit'
 
 class SponsorLoggedIn extends Component {
 
@@ -15,8 +15,14 @@ class SponsorLoggedIn extends Component {
     longitude: "",
     genderSearch: "",
     ageSearch: "",
-    sponsees: []
+    sponsees: [],
+    showWindow: false,
+    confirmDelete: false,
+    confirm: false,
+    edit: false,
+    currentSponsor: ""
   }
+
 
   removeLogin = () => {
     this.props.removeSponsorLogin("")
@@ -37,10 +43,15 @@ class SponsorLoggedIn extends Component {
       ageFilteredSponsees = sponseesData.filter((sponsee) => {
         return sponsee.age == this.state.ageSearch
       })
-      debugger
       this.setState({
         sponsees: ageFilteredSponsees.length > 0 ? ageFilteredSponsees : sponsees
       })
+  }
+
+  confirmWindow = () => {
+    this.setState({
+      showWindow: !this.state.showWindow
+    })
   }
 
   confirmDelete = () => {
@@ -49,6 +60,18 @@ class SponsorLoggedIn extends Component {
       debugger
       this.deleteAccount()
     }
+  }
+
+  handleEdit = () => {
+    let currentSponsor = localStorage.getItem('username')
+    let editSponsor = this.props.sponsors.find((sponsor)=>{
+      return sponsor.username === currentSponsor
+    })
+    console.log(editSponsor)
+    this.setState({
+      currentSponsor: editSponsor,
+      edit: !this.state.edit
+    }, ()=>{ console.log(this.state.currentSponsor)})
   }
 
   deleteAccount = () => {
@@ -61,7 +84,9 @@ class SponsorLoggedIn extends Component {
       this.props.deleteSponsorAccount(deleteSponsor)
   }
 
+
   render(){
+    debugger
     let sponsees = this.state.sponsees.length > 0 ? (this.state.sponsees) : (this.props.sponsees)
     const sponseesData = sponsees.map((sponsee, index) => {
       return(
@@ -72,45 +97,53 @@ class SponsorLoggedIn extends Component {
       <div>
         <br/>
         <br/>
-        <h3> Welcome Sponsor {localStorage.username}!</h3>
+      <h3> Welcome Sponsor {localStorage.username}!</h3>
         <p>You are now logged in.</p>
       <Link to="/"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
-    <Button className="deleteButton" onClick={this.confirmDelete}>Delete Account</Button>
+      <Button className="deleteButton" onClick={this.confirmDelete}>Delete Account</Button>
+      <Button className="editButton" onClick={this.handleEdit}>Edit</Button>
         <br/>
+      {this.state.showWindow === true
+        ? <SponsorConfirmDelete confirmDelete={this.confirmDelete}/>
+        : null
+      }
+      {this.state.edit === false
+        ? null
+        : <SponsorEdit sponsor={this.state.currentSponsor} className="sponseeEdit" handleEdit={this.handleEdit}/>
+      }
+        <Form className="sort">
+          <Form.Field>
+              <label>
+                gender:
+                <input
+                name="genderSearch"
+                style={{marginLeft: 10 + "px"}}
+                type="text"
+                onChange={this.filterOnChange}
 
-      <Form className="sort">
+                value={this.state.genderSearch}
+              />
+              </label>
+        </Form.Field>
         <Form.Field>
-            <label>
-              gender:
-              <input
-              name="genderSearch"
-              style={{marginLeft: 10 + "px"}}
-              type="text"
-              onChange={this.filterOnChange}
-
-              value={this.state.genderSearch}
-            />
-            </label>
-      </Form.Field>
-      <Form.Field>
-            <label>
-              age:
-              <input
-              name="ageSearch"
-              style={{marginLeft: 10 + "px"}}
-              type="text"
-              onChange={this.filterOnChange}
-              value={this.state.ageSearch}
-            />
-            </label>
-      </Form.Field>
-    </Form>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+              <label>
+                age:
+                <input
+                name="ageSearch"
+                style={{marginLeft: 10 + "px"}}
+                type="text"
+                onChange={this.filterOnChange}
+                value={this.state.ageSearch}
+              />
+              </label>
+        </Form.Field>
+      </Form>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <div className="sponseeDiv">
         {sponseesData}
       </div>
@@ -124,9 +157,9 @@ const mapStateToProps = (state) => {
   return {
     sponsors: state.sponsorsReducer.sponsors,
     sponsees: state.sponseesReducer.sponsees,
-    currentSponsor: state.sponsorsReducer.sponsor,
+    currentSponsee: state.sponseesReducer.sponsee,
     currentPosition: state.currentReducer.currentPosition
   }
 }
 
-export default connect(mapStateToProps, {removeSponsorLogin, fetchSponseesRequest, deleteSponsorAccount})(SponsorLoggedIn)
+export default connect(mapStateToProps, {fetchSponseesRequest, fetchSponseesRequestResolved, removeSponsorLogin, deleteSponsorAccount})(SponsorLoggedIn)
