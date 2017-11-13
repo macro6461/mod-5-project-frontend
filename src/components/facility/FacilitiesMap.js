@@ -62,14 +62,15 @@ export default class FacilitiesMap extends React.Component {
     zoom: 12
   };
 
-  componentDidMount = () =>{
-  this.currentCoords()
+  componentWillMount = () =>{
+    navigator.geolocation.getCurrentPosition(this.currentCoords)
   }
 
-  currentCoords = () => {
-    console.log(this.props.current)
+  currentCoords = (position) => {
+    const latitude = position.coords.latitude
+    const longitude = position.coords.longitude
     this.setState({
-      center: {lat: this.props.current.lat, lng: this.props.current.lng},
+      center: {lat: latitude, lng: longitude},
       currentPosition: true
     })
   }
