@@ -8,6 +8,7 @@ import { removeSponseeLogin, deleteSponseeAccount } from '../../actions/sponseeA
 import { Button, Form } from 'semantic-ui-react'
 import SponseeConfirmDelete from './SponseeConfirmDelete'
 import SponseeEdit from './SponseeEdit'
+import SponsorModal from '../sponsor/SponsorModal'
 
 class SponseeLoggedIn extends Component {
 
@@ -21,7 +22,9 @@ class SponseeLoggedIn extends Component {
     confirmDelete: false,
     confirm: false,
     edit: false,
-    currentSponsee: ""
+    currentSponsee: "",
+    modal: false,
+    modalSponsor: ""
   }
 
 
@@ -58,7 +61,6 @@ class SponseeLoggedIn extends Component {
   confirmDelete = () => {
     var result = window.confirm("Are you sure you want to delete your account?");
     if (result) {
-      debugger
       this.deleteAccount()
     }
   }
@@ -70,11 +72,10 @@ class SponseeLoggedIn extends Component {
     let editSponsee = this.props.sponsees.find((sponsee)=>{
       return sponsee.username === currentSponsee
     })
-    console.log(editSponsee)
     this.setState({
       currentSponsee: editSponsee,
       edit: !this.state.edit
-    }, ()=>{ console.log(this.state.currentSponsee)})
+    })
   }
 
   deleteAccount = () => {
@@ -83,20 +84,31 @@ class SponseeLoggedIn extends Component {
       debugger
       return sponsee.username === currentSponsee
     })
-    console.log(deleteSponsee)
       this.props.deleteSponseeAccount(deleteSponsee)
   }
 
+  openModal = (data) => {
+    debugger
+    console.log(data)
+    this.setState({
+      modal: !this.state.modal,
+      modalSponsor: data
+    })
+  }
 
   render(){
     let sponsors = this.state.sponsors.length > 0 ? (this.state.sponsors) : (this.props.sponsors)
     const sponsorsData = sponsors.map((sponsor, index) => {
       return(
-        <SponsorCard key={index} sponsor={sponsor} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
+        <SponsorCard openModal={this.openModal} key={index} sponsor={sponsor} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
       )
     })
     return(
       <div>
+        {this.state.modal === true
+          ? <SponsorModal openModal={this.openModal} sponsor={this.state.modalSponsor}/>
+          : null
+        }
         <br/>
         <br/>
         <h3> Welcome Sponsee {localStorage.username}!</h3>

@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { Card } from 'semantic-ui-react'
 
+
 export default class SponsorCard extends Component{
+
+  state = {
+    modal: false
+  }
 
   haversineFunction = () => {
     var haversine = require('haversine')
@@ -37,13 +42,17 @@ export default class SponsorCard extends Component{
     }
   }
 
+  checkModal = (data) => {
+    this.props.openModal(data)
+  }
+
   render(){
     const email = "mailto:" + this.props.sponsor.email
     const distance = this.haversineFunction()
 
     return(
-      <div className="sponseeCard">
-        <h2>{this.props.sponsor.username}, {this.props.sponsor.age}, {this.props.sponsor.gender}</h2>
+      <div className="sponseeCard" onClick={()=>{this.checkModal(this.props.sponsor)}}>
+        <h2 className="sponseeCardHeader">{this.props.sponsor.username}, {this.props.sponsor.age}, {this.props.sponsor.gender}</h2>
           {this.checkBio()}
           {distance === NaN
         ? <h4>No Data</h4>

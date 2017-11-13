@@ -23,7 +23,7 @@ class App extends Component {
     let currentSponsor = this.props.sponsors.find((sponsor)=>{
       return sponsor.username === sponsor
     })
-    console.log(currentSponsor)
+
   }
 
   componentDidMount = () => {
@@ -89,7 +89,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.sponsorsReducer.sponsors)
   return {
     currentPerson: state.currentReducer.currentPerson,
     sponsees: state.sponseesReducer.sponsees,

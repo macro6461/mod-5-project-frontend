@@ -60,7 +60,6 @@ class SponsorLoggedIn extends Component {
   confirmDelete = () => {
     var result = window.confirm("Are you sure you want to delete your account?");
     if (result) {
-      debugger
       this.deleteAccount()
     }
   }
@@ -70,11 +69,10 @@ class SponsorLoggedIn extends Component {
     let editSponsor = this.props.sponsors.find((sponsor)=>{
       return sponsor.username === currentSponsor
     })
-    console.log(editSponsor)
     this.setState({
       currentSponsor: editSponsor,
       edit: !this.state.edit
-    }, ()=>{ console.log(this.state.currentSponsor)})
+    })
   }
 
   deleteAccount = () => {
@@ -83,11 +81,11 @@ class SponsorLoggedIn extends Component {
       debugger
       return sponsor.username === currentSponsor
     })
-    console.log(deleteSponsor)
       this.props.deleteSponsorAccount(deleteSponsor)
   }
 
   openModal = (data) => {
+
     console.log(data)
     this.setState({
       modal: !this.state.modal,
