@@ -54,7 +54,7 @@ export function renderSignUpError(data){
 
 
 export function renderAddSponsee(data){
-
+    debugger
     return {
       type: "RENDER_ADD_SPONSEE",
       payload: data

@@ -68,8 +68,10 @@ class SponseeLoggedIn extends Component {
 
 
   handleEdit = () => {
+    console.log(this.props.sponsees)
     let currentSponsee = localStorage.getItem('username')
     let editSponsee = this.props.sponsees.find((sponsee)=>{
+      debugger
       return sponsee.username === currentSponsee
     })
     this.setState({
@@ -89,20 +91,75 @@ class SponseeLoggedIn extends Component {
 
   openModal = (data) => {
     debugger
-    console.log(data)
     this.setState({
       modal: !this.state.modal,
       modalSponsor: data
     })
   }
 
-  render(){
-    let sponsors = this.state.sponsors.length > 0 ? (this.state.sponsors) : (this.props.sponsors)
-    const sponsorsData = sponsors.map((sponsor, index) => {
-      return(
-        <SponsorCard openModal={this.openModal} key={index} sponsor={sponsor} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
-      )
+  haversineFunction = (data) => {
+
+    var haversine = require('haversine')
+    let start = {
+      latitude: this.props.currentPosition.lat,
+      longitude: this.props.currentPosition.lng
+    }
+    let end = {
+      latitude: data.latitude,
+      longitude: data.longitude
+    }
+    const haversineCoords = (haversine(start, end, {unit: 'mile'}))
+    if (this.props.currentPosition.lat === "" || this.props.currentPosition.lng === ""){
+      return "Calculating..."
+    } else {
+      if (data.longitude === null || data.latitude === null){
+        return "No Data"
+      } else {
+        data.distance = haversineCoords
+        return parseFloat(haversineCoords).toFixed(0) + " miles away"
+      }
+    }
+  }
+
+  sortSponsors = (data) => {
+    let sortedSponsors = data.sort(function(a, b){
+      if (a === null || b === null){
+        null
+      } else {
+        debugger
+        return parseInt(a.distance.split(" ")[0]) - parseInt(b.distance.split(" ")[0])
+      }
     })
+
+    return (
+      sortedSponsors.map((sponsor, index) => {
+        if (sponsor === null){
+          null
+        } else {
+          return <SponsorCard key={index} openModal={this.openModal} distance={sponsor.distance} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng} sponsor={sponsor} sponsors={this.props.sponsors}/>
+        }
+      })
+    )
+  }
+
+  render(){
+    console.log(this.state.sponsors)
+    const finalSponsors = this.state.sponsors && this.state.sponsors.length > 0 ? (this.state.sponsors) : (this.props.sponsors)
+    const sponsorsData = finalSponsors.map((sponsor, index) => {
+      if (sponsor.latitude === null || sponsor.longitude === null){
+        return null
+      } else {
+        sponsor.distance = this.haversineFunction(sponsor)
+        return sponsor
+      }
+    })
+
+    const newSponsors = this.sortSponsors(sponsorsData)
+
+    //   return(
+    //     <SponsorCard openModal={this.openModal} key={index} sponsor={sponsor} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
+    //   )
+    // })
     return(
       <div>
         {this.state.modal === true
@@ -159,9 +216,10 @@ class SponseeLoggedIn extends Component {
       <br/>
       <br/>
       <div className="sponseeDiv">
-        {sponsorsData}
+        {newSponsors}
       </div>
-      </div>
+    </div>
+
     )
   }
 }

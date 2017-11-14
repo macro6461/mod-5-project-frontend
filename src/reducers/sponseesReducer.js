@@ -8,7 +8,7 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
     localStorage.setItem('jwt', action.payload.jwt)
     localStorage.setItem('role', action.payload.sponsee.role)
     localStorage.setItem('username', action.payload.sponsee.username)
-      return {sponsees: state.sponsees.concat(action.sponsee), sponsee: action.payload.sponsee.username, role: action.payload.sponsee.role}
+      return {sponsees: state.sponsees.concat(action.payload.sponsee), sponsee: action.payload.sponsee.username, role: action.payload.sponsee.role}
     case "LOGIN_SPONSEE":
       localStorage.setItem('jwt', action.payload.jwt)
       localStorage.setItem('role', action.payload.sponsee.role)

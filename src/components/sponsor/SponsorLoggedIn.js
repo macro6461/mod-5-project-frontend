@@ -3,7 +3,7 @@ import SponseeCard from '../sponsee/SponseeCard'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { fetchSponseesRequest, fetchSponseesRequestResolved } from '../../actions/sponseeActions'
-import { removeSponsorLogin, deleteSponsorAccount } from '../../actions/sponsorActions'
+import { removeSponsorLogin, deleteSponsorAccount, editSponsor } from '../../actions/sponsorActions'
 import { Button, Form } from 'semantic-ui-react'
 import SponsorConfirmDelete from './SponsorConfirmDelete'
 import SponsorEdit from './SponsorEdit'
@@ -174,4 +174,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {fetchSponseesRequest, fetchSponseesRequestResolved, removeSponsorLogin, deleteSponsorAccount})(SponsorLoggedIn)
+export default connect(mapStateToProps, {fetchSponseesRequest, fetchSponseesRequestResolved, removeSponsorLogin, deleteSponsorAccount, editSponsor})(SponsorLoggedIn)

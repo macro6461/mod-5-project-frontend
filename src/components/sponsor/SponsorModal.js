@@ -15,7 +15,7 @@ export default class SponsorModal extends Component{
       <div className="container">
       </div>
       <div className="sponseeModal">
-        <h2>{this.props.sponsor.username}, {this.props.sponsor.age}, {this.props.sponsor.gender}</h2>
+        <h2>{this.props.sponsor.username} | {this.props.sponsor.age} | {this.props.sponsor.gender}</h2>
       {this.props.sponsor.distance === undefined
         ? <h4>Distance: No Data</h4>
         : <h4>Distance: {Math.round(this.props.sponsor.distance)}</h4>

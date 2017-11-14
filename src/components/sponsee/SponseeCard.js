@@ -54,7 +54,7 @@ export default class SponseeCard extends Component{
 
     return(
       <div className="sponseeCard" onClick={()=>{this.checkModal(this.props.sponsee)}}>
-        <h2 className="sponseeCardHeader">{this.props.sponsee.username}, {this.props.sponsee.age}, {this.props.sponsee.gender}</h2>
+        <h2 className="sponseeCardHeader">{this.props.sponsee.username} | {this.props.sponsee.age} | {this.props.sponsee.gender}</h2>
       {this.checkBio()}
         {distance === NaN
           ? <h4>No Data</h4>

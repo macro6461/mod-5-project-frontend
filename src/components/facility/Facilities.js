@@ -92,7 +92,7 @@ class Facilities extends Component {
       if (a === null || b === null){
         null
       } else {
-        return a.distance.split(" ")[0] - b.distance.split(" ")[0]
+        return parseInt(a.distance.split(" ")[0]) - parseInt(b.distance.split(" ")[0])
       }
     })
 
@@ -105,20 +105,6 @@ class Facilities extends Component {
         }
       })
     )
-  }
-
-  handleSubmit = (event) => {
-    let facilities
-    event.preventDefault()
-    if (this.state.facilities.length > 0){
-      facilities = this.state.facilities
-    } else {
-      facilities = this.props.facilities
-    }
-    const sortedFacilities = facilities.sort(function(a, b){
-      return a.distance - b.distance
-    })
-    this.filterSorted(sortedFacilities)
   }
 
   render(){

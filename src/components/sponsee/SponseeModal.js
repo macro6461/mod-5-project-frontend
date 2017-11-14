@@ -15,7 +15,7 @@ export default class SponseeModal extends Component{
       <div className="container">
       </div>
       <div className="sponseeModal">
-        <h2>{this.props.sponsee.username}, {this.props.sponsee.age}, {this.props.sponsee.gender}</h2>
+        <h2>{this.props.sponsee.username} | {this.props.sponsee.age} | {this.props.sponsee.gender}</h2>
       {this.props.sponsee.distance === undefined
         ? <h4>Distance: No Data</h4>
         : <h4>Distance: {Math.round(this.props.sponsee.distance)}</h4>
