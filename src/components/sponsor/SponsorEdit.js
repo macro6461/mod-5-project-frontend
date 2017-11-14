@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { editSponsor } from '../../actions/sponsorActions'
 import { Button, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+// import { withRouter } from 'react-router-dom'
 
 class SponsorEdit extends Component{
 
@@ -33,15 +34,16 @@ class SponsorEdit extends Component{
 
   handleSubmit = (event) => {
     event.preventDefault()
-    let sponsor = {id: this.state.id, username: this.state.username, password: this.state.password, age: this.state.age, gender: this.state.gender, bio: this.state.bio, email: this.state.email, address: this.state.address}
+    let sponsor = {id: this.state.id, username: this.state.username, password: this.state.password, age: this.state.age, gender: this.state.gender, bio: this.state.bio, email: this.state.email, street: this.state.street, city: this.state.city, state: this.state.state, zip: this.state.zip}
     this.props.editSponsor(sponsor)
     this.props.handleEdit()
   }
 
   render(){
-    console.log(this.props.sponsor)
     return (
-      <div className="opaqueFormDiv">
+      <div>
+        <div className="container">
+        </div>
       <Form className="editForm" onSubmit={this.handleSubmit}>
         {this.props.error === ""
           ? null

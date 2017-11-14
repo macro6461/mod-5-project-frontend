@@ -94,8 +94,7 @@ class SponsorLogIn extends Component {
 </div>
 }
     { this.state.clicked === true
-      ? <div><h3 className="backH3">Bla</h3>
-      <Button onClick={this.clicked}>back</Button></div>
+      ? null
       : <div><h3> Don't have an account?</h3>
       <Button onClick={this.clicked}>Sign Up</Button>
       </div>

@@ -28,14 +28,23 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
       return {...state, error: action.payload.error}
     case "GET_CURRENT_SPONSOR_ROLE":
       return {...state, role: action.payload}
+    case "GET_CURRENT_SPONSOR":
+      var sponsor = state.sponsors.find((sponsor)=>{
+        return sponsor.username === action.payload
+      })
+        return {...state, role: action.payload}
     case "DELETE_SPONSOR_ACCOUNT":
       var index = state.sponsors.indexOf(action.payload)
       var stateSponsors = state.sponsors.splice(index, 1)
       localStorage.clear()
-    return {sponsors: state.sponsors, sponsor: "", role: "", error: ""}
-      case "SUBMIT_EDIT_SPONSOR":
+      return {sponsors: state.sponsors, sponsor: "", role: "", error: ""}
+    case "SUBMIT_EDIT_SPONSOR":
+    debugger
+      var oldSponsor = state.sponsors.find(sponsor => sponsor.id === action.payload.id)
+      var index = state.sponsors.indexOf(oldSponsor)
+      state.sponsors[index] = action.payload
       localStorage.setItem('username', action.payload.username)
-        return {...state, sponsors: [action.payload, ...state.sponsors], sponsor: action.payload.username}
+        return {...state, sponsors: state.sponsors, sponsor: action.payload.username}
   default:
     return state
   }

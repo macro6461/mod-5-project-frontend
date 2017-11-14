@@ -33,15 +33,18 @@ class SponseeEdit extends Component{
 
   handleSubmit = (event) => {
     event.preventDefault()
-    let sponsee = {id: this.state.id, username: this.state.username, password: this.state.password, age: this.state.age, gender: this.state.gender, bio: this.state.bio, email: this.state.email, address: this.state.address}
+    let sponsee = {id: this.state.id, username: this.state.username, password: this.state.password, age: this.state.age, gender: this.state.gender, bio: this.state.bio, email: this.state.email, street: this.state.street, city: this.state.city, state: this.state.state, zip: this.state.zip}
     this.props.editSponsee(sponsee)
     this.props.handleEdit()
   }
 
   render(){
+    debugger
     console.log(this.props.sponsee)
     return (
-      <div className="opaqueFormDiv">
+      <div>
+      <div className="container">
+      </div>
       <Form className="editForm" onSubmit={this.handleSubmit}>
         {this.props.error === ""
           ? null

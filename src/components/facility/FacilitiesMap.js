@@ -59,7 +59,7 @@ export default class FacilitiesMap extends React.Component {
 
   static defaultProps = {
     center: {lat: 40.73, lng: -73.93},
-    zoom: 12
+    zoom: 14
   };
 
   componentWillMount = () =>{

@@ -78,9 +78,12 @@ class SponseeSignUp extends Component {
   render(){
     const checkStyle = this.checkStyle()
     return(
+      <div>
+      <div className="container">
+      </div>
       <div className="signUp">
-        <h1>Sign Up</h1>
       <Form className="signUpForm" onSubmit={this.handleSubmit}>
+        <h1>Sign Up</h1>
         {this.props.error === ""
           ? null
           : <h3 className="pleaseTryAgain">Please try again.</h3>
@@ -103,6 +106,7 @@ class SponseeSignUp extends Component {
       <Form.Button className="save" type="submit">Save</Form.Button>
       <Form.Button className="backButton" onClick= {this.setClicked} type="submit">back</Form.Button>
      </Form>
+      </div>
       </div>
     )
   }

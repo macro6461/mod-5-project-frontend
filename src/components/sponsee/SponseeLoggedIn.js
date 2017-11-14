@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import SponsorCard from '../sponsor/SponsorCard'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { fetchSponsorsRequest } from '../../actions/sponsorActions'
-import { fetchSponsorsRequestResolved } from '../../actions/sponsorActions'
-import { removeSponseeLogin, deleteSponseeAccount } from '../../actions/sponseeActions'
+import { fetchSponsorsRequest, fetchSponsorsRequestResolved } from '../../actions/sponsorActions'
+import { removeSponseeLogin, deleteSponseeAccount, editSponsee, removeSponseeError } from '../../actions/sponseeActions'
 import { Button, Form } from 'semantic-ui-react'
 import SponseeConfirmDelete from './SponseeConfirmDelete'
 import SponseeEdit from './SponseeEdit'
@@ -65,15 +64,15 @@ class SponseeLoggedIn extends Component {
     }
   }
 
-
-
   handleEdit = () => {
-    console.log(this.props.sponsees)
+    debugger
+    this.props.removeSponseeError()
     let currentSponsee = localStorage.getItem('username')
     let editSponsee = this.props.sponsees.find((sponsee)=>{
       debugger
       return sponsee.username === currentSponsee
     })
+    debugger
     this.setState({
       currentSponsee: editSponsee,
       edit: !this.state.edit
@@ -121,6 +120,8 @@ class SponseeLoggedIn extends Component {
     }
   }
 
+
+
   sortSponsors = (data) => {
     let sortedSponsors = data.sort(function(a, b){
       if (a === null || b === null){
@@ -143,7 +144,6 @@ class SponseeLoggedIn extends Component {
   }
 
   render(){
-    console.log(this.state.sponsors)
     const finalSponsors = this.state.sponsors && this.state.sponsors.length > 0 ? (this.state.sponsors) : (this.props.sponsors)
     const sponsorsData = finalSponsors.map((sponsor, index) => {
       if (sponsor.latitude === null || sponsor.longitude === null){
@@ -155,11 +155,7 @@ class SponseeLoggedIn extends Component {
     })
 
     const newSponsors = this.sortSponsors(sponsorsData)
-
-    //   return(
-    //     <SponsorCard openModal={this.openModal} key={index} sponsor={sponsor} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
-    //   )
-    // })
+console.log(this.props.currentSponsee)
     return(
       <div>
         {this.state.modal === true
@@ -234,4 +230,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {fetchSponsorsRequest, fetchSponsorsRequestResolved, removeSponseeLogin, deleteSponseeAccount})(SponseeLoggedIn)
+export default connect(mapStateToProps, {fetchSponsorsRequest, fetchSponsorsRequestResolved, removeSponseeLogin, deleteSponseeAccount, editSponsee, removeSponseeError})(SponseeLoggedIn)

@@ -3,7 +3,7 @@ import SponseeCard from '../sponsee/SponseeCard'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { fetchSponseesRequest, fetchSponseesRequestResolved } from '../../actions/sponseeActions'
-import { removeSponsorLogin, deleteSponsorAccount, editSponsor } from '../../actions/sponsorActions'
+import { removeSponsorLogin, removeSponsorError, deleteSponsorAccount, editSponsor } from '../../actions/sponsorActions'
 import { Button, Form } from 'semantic-ui-react'
 import SponsorConfirmDelete from './SponsorConfirmDelete'
 import SponsorEdit from './SponsorEdit'
@@ -65,10 +65,14 @@ class SponsorLoggedIn extends Component {
   }
 
   handleEdit = () => {
+    debugger
+    this.props.removeSponsorError()
     let currentSponsor = localStorage.getItem('username')
     let editSponsor = this.props.sponsors.find((sponsor)=>{
+      debugger
       return sponsor.username === currentSponsor
     })
+    debugger
     this.setState({
       currentSponsor: editSponsor,
       edit: !this.state.edit
@@ -93,14 +97,65 @@ class SponsorLoggedIn extends Component {
     })
   }
 
+  haversineFunction = (data) => {
+
+    var haversine = require('haversine')
+    let start = {
+      latitude: this.props.currentPosition.lat,
+      longitude: this.props.currentPosition.lng
+    }
+    let end = {
+      latitude: data.latitude,
+      longitude: data.longitude
+    }
+    const haversineCoords = (haversine(start, end, {unit: 'mile'}))
+    if (this.props.currentPosition.lat === "" || this.props.currentPosition.lng === ""){
+      return "Calculating..."
+    } else {
+      if (data.longitude === null || data.latitude === null){
+        return "No Data"
+      } else {
+        data.distance = haversineCoords
+        return parseFloat(haversineCoords).toFixed(0) + " miles away"
+      }
+    }
+  }
+
+
+  sortSponsees = (data) => {
+    let sortedSponsees = data.sort(function(a, b){
+      if (a === null || b === null){
+        null
+      } else {
+        debugger
+        return parseInt(a.distance.split(" ")[0]) - parseInt(b.distance.split(" ")[0])
+      }
+    })
+
+    return (
+      sortedSponsees.map((sponsee, index) => {
+        if (sponsee === null){
+          null
+        } else {
+          return <SponseeCard key={index} openModal={this.openModal} distance={sponsee.distance} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng} sponsee={sponsee} sponsees={this.props.sponsees}/>
+        }
+      })
+    )
+  }
 
   render(){
-    let sponsees = this.state.sponsees.length > 0 ? (this.state.sponsees) : (this.props.sponsees)
-    const sponseesData = sponsees.map((sponsee, index) => {
-      return(
-        <SponseeCard openModal={this.openModal} key={index} sponsee={sponsee} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng}/>
-      )
+    const finalSponsees = this.state.sponsees && this.state.sponsees.length > 0 ? (this.state.sponsees) : (this.props.sponsees)
+    const sponseesData = finalSponsees.map((sponsee, index) => {
+      if (sponsee.latitude === null || sponsee.latitude === null){
+        return null
+      } else {
+        sponsee.distance = this.haversineFunction(sponsee)
+        return sponsee
+      }
     })
+
+    const newSponsees = this.sortSponsees(sponseesData)
+
     return(
       <div>
         {this.state.modal === true
@@ -109,7 +164,10 @@ class SponsorLoggedIn extends Component {
         }
         <br/>
         <br/>
-      <h3> Welcome Sponsor {localStorage.username}!</h3>
+      {this.props.currentSponsor === localStorage.getItem("username")
+        ? <h3> Welcome Sponsor {this.props.currentSponsor}!</h3>
+        : <h3> Welcome Sponsor {localStorage.username}!</h3>
+      }
         <p>You are now logged in.</p>
       <Link to="/"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
       <Button className="deleteButton" onClick={this.confirmDelete}>Delete Account</Button>
@@ -157,7 +215,7 @@ class SponsorLoggedIn extends Component {
       <br/>
       <br/>
       <div className="sponseeDiv">
-        {sponseesData}
+        {newSponsees}
       </div>
       </div>
     )
@@ -169,9 +227,9 @@ const mapStateToProps = (state) => {
   return {
     sponsors: state.sponsorsReducer.sponsors,
     sponsees: state.sponseesReducer.sponsees,
-    currentSponsee: state.sponseesReducer.sponsee,
+    currentSponsor: state.sponsorsReducer.sponsor,
     currentPosition: state.currentReducer.currentPosition
   }
 }
 
-export default connect(mapStateToProps, {fetchSponseesRequest, fetchSponseesRequestResolved, removeSponsorLogin, deleteSponsorAccount, editSponsor})(SponsorLoggedIn)
+export default connect(mapStateToProps, {fetchSponseesRequest, fetchSponseesRequestResolved, removeSponsorLogin, deleteSponsorAccount, editSponsor, removeSponsorError})(SponsorLoggedIn)
