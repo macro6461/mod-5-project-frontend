@@ -38,6 +38,20 @@ class SponseeEdit extends Component{
     this.props.handleEdit()
   }
 
+  checkBioCount = () => {
+    console.log(this.state.bio.split("").length)
+      this.checkStyle()
+      return 200 - (this.state.bio.split("").length)
+  }
+
+  checkStyle = () => {
+    if (this.state.bio.split("").length > 190){
+      return {color: 'red'}
+    } else {
+      return {color: 'black'}
+    }
+  }
+
   render(){
     debugger
     console.log(this.props.sponsee)
@@ -64,7 +78,7 @@ class SponseeEdit extends Component{
     <Form.Input className="mediumInput" label='Zip' name="zip" value={this.state.zip}  onChange={this.handleOnChange} maxLength="5" required/>
         </Form.Group>
         <Form.TextArea label='About' name="bio" value={this.state.bio} placeholder='Tell us more about you...' onCount={this.checkBioCount} onChange={this.handleOnChange} maxLength="200" required/>
-      <p>remaining characters:</p>
+      <p>remaining characters: {this.checkBioCount()} </p>
       <Form.Input label='Email' placeholder='email' name="email" value={this.state.email} onChange={this.handleOnChange} required/>
       <Form.Button className="save" type="submit">save</Form.Button>
       <Form.Button className="backButton" onClick= {this.setClicked} type="submit">back</Form.Button>

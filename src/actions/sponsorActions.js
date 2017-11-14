@@ -18,19 +18,25 @@ export function addSponsor(sponsor){
         zip: sponsor.zip
       })
     })
-    .then(res => res.json())
+    .then(res => {
+    if (res.ok){
+      return res.json()
+    } else {
+      throw res
+    }})
     .then(json => {
-      if (json.sponsor === undefined){
-        dispatch(renderSignUpError({error: "invalid signup"}))
-      } else{
         dispatch(renderAddSponsor(json))
       }
+    )
+    .catch(error => error.json())
+    .then(error => {
+      dispatch(renderSignUpError(error))
     })
+    }
   }
-}
 
 export function renderSignUpError(data){
-
+debugger
     return {
       type: "RENDER_ADD_SPONSOR_FAILED",
       payload: data
@@ -57,7 +63,7 @@ export function loginSponsor(sponsor){
     }).then(res => res.json())
       .then(json => {
         if (json.sponsor === undefined){
-          dispatch(sponsorLoginError({error: "invalid login"}))
+          dispatch(sponsorLoginError({error: json.message}))
         } else{
           dispatch({
             type: "LOGIN_SPONSOR",
@@ -69,6 +75,7 @@ export function loginSponsor(sponsor){
 }
 
 export function sponsorLoginError(data){
+  debugger
   return {
     type: "LOGIN_SPONSOR_FAILED",
     payload: data

@@ -87,9 +87,9 @@ class SponsorSignUp extends Component {
         <div className="signUp">
         <Form className="signUpForm" onSubmit={this.handleSubmit}>
           <h1>Sign Up</h1>
-          {this.props.error === ""
-            ? null
-            : <h3 className="pleaseTryAgain">Please try again.</h3>
+          {this.props.error
+            ? <h3 className="pleaseTryAgain">{this.props.error}</h3>
+            : null
           }
           <Form.Group widths='equal'>
             <Form.Input className="mediumInput" label='Username' placeholder='Username' name="username" value={this.state.username} onChange={this.handleOnChange} required/>
@@ -103,6 +103,7 @@ class SponsorSignUp extends Component {
         <Form.Input className="shorterInput" label='State' name="state" value={this.state.state}  onChange={this.handleOnChange} maxLength="2" required/>
       <Form.Input className="mediumInput" label='Zip' name="zip" value={this.state.zip}  onChange={this.handleOnChange} maxLength="5" required/>
           </Form.Group>
+          <p>*address will not be public</p>
           <Form.TextArea label='About' name="bio" value={this.state.bio} placeholder='Tell us more about you...' onCount={this.checkBioCount} onChange={this.handleOnChange} maxLength="200" required/>
         <p style={checkStyle} onChange={this.checkStyle}>remaining characters: {this.checkBioCount()}</p>
         <Form.Input label='Email' placeholder='email' name="email" value={this.state.email} onChange={this.handleOnChange} required/>
@@ -110,6 +111,7 @@ class SponsorSignUp extends Component {
       <Form.Button className="backButton" onClick= {this.setClicked} type="submit">back</Form.Button>
        </Form>
         </div>
+
       </div>
     )
   }

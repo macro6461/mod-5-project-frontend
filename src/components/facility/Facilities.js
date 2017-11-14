@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import FacilityCard from './FacilityCard'
 import { connect } from 'react-redux';
-import { fetchFacilitiesRequest } from '../../actions/facilityActions'
-import { fetchFacilitiesRequestResolved } from '../../actions/facilityActions'
+import { fetchFacilitiesRequest, fetchFacilitiesRequestResolved, setFacilityMapPosition, removeFacilityMapPosition, setFacilityMapZoom, removeFacilityMapZoom } from '../../actions/facilityActions'
 import GoogleMapReact from 'google-map-react';
 import { Form } from 'semantic-ui-react'
 import FacilitiesMap from './FacilitiesMap'
@@ -23,6 +22,11 @@ class Facilities extends Component {
   showPosition = (position) => {
     let geoPosition = {latitude: position.coords.latitude, longitude: position.coords.longitude}
     this.setGeoState(geoPosition)
+  }
+
+  componentDidMount = () =>{
+    this.props.removeFacilityMapPosition()
+    this.props.removeFacilityMapZoom()
   }
 
   setGeoState = (data) => {
@@ -56,7 +60,7 @@ class Facilities extends Component {
     let insuranceFacilities;
     let facilitiesData = facilities.length > 0 ? facilities : this.props.fetchedFacilities
     insuranceFacilities = facilitiesData.filter((facility) => {
-      return facility.insurance.split(", ").includes(insuranceSearch)
+      return facility.insurance.toLowerCase() === insuranceSearch.toLowerCase()
     })
     this.setState({
       facilities: insuranceFacilities.length > 0 ? insuranceFacilities : facilities
@@ -101,10 +105,16 @@ class Facilities extends Component {
         if (facility === null){
           null
         } else {
-          return <FacilityCard distance={facility.distance} hover={this.state.hover} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng} key={index} facility={facility} facilities={this.props.facilities}/>
+          return <FacilityCard distance={facility.distance} cardClick={this.cardClick} hover={this.state.hover} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng} key={index} facility={facility} facilities={this.props.facilities}/>
         }
       })
     )
+  }
+
+  cardClick = (data) => {
+    debugger
+    this.props.setFacilityMapPosition({lat: data.facility.latitude, lng: data.facility.longitude})
+    this.props.setFacilityMapZoom(data.zoom)
   }
 
   render(){
@@ -156,7 +166,7 @@ class Facilities extends Component {
     />
     </label>
     </Form.Field>
-</Form>
+  </Form>
         <br/>
         <br/>
         <br/>
@@ -191,8 +201,10 @@ const mapStateToProps = (state) => {
 
   return {
     currentPosition: state.currentReducer.currentPosition,
+    currentFacilityPosition: state.facilitiesReducer.currentFacilityPosition,
+    currentFacilityZoom: state.facilitiesReducer.currentFacilityZoom,
     fetchedFacilities: state.facilitiesReducer.facilities
   }
 }
 
-export default connect(mapStateToProps, {fetchFacilitiesRequest, fetchFacilitiesRequestResolved})(Facilities)
+export default connect(mapStateToProps, {fetchFacilitiesRequest, fetchFacilitiesRequestResolved, setFacilityMapPosition, removeFacilityMapPosition, setFacilityMapZoom, removeFacilityMapZoom})(Facilities)

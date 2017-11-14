@@ -69,10 +69,11 @@ class SponsorLogIn extends Component {
 : <div>
 <h3> Please Login </h3>
       <Form onSubmit={this.handleSubmit}>
-        {this.props.error === ""
-          ? null
-          : <h3 className="notFound">Sponsor Not Found.</h3>
+        {this.props.error
+          ?  <h3 className="notFound">{this.props.error}</h3>
+          : null
         }
+        
   <Form.Field>
     <label>Username</label>
   <input placeholder='Username' name="username" type="text" value={this.state.username} onChange={this.handleOnChange} required/>

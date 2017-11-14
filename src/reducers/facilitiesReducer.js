@@ -1,13 +1,20 @@
-export default function facilitiesReducer(state={facilities: [], currentPosition: ""}, action){
+export default function facilitiesReducer(state={facilities: [], currentFacilityPosition: "", currentFacilityZoom: ""}, action){
   switch(action.type){
     case "FETCH_FACILITIES":
       return {...state, facilities: action.payload}
     case "RENDER_FACILITIES":
-    
         return {...state, facilities: action.payload}
-    case "CURRENT_POSITION":
-      return{...state, currentPosition: action.payload }
-  default:
-        return state
+    case "SET_FACILITY_MAP_POSITION":
+    debugger
+      return{...state, currentFacilityPosition: action.payload }
+    case "REMOVE_FACILITY_MAP_POSITION":
+      return{...state, currentFacilityPosition: ""}
+    case "SET_FACILITY_MAP_ZOOM":
+    debugger
+      return{...state, currentFacilityZoom: action.payload }
+    case "REMOVE_FACILITY_MAP_ZOOM":
+      return{...state, currentFacilityZoom: ""}
+    default:
+      return state
   }
 }

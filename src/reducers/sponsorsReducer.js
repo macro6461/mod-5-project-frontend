@@ -1,4 +1,4 @@
-export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: "", error: ""}, action){
+export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: "", error: null}, action){
   switch(action.type){
     case "FETCH_SPONSORS":
       return {...state, sponsors: action.payload}
@@ -16,15 +16,17 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
     localStorage.setItem('role', action.payload.role)
     localStorage.setItem('username', action.payload.sponsor)
       //not changing the state necesarilly
-      return {...state, sponsor: action.payload.sponsor, role: action.payload.role}
+      return {...state, sponsor: action.payload.sponsor, role: action.payload.role, error: null}
     case "REMOVE_SPONSOR_LOGIN":
     localStorage.clear()
       return {...state, sponsor: action.payload, role: action.payload, error: action.payload}
     case "RENDER_ADD_SPONSOR_FAILED":
+    debugger
       return {...state, error: action.payload.error}
     case "REMOVE_SPONSOR_ERROR":
       return {...state, error: action.payload}
     case "LOGIN_SPONSOR_FAILED":
+    debugger
       return {...state, error: action.payload.error}
     case "GET_CURRENT_SPONSOR_ROLE":
       return {...state, role: action.payload}

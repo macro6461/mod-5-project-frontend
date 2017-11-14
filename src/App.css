@@ -79,9 +79,7 @@ h1 {
   float: right !important;
 }
 
-.save{
-  float: left !important;
-}
+
 
 .sponsorP{
   font-size: 20px !important;
@@ -140,11 +138,6 @@ h1 {
   z-index: 1000 !important;
 }
 
-.opaqueFormDiv{
-  width: 100% !important;
-  height: 100% !important;
-  background-color: black;
-}
 
 .editForm{
   background-color: AliceBlue;
@@ -200,11 +193,10 @@ h3 {
 
 .facilityCard {
   margin-top: 2%;
-  margin-bottom: 2%;
   height: 20%;
-  padding: 1% !important;
+  padding: 4% !important;
   border: solid 2px black;
-  width: 20% !important;
+  width: 100% !important;
 }
 
 .facilities {
@@ -239,6 +231,7 @@ form {
   margin-left: 40%;
   padding: 4%;
   width: 20%;
+  height: auto;
 }
 
 
@@ -311,7 +304,7 @@ form {
   /*padding-top: 6% !important;*/
   padding: 4% !important;
   width: 50% !important;
-  height: 100% !important;
+  height: 650px !important;
 }
 
 .link {

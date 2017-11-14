@@ -3,8 +3,9 @@ import Facilities from './Facilities'
 import GoogleMapReact from 'google-map-react';
 import FacilityCard from './FacilityCard'
 import FacilityPin from './FacilityPin'
-import { Icon } from 'semantic-ui-react'
-
+import { Icon, Popup, Button } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import { removeFacilityMapZoom, removeFacilityMapPosition } from '../../actions/facilityActions'
 
 
 const boxStyle = {
@@ -25,20 +26,21 @@ const iconStyle = {
 
 
 const InfoBox = (props) => {
-  return(<div onClick={this.setPinAsCenter}><p style={boxStyle} className="infoBoxP">{props.facility}</p></div>)
+  console.log(props)
+  return (<Popup trigger={<Icon className="building icon" size='huge' />} content={props.facility} position='top center' style={{backgroundColor: 'AliceBlue', border: 'solid 1px light', textAlign: 'center'}}/>)
+
 }
 
 const CurrentPin = ({text}) => {
   return(
     <div>
-      <Icon name="user circle outline" color='blue' size='big' style={iconStyle}/>
+      <Icon name="user circle outline" color='blue' size='huge' style={iconStyle}/>
       {text}
   </div>
   )
 }
 
-export default class FacilitiesMap extends React.Component {
-
+class FacilitiesMap extends React.Component {
 
   state = {
     facilityName: "",
@@ -77,6 +79,7 @@ export default class FacilitiesMap extends React.Component {
 
 
   onChildMouseEnter = (num, childProps) => {
+    console.log("hovered")
     if (childProps.facility === undefined){
       return null
     } else {
@@ -90,6 +93,7 @@ export default class FacilitiesMap extends React.Component {
   }
 
   onChildMouseLeave = (num, childProps) => {
+    console.log("leaving")
     if (childProps.facility === undefined){
       return null
     } else {
@@ -105,12 +109,24 @@ export default class FacilitiesMap extends React.Component {
     console.log("clicked")
   }
 
+  removeCenterAndZoom = () => {
+    this.props.removeFacilityMapZoom()
+    this.props.removeFacilityMapPosition()
+  }
+
   render() {
+
+    const setCenter = this.props.currentFacilityPosition === "" || this.props.currentFacilityPosition === undefined ? (this.state.center) : (this.props.currentFacilityPosition)
+
+    const setZoom = this.props.currentFacilityZoom === "" || this.props.currentFacilityZoom === undefined ? (this.props.zoom) : (this.props.currentFacilityZoom)
+
+    const infoBox = this.state.hover === true ? <InfoBox onClick={()=>this.setPinAsCenter({lat: this.state.lat, lng: this.state.lng})} lat={this.state.lat} lng={this.state.lng} facility={this.state.facilityName}/> : null
+
     const facilityPins = this.props.facilities.map((facility, index) => {
       if (facility.latitude === null || facility.longitude === null){
         return null
       } else{
-        return <FacilityPin onClick={()=>this.setPinAsCenter(facility)} key={index} onChildMouseEnter={this.onChildMouseEnter} onChildMouseLeave={this.onChildMouseLeave} handlePinClick={this.handleOnClick} facility={facility} hover={this.state.hover} lat={facility.latitude} lng={facility.longitude}/>
+        return <FacilityPin key={index} onChildMouseEnter={this.onChildMouseEnter} onChildMouseLeave={this.onChildMouseLeave} handlePinClick={this.handleOnClick} facility={facility} hover={this.state.hover} lat={facility.latitude} lng={facility.longitude}/>
       }
     })
     return (
@@ -120,8 +136,9 @@ export default class FacilitiesMap extends React.Component {
            language: 'en',
          }}
         defaultCenter={this.props.center}
-        center={this.state.center}
+        center={setCenter}
         defaultZoom={this.props.zoom}
+        zoom={setZoom}
         onChildMouseEnter={this.onChildMouseEnter}
         onChildMouseLeave={this.onChildMouseLeave}
         >
@@ -131,11 +148,21 @@ export default class FacilitiesMap extends React.Component {
               lng={this.props.current.lng}
               text={'You'}
               />
-          {this.state.hover === true
-            ? <InfoBox onClick={()=>this.setPinAsCenter({lat: this.state.lat, lng: this.state.lng})} lat={this.state.lat} lng={this.state.lng} facility={this.state.facilityName}/>
-            : null
-          }
+            {infoBox}
+            {this.props.currentFacilityPosition === "" && this.props.currentFacilityZoom === ""
+              ? null
+              : <Button onClick={this.removeCenterAndZoom} style={{float: 'left', backgroundColor: 'lightblue', margin: '5px', border: 'solid 1px black', fontSize: '15px', fontColor: 'white', boxShadow: '3px 3px 1px #888888'}}>re-center</Button>
+            }
       </GoogleMapReact>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currentFacilityPosition: state.facilitiesReducer.currentFacilityPosition,
+    currentFacilityZoom: state.facilitiesReducer.currentFacilityZoom
+  }
+}
+
+export default connect(mapStateToProps, { removeFacilityMapZoom, removeFacilityMapPosition })(FacilitiesMap)
