@@ -1,5 +1,5 @@
 export function addSponsee(sponsee){
-
+  debugger
   return (dispatch) => {
     fetch('http://localhost:3000/sponsees', {
       headers: {"Content-Type": "application/json",
@@ -18,14 +18,41 @@ export function addSponsee(sponsee){
         zip: sponsee.zip
       })
     })
-    .then(res => res.json())
+    .then(res => {
+    if (res.ok){
+      return res.json()
+    } else {
+      throw res
+    }})
     .then(json => {
-      if (json.sponsee === undefined){
-        dispatch(renderSignUpError({error: "invalid signup"}))
-      } else{
         dispatch(renderAddSponsee(json))
       }
+    )
+    .catch(error => error.json())
+    .then(error => {
+      dispatch(renderSignUpError(error))
     })
+    }
+  }
+
+  export function renderSignUpError(data){
+    if (data === undefined){
+      return {
+        type: "default"
+      }
+    } else {
+      return {
+        type: "RENDER_ADD_SPONSEE_FAILED",
+        payload: data
+      }
+    }
+  }
+
+export function renderAddSponsee(data){
+  debugger
+  return {
+    type: "RENDER_ADD_SPONSEE",
+    payload: data
   }
 }
 
@@ -43,23 +70,6 @@ export function getCurrentSponseeRole(data){
   }
 }
 
-export function renderSignUpError(data){
-
-    return {
-      type: "RENDER_ADD_SPONSEE_FAILED",
-      payload: data
-    }
-}
-
-
-
-export function renderAddSponsee(data){
-    debugger
-    return {
-      type: "RENDER_ADD_SPONSEE",
-      payload: data
-    }
-}
 
 export function loginSponsee(sponsee){
 
@@ -157,8 +167,20 @@ export function editSponsee(data){
           zip: data.zip
         })
       })
-    .then(res => res.json())
-    .then(json => dispatch(submitEditSponsee(json)))
+      .then(res => {
+      if (res.ok){
+        return res.json()
+      } else {
+        throw res
+      }})
+      .then(json => {
+          dispatch(submitEditSponsee(json))
+        }
+      )
+      .catch(error => error.json())
+      .then(error => {
+        dispatch(editSponseeFailed(error))
+      })
   }
 }
 
@@ -166,6 +188,28 @@ export function submitEditSponsee(data){
   debugger
   return{
     type: "SUBMIT_EDIT_SPONSEE",
+    payload: data
+  }
+}
+
+export function editSponseeFailed(data){
+  debugger
+  if (data === undefined){
+    return {
+      type: "default"
+    }
+  } else {
+    return{
+      type: "EDIT_SPONSEE_FAILED",
+      payload: data
+    }
+  }
+}
+
+export function isSponseeEdited(data){
+  debugger
+  return {
+    type: "IS_SPONSEE_EDITED",
     payload: data
   }
 }

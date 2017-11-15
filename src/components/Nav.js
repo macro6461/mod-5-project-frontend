@@ -8,6 +8,7 @@ import { removeSponseeError, getCurrentSponseeRole } from '../actions/sponseeAct
 import Home from './Home'
 import { connect } from 'react-redux'
 import {browserLocation} from 'browser-location'
+import NextStepLogo from '../TheNextStepLogo3.png'
 
 let localRole = ""
 
@@ -82,9 +83,10 @@ checkLoggedIn = () => {
       }
     }
     return(
-      <div>
+      <div className="navBar">
+      <div className="navDiv">
+        <img className="navLogo" src={NextStepLogo}/>
         {sponsorOrSponseeOrUndefined()}
-        <div className="navDiv">
       <Link className="link" to="/facilities" onClick={this.removeErrors}>Facilities</Link>
       <Link className="link" to="/" onClick={this.removeErrors}>Home</Link>
       </div>

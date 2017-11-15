@@ -12,7 +12,7 @@ export default class FacilityCard extends Component{
   render(){
     const insurances = this.props.facility.insurance.split(", ")
     return(
-      <div onClick={this.handleOnClick} style={{width: '300px', marginBottom: '20px'}}>
+      <div onClick={this.handleOnClick} style={{width: '20%', marginBottom: '20px'}}>
       <Card className="facilityCard">
         <h2>{this.props.facility.name}</h2>
       <h3>{this.props.facility.address}</h3>
@@ -23,7 +23,7 @@ export default class FacilityCard extends Component{
       }
       <a className="moreInfo" href={this.props.facility.url}>More Info</a>
       <br/>
-  </Card>
+      </Card>
   </div>
     )
   }

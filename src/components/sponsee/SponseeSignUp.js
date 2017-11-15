@@ -86,7 +86,7 @@ class SponseeSignUp extends Component {
         <h1>Sign Up</h1>
         {this.props.error === ""
           ? null
-          : <h3 className="pleaseTryAgain">Please try again.</h3>
+          : <h3 className="pleaseTryAgain">{this.props.error}</h3>
         }
         <Form.Group widths='equal'>
           <Form.Input className="mediumInput" label='Username' placeholder='Username' name="username" value={this.state.username} onChange={this.handleOnChange} required/>

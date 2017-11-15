@@ -3,7 +3,7 @@ import SponsorCard from '../sponsor/SponsorCard'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { fetchSponsorsRequest, fetchSponsorsRequestResolved } from '../../actions/sponsorActions'
-import { removeSponseeLogin, deleteSponseeAccount, editSponsee, removeSponseeError } from '../../actions/sponseeActions'
+import { removeSponseeLogin, deleteSponseeAccount, removeSponseeError, isSponseeEdited } from '../../actions/sponseeActions'
 import { Button, Form } from 'semantic-ui-react'
 import SponseeConfirmDelete from './SponseeConfirmDelete'
 import SponseeEdit from './SponseeEdit'
@@ -64,6 +64,12 @@ class SponseeLoggedIn extends Component {
     }
   }
 
+  handleNoEdit = () => {
+    this.setState({
+      edit: false
+    }, () => {this.changeEditSponseeState(this.state.edit)})
+  }
+
   handleEdit = () => {
     debugger
     this.props.removeSponseeError()
@@ -72,11 +78,15 @@ class SponseeLoggedIn extends Component {
       debugger
       return sponsee.username === currentSponsee
     })
-    debugger
     this.setState({
       currentSponsee: editSponsee,
-      edit: !this.state.edit
-    })
+      edit: true
+    }, ()=>{this.changeEditSponseeState()})
+  }
+
+  changeEditSponseeState = () => {
+    debugger
+    this.props.isSponseeEdited(this.state.edit)
   }
 
   deleteAccount = () => {
@@ -174,9 +184,9 @@ console.log(this.props.currentSponsee)
         ? <SponseeConfirmDelete confirmDelete={this.confirmDelete}/>
         : null
       }
-      {this.state.edit === false
+      {this.props.sponseeEditTrueFalse === false
         ? null
-        : <SponseeEdit sponsee={this.state.currentSponsee} className="sponseeEdit" handleEdit={this.handleEdit}/>
+        : <SponseeEdit sponsee={this.state.currentSponsee} className="sponseeEdit" handleEdit={this.handleEdit} handleNoEdit={this.handleNoEdit}/>
       }
         <Form className="sort">
           <Form.Field>
@@ -226,8 +236,9 @@ const mapStateToProps = (state) => {
     sponsors: state.sponsorsReducer.sponsors,
     sponsees: state.sponseesReducer.sponsees,
     currentSponsee: state.sponseesReducer.sponsee,
+    sponseeEditTrueFalse: state.sponseesReducer.isSponseeEdited,
     currentPosition: state.currentReducer.currentPosition
   }
 }
 
-export default connect(mapStateToProps, {fetchSponsorsRequest, fetchSponsorsRequestResolved, removeSponseeLogin, deleteSponseeAccount, editSponsee, removeSponseeError})(SponseeLoggedIn)
+export default connect(mapStateToProps, {fetchSponsorsRequest, fetchSponsorsRequestResolved, removeSponseeLogin, deleteSponseeAccount, isSponseeEdited, removeSponseeError})(SponseeLoggedIn)

@@ -27,7 +27,7 @@ const iconStyle = {
 
 const InfoBox = (props) => {
   console.log(props)
-  return (<Popup trigger={<Icon className="building icon" size='huge' />} content={props.facility} position='top center' style={{backgroundColor: 'AliceBlue', border: 'solid 1px light', textAlign: 'center'}}/>)
+  return (<Popup trigger={<Icon className="building icon" size='huge' style={{transform: 'matrix(-1, 0, -0.10, 1, 10, 0)'}}/>} content={props.facility} position='top center' style={{backgroundColor: 'AliceBlue', border: 'solid 1px light', textAlign: 'center'}}/>)
 
 }
 
@@ -126,7 +126,7 @@ class FacilitiesMap extends React.Component {
       if (facility.latitude === null || facility.longitude === null){
         return null
       } else{
-        return <FacilityPin key={index} onChildMouseEnter={this.onChildMouseEnter} onChildMouseLeave={this.onChildMouseLeave} handlePinClick={this.handleOnClick} facility={facility} hover={this.state.hover} lat={facility.latitude} lng={facility.longitude}/>
+        return <FacilityPin style={{width: '50px', height: '50px'}} key={index} onChildMouseEnter={this.onChildMouseEnter} onChildMouseLeave={this.onChildMouseLeave} handlePinClick={this.handleOnClick} facility={facility} hover={this.state.hover} lat={facility.latitude} lng={facility.longitude}/>
       }
     })
     return (
@@ -151,7 +151,7 @@ class FacilitiesMap extends React.Component {
             {infoBox}
             {this.props.currentFacilityPosition === "" && this.props.currentFacilityZoom === ""
               ? null
-              : <Button onClick={this.removeCenterAndZoom} style={{float: 'left', backgroundColor: 'lightblue', margin: '5px', border: 'solid 1px black', fontSize: '15px', fontColor: 'white', boxShadow: '3px 3px 1px #888888'}}>re-center</Button>
+              : <Button onClick={this.removeCenterAndZoom} style={{float: 'left', backgroundColor: 'AliceBlue', margin: '5px', border: 'solid 1px black', fontSize: '15px', boxShadow: '3px 3px 1px #888888'}}>re-center</Button>
             }
       </GoogleMapReact>
     );

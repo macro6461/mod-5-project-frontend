@@ -8,6 +8,7 @@ import { fetchSponsorsRequest } from './actions/sponsorActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Icon } from 'semantic-ui-react'
+import NextStepLogo from './TheNextStepLogo3.png'
 
 
 class App extends Component {
@@ -66,6 +67,18 @@ class App extends Component {
     })
   }
 
+  // testScroll = () => {
+  //   window.onscroll = function(){
+  //     // if(window.scrollTop === window.scrollHeight - window.clientHeight){
+  //     //   alert('User scrolled to bottom')
+  //     // } else{
+  //     //   console.log()
+  //     console.log(window.scroll())
+  //       // console.log("not yet")
+  //     }
+  //   }
+
+
   render() {
     const pStyle = {
       fontSize: '10px',
@@ -73,7 +86,8 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <h1 className="nextStepHeader">The Next Step</h1>
+
+
       <Nav remove={this.removeLocalStorage} submit={this.retrieveSubmitData}/>
       <br/>
     <br/>

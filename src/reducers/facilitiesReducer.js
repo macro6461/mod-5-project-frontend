@@ -3,7 +3,10 @@ export default function facilitiesReducer(state={facilities: [], currentFacility
     case "FETCH_FACILITIES":
       return {...state, facilities: action.payload}
     case "RENDER_FACILITIES":
-        return {...state, facilities: action.payload}
+      var filteredFacilities = action.payload.filter((facility) => {
+        return facility.latitude !== null && facility.longitude !== null 
+      })
+        return {...state, facilities: filteredFacilities}
     case "SET_FACILITY_MAP_POSITION":
     debugger
       return{...state, currentFacilityPosition: action.payload }

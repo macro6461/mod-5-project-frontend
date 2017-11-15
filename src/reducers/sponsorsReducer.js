@@ -1,15 +1,18 @@
-export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: "", error: null}, action){
+export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: "", error: null, isSponsorEdited: false}, action){
   switch(action.type){
     case "FETCH_SPONSORS":
       return {...state, sponsors: action.payload}
     case "RENDER_SPONSORS":
-      return {...state, sponsors: action.payload}
+    let filteredSponsors = action.payload.filter((sponsor) => {
+      return sponsor.latitude !== null && sponsor.longitude !== null
+    })
+      return {...state, sponsors: filteredSponsors}
     case "RENDER_ADD_SPONSOR":
     localStorage.setItem('jwt', action.payload.jwt)
     localStorage.setItem('role', action.payload.sponsor.role)
     localStorage.setItem('username', action.payload.sponsor.username)
     debugger
-      return {sponsors: state.sponsors.concat(action.payload.sponsor), sponsor: action.payload.sponsor.username, role: action.payload.sponsor.role}
+      return {sponsors: state.sponsors.concat(action.payload.sponsor), sponsor: action.payload.sponsor.username, role: action.payload.sponsor.role, error: null, isSponsorEdited: false}
     case "LOGIN_SPONSOR":
     debugger
     localStorage.setItem('jwt', action.payload.jwt)
@@ -39,14 +42,20 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
       var index = state.sponsors.indexOf(action.payload)
       var stateSponsors = state.sponsors.splice(index, 1)
       localStorage.clear()
-      return {sponsors: state.sponsors, sponsor: "", role: "", error: ""}
+      return {sponsors: state.sponsors, sponsor: "", role: "", error: "", error: null, isSponsorEdited: false}
     case "SUBMIT_EDIT_SPONSOR":
     debugger
       var oldSponsor = state.sponsors.find(sponsor => sponsor.id === action.payload.id)
       var index = state.sponsors.indexOf(oldSponsor)
       state.sponsors[index] = action.payload
       localStorage.setItem('username', action.payload.username)
-        return {...state, sponsors: state.sponsors, sponsor: action.payload.username}
+        return {...state, sponsors: state.sponsors, sponsor: action.payload.username, error: null, isSponsorEdited: false}
+    case "EDIT_SPONSOR_FAILED":
+      debugger
+      return {...state, error: action.payload.error, isSponsorEdited: true}
+    case "IS_SPONSOR_EDITED":
+    debugger
+      return {...state, isSponsorEdited: action.payload}
   default:
     return state
   }

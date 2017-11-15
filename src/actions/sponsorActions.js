@@ -36,11 +36,16 @@ export function addSponsor(sponsor){
   }
 
 export function renderSignUpError(data){
-debugger
+  if (data === undefined){
+    return {
+      type: "default"
+    }
+  } else {
     return {
       type: "RENDER_ADD_SPONSOR_FAILED",
       payload: data
     }
+  }
 }
 
 export function renderAddSponsor(data){
@@ -173,8 +178,20 @@ export function editSponsor(data){
           zip: data.zip
         })
       })
-    .then(res => res.json())
-    .then(json => dispatch(submitEditSponsor(json)))
+      .then(res => {
+      if (res.ok){
+        return res.json()
+      } else {
+        throw res
+      }})
+      .then(json => {
+          dispatch(submitEditSponsor(json))
+        }
+      )
+      .catch(error => error.json())
+      .then(error => {
+        dispatch(editSponsorFailed(error))
+      })
   }
 }
 
@@ -182,6 +199,28 @@ export function submitEditSponsor(data){
   debugger
   return{
     type: "SUBMIT_EDIT_SPONSOR",
+    payload: data
+  }
+}
+
+export function editSponsorFailed(data){
+  debugger
+  if (data === undefined){
+    return {
+      type: "default"
+    }
+  } else {
+    return{
+      type: "EDIT_SPONSOR_FAILED",
+      payload: data
+    }
+  }
+}
+
+export function isSponsorEdited(data){
+  debugger
+  return {
+    type: "IS_SPONSOR_EDITED",
     payload: data
   }
 }

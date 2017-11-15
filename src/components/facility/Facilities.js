@@ -5,6 +5,7 @@ import { fetchFacilitiesRequest, fetchFacilitiesRequestResolved, setFacilityMapP
 import GoogleMapReact from 'google-map-react';
 import { Form } from 'semantic-ui-react'
 import FacilitiesMap from './FacilitiesMap'
+var ExecutionEnvironment = require('exenv');
 
 class Facilities extends Component {
 
@@ -25,9 +26,30 @@ class Facilities extends Component {
   }
 
   componentDidMount = () =>{
+    this.setState({
+      facilities: this.props.fetchedFacilities
+    })
     this.props.removeFacilityMapPosition()
     this.props.removeFacilityMapZoom()
+    // this.testScroll()
+    if (ExecutionEnvironment.canUseDOM) {
+      document.documentElement.addEventListener('scroll', this.handleScroll);
+    }
   }
+
+  // testScroll = () => {
+  //   if (this.refs.facilitiesRef === undefined) {
+  //     return null
+  //   } else{
+  //     let scrollHeight = this.refs.facilitiesRef.scrollHeight
+  //     let clientHeight = this.refs.facilitiesRef.clientHieght
+  //     window.onscroll = function(){
+  //       // console.log(window.)
+  //     }
+  //   }
+  //
+  //
+  // }
 
   setGeoState = (data) => {
     this.setState({
@@ -117,22 +139,47 @@ class Facilities extends Component {
     this.props.setFacilityMapZoom(data.zoom)
   }
 
+  // handleScroll = () => {
+  //   console.log("triggered")
+  //   console.log(window.scrollHeight)
+  //   // window.onscroll = function(){
+  //   //   // if(window.scrollTop === window.scrollHeight - window.clientHeight){
+  //   //   //   alert('User scrolled to bottom')
+  //   //   // } else{
+  //   //   //   console.log()
+  //   //   console.log()
+  //   //     // console.log("not yet")
+  //   //   }
+  //   }
+
+  // handleScroll = () => {
+  //   if (this.refs.facilitiesRef === undefined){
+  //     return null
+  //   } else {
+  //     this.refs.facilitiesRef.getDOMNode().style.top = document.documentElement.scrollTop + 'px';
+  //   }
+  // }
+
   render(){
+
     const finalFacilities = this.state.facilities && this.state.facilities.length > 0 ? (this.state.facilities) : (this.props.fetchedFacilities)
-    const facilityData = finalFacilities.map((facility, index) => {
-      if (facility.latitude === null || facility.longitude === null){
-        return null
-      } else{
+    const notNullFacilities = finalFacilities.filter((facility) => {
+      return facility.latitude !== null && facility.latitude !== null
+    })
+    const facilityData = notNullFacilities.map((facility) => {
         facility.distance = this.haversineFunction(facility)
         return facility
-      }
     })
     const newFacilities = this.sortFacilities(facilityData)
+    console.log(this.state.facilities)
     return(
       <div>
+
       <div className="googleMap">
         <FacilitiesMap facilities={this.props.fetchedFacilities} current={this.props.currentPosition}>
        </FacilitiesMap>
+       <br/>
+     <a style={{float: 'right'}} href="#top">Back to top of page</a>
      </div>
      <br/>
      <br/>
@@ -187,7 +234,7 @@ class Facilities extends Component {
         <br/>
 
 
-      <div className="facilities">
+      <div ref="facilitiesRef" onScroll={this.handleScroll} className="facilities">
         {newFacilities}
       </div>
       <br/>

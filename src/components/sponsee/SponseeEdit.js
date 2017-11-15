@@ -28,20 +28,24 @@ class SponseeEdit extends Component{
   }
 
   setClicked = () => {
-    this.props.handleEdit()
+    this.props.handleNoEdit()
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
     let sponsee = {id: this.state.id, username: this.state.username, password: this.state.password, age: this.state.age, gender: this.state.gender, bio: this.state.bio, email: this.state.email, street: this.state.street, city: this.state.city, state: this.state.state, zip: this.state.zip}
     this.props.editSponsee(sponsee)
-    this.props.handleEdit()
+    // this.props.handleEdit()
   }
 
   checkBioCount = () => {
-    console.log(this.state.bio.split("").length)
-      this.checkStyle()
-      return 200 - (this.state.bio.split("").length)
+    if (this.state.bio === undefined){
+      console.log("undefined")
+    } else {
+      console.log(this.state.bio.split("").length)
+        this.checkStyle()
+        return 200 - (this.state.bio.split("").length)
+    }
   }
 
   checkStyle = () => {
@@ -60,9 +64,9 @@ class SponseeEdit extends Component{
       <div className="container">
       </div>
       <Form className="editForm" onSubmit={this.handleSubmit}>
-        {this.props.error === ""
-          ? null
-          : <h3 className="pleaseTryAgain">Please try again.</h3>
+        {this.props.error
+          ? <h3 className="pleaseTryAgain">{this.props.error}</h3>
+          : null
         }
         <h1>Edit Profile</h1>
         <Form.Group widths='equal'>

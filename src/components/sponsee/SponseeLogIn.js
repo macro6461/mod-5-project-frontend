@@ -78,10 +78,10 @@ class SponseeLogIn extends Component {
     ? null
     : <div>
     <h3> Please Login </h3>
-          <Form onSubmit={this.handleSubmit}>
-            {this.props.error === ""
+  <Form className="loginForm" onSubmit={this.handleSubmit}>
+            {this.props.error === null
               ? null
-              : <h3 className="notFound">Sponsee Not Found.</h3>
+              : <h3 className="notFound">Sponsee Not Found!</h3>
             }
       <Form.Field>
         <label>Username</label>

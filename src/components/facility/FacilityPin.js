@@ -6,8 +6,9 @@ import { Icon } from 'semantic-ui-react'
 
 const pinStyle={
   // backgroundColor: "white",
-  borderRadius: '20px',
-  boxShadow: '0px 5px 0px 0px #888888'
+  borderRadius: '10px',
+  transform: 'matrix(-1, 0, -0.10, 1, 10, 0)'
+  // boxShadow: '1px 1px 1px #888888'
 }
 
 class FacilityPin extends React.Component {
