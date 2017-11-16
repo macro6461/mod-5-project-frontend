@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { fetchSponseesRequest, fetchSponseesRequestResolved } from '../../actions/sponseeActions'
 import { removeSponsorLogin, removeSponsorError, deleteSponsorAccount, isSponsorEdited } from '../../actions/sponsorActions'
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Icon } from 'semantic-ui-react'
 import SponsorConfirmDelete from './SponsorConfirmDelete'
 import SponsorEdit from './SponsorEdit'
 import SponseeModal from '../sponsee/SponseeModal'
@@ -226,6 +226,7 @@ class SponsorLoggedIn extends Component {
       <br/>
       <br/>
       <br/>
+    <h3>Here are some potential sponsees! When you're ready, send them a message. <Icon className="smile" size="large"/> </h3>
       <div className="sponseeDiv">
         {newSponsees}
       </div>
