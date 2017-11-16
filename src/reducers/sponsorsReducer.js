@@ -22,7 +22,7 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
       return {...state, sponsor: action.payload.sponsor, role: action.payload.role, error: null}
     case "REMOVE_SPONSOR_LOGIN":
     localStorage.clear()
-      return {...state, sponsor: action.payload, role: action.payload, error: action.payload}
+      return {...state, sponsor: action.payload, role: action.payload, error: null}
     case "RENDER_ADD_SPONSOR_FAILED":
     debugger
       return {...state, error: action.payload.error}

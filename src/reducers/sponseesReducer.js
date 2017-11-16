@@ -19,7 +19,7 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
       return {...state, sponsee: action.payload.sponsee.username, role: action.payload.sponsee.role}
     case "REMOVE_SPONSEE_LOGIN":
     localStorage.clear()
-      return {...state, sponsee: action.payload, role: action.payload, error: action.payload}
+      return {...state, sponsee: action.payload, role: action.payload, error: null}
     case "RENDER_ADD_SPONSEE_FAILED":
       return {...state, error: action.payload.error}
       case "REMOVE_SPONSEE_ERROR":

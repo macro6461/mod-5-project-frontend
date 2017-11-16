@@ -26,7 +26,8 @@ export default class SponsorModal extends Component{
   <br/>
   <br/>
   <br/>
-  <Button onClick={this.unClick}>back</Button>
+
+<Button onClick={this.unClick}>back</Button>
 </div>
 </div>
     )

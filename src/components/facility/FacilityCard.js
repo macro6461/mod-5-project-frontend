@@ -15,8 +15,8 @@ export default class FacilityCard extends Component{
       <div onClick={this.handleOnClick} style={{width: '20%', marginBottom: '20px'}}>
       <Card className="facilityCard">
         <h2>{this.props.facility.name}</h2>
-      <h3>{this.props.facility.address}</h3>
-    <h3>insurance: {insurances}</h3>
+        <h3>{this.props.facility.address}</h3>
+        <h3>insurance: {insurances}</h3>
       {this.props.distance === NaN
         ? <h4>No Data</h4>
         : <h4>Distance: {this.props.distance}</h4>

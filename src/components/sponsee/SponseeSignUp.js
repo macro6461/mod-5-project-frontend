@@ -83,7 +83,7 @@ class SponseeSignUp extends Component {
       </div>
       <div className="signUp">
       <Form className="signUpForm" onSubmit={this.handleSubmit}>
-        <h1>Sign Up</h1>
+        <h1>Sponsee Sign Up</h1>
         {this.props.error === ""
           ? null
           : <h3 className="pleaseTryAgain">{this.props.error}</h3>

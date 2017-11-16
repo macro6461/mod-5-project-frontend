@@ -181,7 +181,7 @@ class SponsorLoggedIn extends Component {
         : <h3> Welcome Sponsor {localStorage.username}!</h3>
       }
         <p>You are now logged in.</p>
-      <Link to="/"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
+      <Link to="/sponsors"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
       <Button className="deleteButton" onClick={this.confirmDelete}>Delete Account</Button>
       <Button className="editButton" onClick={this.handleEdit}>Edit</Button>
         <br/>
