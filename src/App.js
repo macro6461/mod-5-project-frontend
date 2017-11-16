@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Icon } from 'semantic-ui-react'
 import NextStepLogo from './TheNextStepLogo3.png'
+import Loading from './components/Loading'
 
 
 class App extends Component {
@@ -86,7 +87,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-
+        {/* <Loading /> */}
 
       <Nav remove={this.removeLocalStorage} submit={this.retrieveSubmitData}/>
       <br/>
@@ -95,8 +96,7 @@ class App extends Component {
       <br/>
     <br/>
   <br/>
-<p className="madeFooter" style={pStyle}>made with <i class="red heart icon" size="large"></i>by <a className="madeByAnchor" href="https://macro6461.github.io/">&copy;Matthew Croak Media 2017</a></p>
-<br/>
+  <br/>
       </div>
     );
   }

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { fetchSponsorsRequest, fetchSponsorsRequestResolved } from '../../actions/sponsorActions'
 import { removeSponseeLogin, deleteSponseeAccount, removeSponseeError, isSponseeEdited } from '../../actions/sponseeActions'
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Icon } from 'semantic-ui-react'
 import SponseeConfirmDelete from './SponseeConfirmDelete'
 import SponseeEdit from './SponseeEdit'
 import SponsorModal from '../sponsor/SponsorModal'
@@ -174,6 +174,8 @@ console.log(this.props.currentSponsee)
         }
         <br/>
         <br/>
+        <br/>
+        <br/>
         <h3> Welcome Sponsee {localStorage.username}!</h3>
         <p>You are now logged in.</p>
       <Link to="/"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
@@ -221,6 +223,7 @@ console.log(this.props.currentSponsee)
       <br/>
       <br/>
       <br/>
+    <h3>Here are some potential sponsors! When you're ready, send them a message. <Icon className="smile" size="large"/> </h3>
       <div className="sponseeDiv">
         {newSponsors}
       </div>

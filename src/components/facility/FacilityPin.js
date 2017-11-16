@@ -7,7 +7,7 @@ import { Icon } from 'semantic-ui-react'
 const pinStyle={
   // backgroundColor: "white",
   borderRadius: '10px',
-  transform: 'matrix(-1, 0, -0.10, 1, 10, 0)'
+  transform: 'matrix(-1, 0, 0, 1, 10, 0)'
   // boxShadow: '1px 1px 1px #888888'
 }
 

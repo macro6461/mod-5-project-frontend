@@ -174,6 +174,8 @@ class SponsorLoggedIn extends Component {
         }
         <br/>
         <br/>
+        <br/>
+        <br/>
       {this.props.currentSponsor === localStorage.getItem("username")
         ? <h3> Welcome Sponsor {this.props.currentSponsor}!</h3>
         : <h3> Welcome Sponsor {localStorage.username}!</h3>

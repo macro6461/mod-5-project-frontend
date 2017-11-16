@@ -27,7 +27,7 @@ const iconStyle = {
 
 const InfoBox = (props) => {
   console.log(props)
-  return (<Popup trigger={<Icon className="building icon" size='huge' style={{transform: 'matrix(-1, 0, -0.10, 1, 10, 0)'}}/>} content={props.facility} position='top center' style={{backgroundColor: 'AliceBlue', border: 'solid 1px light', textAlign: 'center'}}/>)
+  return (<Popup trigger={<Icon className="building icon" size='huge' style={{transform: 'matrix(-1, 0, 0, 1, 10, 0)'}}/>} content={props.facility} position='top center' style={{backgroundColor: 'AliceBlue', border: 'solid 1px light', textAlign: 'center'}}/>)
 
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Button } from 'semantic-ui-react'
+import { Card, Button, Icon } from 'semantic-ui-react'
 
 export default class SponseeModal extends Component{
 
@@ -21,7 +21,7 @@ export default class SponseeModal extends Component{
         : <h4>Distance: {distance} miles away</h4>
       }
       <p>{this.props.sponsee.bio}</p>
-    <a className="mailto" href={email}>email {this.props.sponsee.username}</a>
+    <a className="mailto" href={email}><Icon className="mail outline" size="big"></Icon></a>
   <br/>
   <br/>
   <br/>

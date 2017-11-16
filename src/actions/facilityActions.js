@@ -1,5 +1,5 @@
 export function fetchFacilitiesRequest(){
-  debugger
+
   return (dispatch) =>{
     fetch('http://localhost:3000/facilities')
     .then(res => res.json())
@@ -8,7 +8,7 @@ export function fetchFacilitiesRequest(){
 }
 
 export function fetchFacilitiesRequestResolved(data){
-  debugger
+
   return {
     type: "RENDER_FACILITIES",
     payload: data

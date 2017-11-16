@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card } from 'semantic-ui-react'
+import { Card, Icon } from 'semantic-ui-react'
 
 
 export default class SponsorCard extends Component{
@@ -51,15 +51,23 @@ export default class SponsorCard extends Component{
     const distance = this.haversineFunction()
 
     return(
-      <div className="sponseeCard" onClick={()=>{this.checkModal(this.props.sponsor)}}>
+      <div className="sponseeCard" >
+      <div onClick={()=>{this.checkModal(this.props.sponsor)}}>
         <h2 className="sponseeCardHeader">{this.props.sponsor.username} | {this.props.sponsor.age} | {this.props.sponsor.gender}</h2>
           {this.checkBio()}
           {distance === NaN
         ? <h4>No Data</h4>
-        : <h4>Distance: {distance}</h4>
+        : <h4 className="distance">Distance: {distance}</h4>
       }
-    <a className="mailto" href={email}>email {this.props.sponsor.username}</a>
-</div>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+    </div>
+    <a className="mailto" href={email}><Icon className="mail outline" size="big"></Icon></a>
+  </div>
+
     )
   }
 }
