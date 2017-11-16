@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+// import './mobile.css';
 import Nav from './components/Nav'
 import { getCurrentUserPosition, getCurrentPerson } from './actions/actions'
 import { fetchFacilitiesRequest } from './actions/facilityActions'

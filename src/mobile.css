@@ -522,15 +522,11 @@ h3 {
   width: 2%;
 }
 
-.phone:hover{
-  transform: scale(1.5);
-}
-
 .navLogo{
   position: fixed;
   top: 2px;
   right: 10px;
-  width: 180px;
+  width: 100px;
   margin-top: 0;
   float: right;
 

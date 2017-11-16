@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card } from 'semantic-ui-react'
+import { Card, Icon } from 'semantic-ui-react'
 
 
 export default class FacilityCard extends Component{
@@ -10,6 +10,7 @@ export default class FacilityCard extends Component{
   }
 
   render(){
+    const phone = "tel:" + this.props.facility.phone
     const insurances = this.props.facility.insurance.split(", ")
     return(
       <div onClick={this.handleOnClick} style={{width: '20%', marginBottom: '20px'}}>
@@ -22,6 +23,12 @@ export default class FacilityCard extends Component{
         : <h4>Distance: {this.props.distance}</h4>
       }
       <a className="moreInfo" href={this.props.facility.url}>More Info</a>
+    <br/>
+    <br/>
+    {this.props.facility.phone === null
+      ? null
+      : <a href={phone}><Icon className="phone" size="big"/></a>
+    }
       <br/>
       </Card>
   </div>

@@ -18,15 +18,15 @@ export default class Home extends Component {
     setTimeout(function(){
       debugger
       div2()
-    }, 3000)
+    }, 2000)
     setTimeout(function(){
       debugger
       div3()
-    }, 6000)
+    }, 4000)
     setTimeout(function(){
       debugger
       description()
-    }, 9000)
+    }, 6000)
   }
 
   changeHomeDiv2Opacity = () => {
@@ -83,7 +83,7 @@ export default class Home extends Component {
     <div className="homeDescription" style={{display: this.state.description}}>
         <h1 className="homeBigHeader">To see all available sponsors in your area, please sign in under the sponsee tab.</h1>
       <h1 className="homeBigHeader">If you're looking for a chance to sponsor someone, please sign in under the sponsor tab.</h1>
-    <h1 className="homeBigHeader">You don't have to have to sign in to find facilities near you. All you have to do is click the facilities tab in the navbar.</h1>
+    <h1 className="homeBigHeader">You don't have to have to sign in to find facilities near you. All you have to do is click the facilities tab.</h1>
           {/* <p class="madeFooter">made with <i class="red heart icon" size="large"></i>by <a className="madeByAnchor" href="https://macro6461.github.io/">&copy;Matthew Croak Media 2017</a></p> */}
         </div>
       </div>
