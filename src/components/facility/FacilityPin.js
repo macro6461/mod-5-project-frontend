@@ -16,7 +16,7 @@ class FacilityPin extends React.Component {
   render(){
     return(
       <div>
-        <Icon className="building icon" size='huge' style={pinStyle} onClick={this.props.onClick}/>
+        <Icon className="building icon" size='big' style={pinStyle} onClick={this.props.onClick}/>
       </div>
     )
   }

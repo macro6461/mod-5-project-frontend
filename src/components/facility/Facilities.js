@@ -82,7 +82,7 @@ class Facilities extends Component {
     let insuranceFacilities;
     let facilitiesData = facilities.length > 0 ? facilities : this.props.fetchedFacilities
     insuranceFacilities = facilitiesData.filter((facility) => {
-      return facility.insurance.toLowerCase() === insuranceSearch.toLowerCase()
+      return facility.insurance.includes(insuranceSearch.toLowerCase())
     })
     this.setState({
       facilities: insuranceFacilities.length > 0 ? insuranceFacilities : facilities
@@ -181,6 +181,10 @@ class Facilities extends Component {
        <br/>
      <a style={{float: 'right'}} href="#top">Back to top of page</a>
      </div>
+     <br/>
+     <br/>
+     <br/>
+     <br/>
      <br/>
      <br/>
      <br/>
