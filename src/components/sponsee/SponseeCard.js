@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Card, Icon } from 'semantic-ui-react'
+import { connect } from 'react-redux'
 
-
-export default class SponseeCard extends Component{
+class SponseeCard extends Component{
 
   state = {
     modal: false
@@ -49,7 +49,7 @@ export default class SponseeCard extends Component{
 
 
   render(){
-    const email = "mailto:" + this.props.sponsee.email
+    const email = "mailto:" + this.props.sponsee.email + "?subject=The Next Step: " + this.props.currentSponsor + " sent you a message!"
     const distance = this.haversineFunction()
 
     return(
@@ -72,3 +72,15 @@ export default class SponseeCard extends Component{
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currentSponsor: state.sponsorsReducer.sponsor,
+    currentSponsee: state.sponseesReducer.sponsee,
+    sponsees: state.sponseesReducer.sponsees,
+    sponsors: state.sponsorsReducer.sponsors,
+    currentPosition: state.currentReducer.currentPosition
+  }
+}
+
+export default connect(mapStateToProps)(SponseeCard)

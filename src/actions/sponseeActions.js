@@ -94,6 +94,22 @@ export function loginSponsee(sponsee){
   }
 }
 
+export function getCurrentSponsee(data){
+  debugger
+  if (data === "sponsor"){
+    return {
+      type:"GET_CURRENT_SPONSOR",
+      payload: localStorage.getItem("username")
+    }
+  } else {
+    debugger
+    return {
+      type: "GET_CURRENT_SPONSEE",
+      payload: localStorage.getItem("username")
+    }
+  }
+}
+
 export function sponseeLoginError(data){
   return {
     type: "LOGIN_SPONSEE_FAILED",

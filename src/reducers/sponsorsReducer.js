@@ -34,10 +34,9 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
     case "GET_CURRENT_SPONSOR_ROLE":
       return {...state, role: action.payload}
     case "GET_CURRENT_SPONSOR":
-      var sponsor = state.sponsors.find((sponsor)=>{
-        return sponsor.username === action.payload
-      })
-        return {...state, role: action.payload}
+    debugger
+      debugger
+        return {...state, sponsor: action.payload}
     case "DELETE_SPONSOR_ACCOUNT":
       var index = state.sponsors.indexOf(action.payload)
       var stateSponsors = state.sponsors.splice(index, 1)

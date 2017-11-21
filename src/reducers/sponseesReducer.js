@@ -29,10 +29,8 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
       case "GET_CURRENT_SPONSEE_ROLE":
         return {...state, role: action.payload}
       case "GET_CURRENT_SPONSEE":
-        var sponsee = state.sponsees.find((sponsee)=>{
-          return sponsee.username === action.payload
-        })
-          return {...state, role: action.payload}
+      debugger
+          return {...state, sponsee: action.payload}
       case "DELETE_SPONSEE_ACCOUNT":
         var index = state.sponsees.indexOf(action.payload)
         var stateSponsees = state.sponsees.splice(index, 1)

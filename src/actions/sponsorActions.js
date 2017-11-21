@@ -94,6 +94,22 @@ export function removeSponsorError(){
   }
 }
 
+export function getCurrentSponsor(data){
+  debugger
+  if (data === "sponsee"){
+    return {
+      type:"GET_CURRENT_SPONSEE",
+      payload: localStorage.getItem("username")
+    }
+  } else {
+    debugger
+    return {
+      type: "GET_CURRENT_SPONSOR",
+      payload: localStorage.getItem("username")
+    }
+  }
+}
+
 export function getCurrentSponsorRole(data){
   return{
     type: "GET_CURRENT_SPONSOR_ROLE",
@@ -147,6 +163,7 @@ export function fetchSponsorsRequest(){
     fetch('http://localhost:3000/sponsors')
     .then(res => res.json())
     .then(json => dispatch(fetchSponsorsRequestResolved(json)))
+    .then(()=>{dispatch(getCurrentSponsor(localStorage.getItem("role")))})
   }
 }
 
