@@ -34,7 +34,7 @@ const InfoBox = (props) => {
 const CurrentPin = ({text}) => {
   return(
     <div>
-      <Icon name="user circle outline" color='blue' size='huge' style={iconStyle}/>
+      <Icon name="user circle outline" color='blue' size='big' style={iconStyle}/>
       {text}
   </div>
   )

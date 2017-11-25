@@ -30,7 +30,7 @@ class SponsorLogIn extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     const token = localStorage.getItem("jwt")
-    debugger
+
     let sponsor = {username: this.state.username, password: this.state.password}
     this.props.loginSponsor(sponsor)
     this.setStateAfterLocal()
@@ -69,9 +69,7 @@ class SponsorLogIn extends Component {
 : <div>
   <br/>
   <br/>
-  <br/>
-  <br/>
-  <br/>
+
 <h3> Sponsor Login </h3>
       <Form className="loginForm" onSubmit={this.handleSubmit}>
         {this.props.error

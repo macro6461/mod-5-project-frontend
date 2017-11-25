@@ -13,6 +13,7 @@ import NextStepLogo from './TheNextStepLogo3.png'
 import Loading from './components/Loading'
 
 
+
 class App extends Component {
 
   state = {
@@ -30,7 +31,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    debugger
+
 
     this.props.fetchSponsorsRequest()
     this.props.fetchSponseesRequest()

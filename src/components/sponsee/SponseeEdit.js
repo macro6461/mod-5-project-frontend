@@ -57,7 +57,7 @@ class SponseeEdit extends Component{
   }
 
   render(){
-    debugger
+
     console.log(this.props.sponsee)
     return (
       <div>

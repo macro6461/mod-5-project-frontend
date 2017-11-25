@@ -29,7 +29,7 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
       case "GET_CURRENT_SPONSEE_ROLE":
         return {...state, role: action.payload}
       case "GET_CURRENT_SPONSEE":
-      debugger
+
           return {...state, sponsee: action.payload}
       case "DELETE_SPONSEE_ACCOUNT":
         var index = state.sponsees.indexOf(action.payload)
@@ -37,17 +37,17 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
         localStorage.clear()
           return {sponsees: state.sponsees, sponsee: "", role: "", error: null, isSponseeEdited: false}
       case "SUBMIT_EDIT_SPONSEE":
-      debugger
+
         var oldSponsee = state.sponsees.find(sponsee => sponsee.id === action.payload.id)
         var index = state.sponsees.indexOf(oldSponsee)
         state.sponsees[index] = action.payload
         localStorage.setItem('username', action.payload.username)
           return {...state, sponsees: state.sponsees, sponsee: action.payload.username, error: null, isSponseeEdited: false}
       case "EDIT_SPONSEE_FAILED":
-        debugger
+
         return {...state, error: action.payload.error, isSponseeEdited: true}
       case "IS_SPONSEE_EDITED":
-      debugger
+
         return {...state, isSponseeEdited: action.payload}
       default:
     return state

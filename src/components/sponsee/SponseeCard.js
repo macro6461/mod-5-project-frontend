@@ -33,6 +33,7 @@ class SponseeCard extends Component{
   }
 
   checkBio = () => {
+
     let cutBio
     if (this.props.sponsee.bio.length > 80){
       let arr = this.props.sponsee.bio.split("").slice(0, 80)

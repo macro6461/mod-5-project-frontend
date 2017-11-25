@@ -134,7 +134,7 @@ class Facilities extends Component {
   }
 
   cardClick = (data) => {
-    debugger
+
     this.props.setFacilityMapPosition({lat: data.facility.latitude, lng: data.facility.longitude})
     this.props.setFacilityMapZoom(data.zoom)
   }

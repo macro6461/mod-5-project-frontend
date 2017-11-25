@@ -1,5 +1,5 @@
 export function addSponsee(sponsee){
-  debugger
+
   return (dispatch) => {
     fetch('http://localhost:3000/sponsees', {
       headers: {"Content-Type": "application/json",
@@ -49,7 +49,7 @@ export function addSponsee(sponsee){
   }
 
 export function renderAddSponsee(data){
-  debugger
+
   return {
     type: "RENDER_ADD_SPONSEE",
     payload: data
@@ -95,14 +95,14 @@ export function loginSponsee(sponsee){
 }
 
 export function getCurrentSponsee(data){
-  debugger
+
   if (data === "sponsor"){
     return {
       type:"GET_CURRENT_SPONSOR",
       payload: localStorage.getItem("username")
     }
   } else {
-    debugger
+
     return {
       type: "GET_CURRENT_SPONSEE",
       payload: localStorage.getItem("username")
@@ -139,7 +139,7 @@ export function deleteSponseeAccount(data){
 }
 
 export function sendDeleteData(data){
-  debugger
+
   return {
     type: "DELETE_SPONSEE_ACCOUNT",
     payload: data
@@ -163,7 +163,7 @@ export function fetchSponseesRequestResolved(data){
 }
 
 export function editSponsee(data){
-  debugger
+
   return (dispatch) =>{
     fetch(`http://localhost:3000/sponsees/${data.id}`, {
         headers: {"Content-Type": "application/json",
@@ -201,7 +201,7 @@ export function editSponsee(data){
 }
 
 export function submitEditSponsee(data){
-  debugger
+
   return{
     type: "SUBMIT_EDIT_SPONSEE",
     payload: data
@@ -209,7 +209,7 @@ export function submitEditSponsee(data){
 }
 
 export function editSponseeFailed(data){
-  debugger
+
   if (data === undefined){
     return {
       type: "default"
@@ -223,7 +223,7 @@ export function editSponseeFailed(data){
 }
 
 export function isSponseeEdited(data){
-  debugger
+
   return {
     type: "IS_SPONSEE_EDITED",
     payload: data

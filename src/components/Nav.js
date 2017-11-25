@@ -93,7 +93,7 @@ checkLoggedIn = () => {
     <Route exact path="/" component = {Home} />
 
     <Route exact path='/sponsors' render={(props) => {
-          debugger
+
           if (localStorage.getItem('role') === "sponsor" || localStorage.getItem('role') === null){
             return (<SponsorHome remove={this.props.remove} submit={this.props.submit}/>)
           } else {

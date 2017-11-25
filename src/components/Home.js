@@ -14,38 +14,38 @@ export default class Home extends Component {
     let div2 = this.changeHomeDiv2Opacity
     let div3 = this.changeHomeDiv3Opacity
     let description = this.changeHomeDescription
-    debugger
+
     setTimeout(function(){
-      debugger
+
       div2()
     }, 2000)
     setTimeout(function(){
-      debugger
+
       div3()
     }, 4000)
     setTimeout(function(){
-      debugger
+
       description()
     }, 6000)
   }
 
   changeHomeDiv2Opacity = () => {
 
-    debugger
+
       this.setState({
         div2Display: 'block'
       })
   }
 
   changeHomeDiv3Opacity = () => {
-    debugger
+
     this.setState({
       div3Display: 'block'
     })
   }
 
   changeHomeDescription = () => {
-    debugger
+
     this.setState({
       description: 'block'
     })

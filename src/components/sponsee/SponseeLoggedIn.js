@@ -71,11 +71,11 @@ class SponseeLoggedIn extends Component {
   }
 
   handleEdit = () => {
-    debugger
+
     this.props.removeSponseeError()
     let currentSponsee = localStorage.getItem('username')
     let editSponsee = this.props.sponsees.find((sponsee)=>{
-      debugger
+
       return sponsee.username === currentSponsee
     })
     this.setState({
@@ -85,21 +85,21 @@ class SponseeLoggedIn extends Component {
   }
 
   changeEditSponseeState = () => {
-    debugger
+
     this.props.isSponseeEdited(this.state.edit)
   }
 
   deleteAccount = () => {
     let currentSponsee = localStorage.getItem("username")
     let deleteSponsee = this.props.sponsees.find((sponsee)=>{
-      debugger
+
       return sponsee.username === currentSponsee
     })
       this.props.deleteSponseeAccount(deleteSponsee)
   }
 
   openModal = (data) => {
-    debugger
+
     this.setState({
       modal: !this.state.modal,
       modalSponsor: data
@@ -137,7 +137,7 @@ class SponseeLoggedIn extends Component {
       if (a === null || b === null){
         null
       } else {
-        debugger
+
         return parseInt(a.distance.split(" ")[0]) - parseInt(b.distance.split(" ")[0])
       }
     })

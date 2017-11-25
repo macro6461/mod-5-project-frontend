@@ -71,11 +71,11 @@ class SponsorLoggedIn extends Component {
   }
 
   handleEdit = () => {
-    debugger
+
     this.props.removeSponsorError()
     let currentSponsor = localStorage.getItem('username')
     let editSponsor = this.props.sponsors.find((sponsor)=>{
-      debugger
+
       return sponsor.username === currentSponsor
     })
     this.setState({
@@ -85,14 +85,14 @@ class SponsorLoggedIn extends Component {
   }
 
   changeEditSponsorState = () => {
-    debugger
+
     this.props.isSponsorEdited(this.state.edit)
   }
 
   deleteAccount = () => {
     let currentSponsor = localStorage.getItem("username")
     let deleteSponsor = this.props.sponsors.find((sponsor)=>{
-      debugger
+
       return sponsor.username === currentSponsor
     })
       this.props.deleteSponsorAccount(deleteSponsor)
@@ -137,7 +137,7 @@ class SponsorLoggedIn extends Component {
       if (a === null || b === null){
         null
       } else {
-        debugger
+
         return parseInt(a.distance.split(" ")[0]) - parseInt(b.distance.split(" ")[0])
       }
     })

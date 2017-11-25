@@ -1,5 +1,5 @@
 export function addSponsor(sponsor){
-  debugger
+
   return (dispatch) => {
     fetch('http://localhost:3000/sponsors', {
       headers: {"Content-Type": "application/json",
@@ -49,7 +49,7 @@ export function renderSignUpError(data){
 }
 
 export function renderAddSponsor(data){
-  debugger
+
   return {
     type: "RENDER_ADD_SPONSOR",
     payload: data
@@ -57,7 +57,7 @@ export function renderAddSponsor(data){
 }
 
 export function loginSponsor(sponsor){
-  debugger
+
   return (dispatch) => {
     fetch('http://localhost:3000/sponsor/login', {
       method: 'POST',
@@ -80,7 +80,7 @@ export function loginSponsor(sponsor){
 }
 
 export function sponsorLoginError(data){
-  debugger
+
   return {
     type: "LOGIN_SPONSOR_FAILED",
     payload: data
@@ -95,14 +95,14 @@ export function removeSponsorError(){
 }
 
 export function getCurrentSponsor(data){
-  debugger
+
   if (data === "sponsee"){
     return {
       type:"GET_CURRENT_SPONSEE",
       payload: localStorage.getItem("username")
     }
   } else {
-    debugger
+
     return {
       type: "GET_CURRENT_SPONSOR",
       payload: localStorage.getItem("username")
@@ -136,7 +136,7 @@ export function removeSponsorLogin(data){
 }
 
 export function deleteSponsorAccount(data){
-  debugger
+
   return (dispatch) => {
     fetch(`http://localhost:3000/sponsors/${data.id}`, {
         headers: {"Content-Type": "application/json",
@@ -151,7 +151,7 @@ export function deleteSponsorAccount(data){
 }
 
 export function sendDeleteData(data){
-  debugger
+
   return {
     type: "DELETE_SPONSOR_ACCOUNT",
     payload: data
@@ -175,7 +175,7 @@ export function fetchSponsorsRequestResolved(data){
 }
 
 export function editSponsor(data){
-  debugger
+
   return (dispatch) =>{
     fetch(`http://localhost:3000/sponsors/${data.id}`, {
         headers: {"Content-Type": "application/json",
@@ -213,7 +213,7 @@ export function editSponsor(data){
 }
 
 export function submitEditSponsor(data){
-  debugger
+
   return{
     type: "SUBMIT_EDIT_SPONSOR",
     payload: data
@@ -221,7 +221,7 @@ export function submitEditSponsor(data){
 }
 
 export function editSponsorFailed(data){
-  debugger
+
   if (data === undefined){
     return {
       type: "default"
@@ -235,7 +235,7 @@ export function editSponsorFailed(data){
 }
 
 export function isSponsorEdited(data){
-  debugger
+
   return {
     type: "IS_SPONSOR_EDITED",
     payload: data

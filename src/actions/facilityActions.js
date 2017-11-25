@@ -16,7 +16,7 @@ export function fetchFacilitiesRequestResolved(data){
 }
 
 export function setFacilityMapPosition(data){
-  debugger
+
   return {
     type: "SET_FACILITY_MAP_POSITION",
     payload: data
@@ -30,7 +30,7 @@ export function removeFacilityMapPosition(){
 }
 
 export function setFacilityMapZoom(data){
-  debugger
+
   return {
     type: "SET_FACILITY_MAP_ZOOM",
     payload: data
