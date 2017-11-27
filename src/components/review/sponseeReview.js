@@ -92,7 +92,6 @@ class SponseeReview extends Component {
           <h3>{this.props.currentSponsee}'s Review</h3>
         <Form.Field>
   rating: <Dropdown inline header='Rating' options={options} defaultValue="rating" value={this.state.rating} onChange={this.handleDropChange}/>
-      {/* <input placeholder='rating' name="rating" type="text" value={this.state.rating} onChange={this.handleOnChange} required/> */}
         </Form.Field>
       <Form.TextArea className="reviewTextArea" label="review" placeholder="write a review" name="body" type="text" value={this.state.body} onChange={this.handleOnChange}>
         </Form.TextArea>

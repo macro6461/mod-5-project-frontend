@@ -219,6 +219,7 @@ class SponsorLoggedIn extends Component {
               />
               </label>
         </Form.Field>
+        <a style={{marginLeft: '2%', fontSize: '1vw'}} href="#top">Back to top of page</a>
       </Form>
       <br/>
       <br/>

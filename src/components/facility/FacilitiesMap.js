@@ -151,7 +151,8 @@ class FacilitiesMap extends React.Component {
             {infoBox}
             {this.props.currentFacilityPosition === "" && this.props.currentFacilityZoom === ""
               ? null
-              : <Button onClick={this.removeCenterAndZoom} style={{float: 'left', backgroundColor: 'AliceBlue', margin: '5px', border: 'solid 1px black', fontSize: '15px', boxShadow: '3px 3px 1px #888888'}}>re-center</Button>
+              : <Button onClick={this.removeCenterAndZoom} style={{float: 'left', backgroundColor: 'AliceBlue', margin: '5px', border: 'solid 1px black', fontSize: '100%', boxShadow: '3px 3px 1px #888888'}}><Icon className="compass" size="large" />re-center</Button>
+
             }
       </GoogleMapReact>
     );

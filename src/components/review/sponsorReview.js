@@ -88,13 +88,11 @@ class SponsorReview extends Component {
       <div className="sponsorReview">
 
         <Form className="sponsorReviewForm" onSubmit={this.handleSubmit}>
-          {console.log(this.props.facilityId)}
           <h3>{this.props.currentSponsor.username}'s Review</h3>
-        <Form.Field>
+        <Form.Field className="dropDownReview">
   rating: <Dropdown inline header='Rating' options={options} defaultValue="rating" value={this.state.rating} onChange={this.handleDropChange}/>
-      {/* <input placeholder='rating' name="rating" type="text" value={this.state.rating} onChange={this.handleOnChange} required/> */}
         </Form.Field>
-      <Form.TextArea className="reviewTextArea" label="review" placeholder="write a review" name="body" type="text" value={this.state.body} onChange={this.handleOnChange}>
+      <Form.TextArea className="reviewTextArea" placeholder="write a review" name="body" type="text" value={this.state.body} onChange={this.handleOnChange}>
         </Form.TextArea>
         <Button className="submitButton" type='submit'>Submit</Button>
         </Form>

@@ -139,27 +139,6 @@ class Facilities extends Component {
     this.props.setFacilityMapZoom(data.zoom)
   }
 
-  // handleScroll = () => {
-  //   console.log("triggered")
-  //   console.log(window.scrollHeight)
-  //   // window.onscroll = function(){
-  //   //   // if(window.scrollTop === window.scrollHeight - window.clientHeight){
-  //   //   //   alert('User scrolled to bottom')
-  //   //   // } else{
-  //   //   //   console.log()
-  //   //   console.log()
-  //   //     // console.log("not yet")
-  //   //   }
-  //   }
-
-  // handleScroll = () => {
-  //   if (this.refs.facilitiesRef === undefined){
-  //     return null
-  //   } else {
-  //     this.refs.facilitiesRef.getDOMNode().style.top = document.documentElement.scrollTop + 'px';
-  //   }
-  // }
-
   render(){
 
     const finalFacilities = this.state.facilities && this.state.facilities.length > 0 ? (this.state.facilities) : (this.props.fetchedFacilities)
@@ -171,7 +150,6 @@ class Facilities extends Component {
         return facility
     })
     const newFacilities = this.sortFacilities(facilityData)
-    console.log(this.state.facilities)
     return(
       <div>
 
@@ -190,7 +168,7 @@ class Facilities extends Component {
      <br/>
      <br/>
 
-      <Form className="sort">
+   <Form className="sortFacilities">
       <Form.Field >
       <label>
         city:

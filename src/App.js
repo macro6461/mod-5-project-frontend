@@ -72,17 +72,6 @@ class App extends Component {
     })
   }
 
-  // testScroll = () => {
-  //   window.onscroll = function(){
-  //     // if(window.scrollTop === window.scrollHeight - window.clientHeight){
-  //     //   alert('User scrolled to bottom')
-  //     // } else{
-  //     //   console.log()
-  //     console.log(window.scroll())
-  //       // console.log("not yet")
-  //     }
-  //   }
-
 
   render() {
     const pStyle = {

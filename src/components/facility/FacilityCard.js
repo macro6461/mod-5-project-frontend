@@ -91,7 +91,7 @@ export default class FacilityCard extends Component{
         <Popup
           style={{fontSize: '1.2vw', zIndex: '1'}}
           on='click'
-          trigger={<Button content='insurance' />}
+          trigger={<Button className="insuranceButton" content='insurance' />}
           content={insurances}
           position='right center'
         />

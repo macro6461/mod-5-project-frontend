@@ -122,7 +122,9 @@ class ReviewsContainer extends Component {
           {/* {this.props.sponsorReviews} */}
           {this.state.facilitySponsorReviews === "" || this.state.facilitySponsorReviews === undefined
             ? <h4>be the first to review!</h4>
-            : this.checkReviews(reviews)
+            : <div className="reviewList">
+                {this.checkReviews(reviews)}
+              </div>
           }
         </Card>
       </div>

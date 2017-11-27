@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Image } from 'semantic-ui-react'
+import NYC_from_WTC from '../NYC_from_WTC.JPG'
 import NextStepLogo from '../TheNextStepLogo3.png'
 
 export default class Home extends Component {
@@ -61,7 +62,7 @@ export default class Home extends Component {
 
 
       {/* <Image src={NextStepLogo} alt="embrace"/> */}
-      <Image className="openImg" src="https://ak0.picdn.net/shutterstock/videos/4691870/thumb/3.jpg?i10c=img.resize" alt="embrace"/>
+      <Image className="openImg" src={NYC_from_WTC} alt="embrace"/>
     <div id="homeDiv1opacity">
     <div className="homeDiv1">
     <h2 className="homeHeader">"No personal calamity is so crushing that something true and great can’t be made of it."</h2>
