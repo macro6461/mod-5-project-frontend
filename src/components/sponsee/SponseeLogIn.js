@@ -27,6 +27,7 @@ class SponseeLogIn extends Component {
     this.props.removeSponseeError()
   }
   handleSubmit = (event) => {
+    debugger
     event.preventDefault()
     const token = localStorage.getItem("jwt")
     let sponsee = {username: this.state.username, password: this.state.password}

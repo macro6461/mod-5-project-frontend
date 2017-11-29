@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Image, Form, Button, Dropdown } from 'semantic-ui-react'
+import { Form, Button, Dropdown, Icon } from 'semantic-ui-react'
 import { addSponseeReview } from '../../actions/reviewActions'
 import { connect } from 'react-redux'
+import { getCurrentSponsee, removeCurrentSponsee } from '../../actions/sponseeActions'
 
 class SponseeReview extends Component {
 
@@ -12,14 +13,15 @@ class SponseeReview extends Component {
   }
 
   componentDidMount = () => {
-    console.log(this.props)
+    debugger
+    const username = localStorage.getItem("username")
+    this.props.getCurrentSponsee(username)
   }
 
   handleOnChange = (event) => {
 
     this.setState({
       [event.target.name]: event.target.value,
-
     })
   }
 
@@ -35,19 +37,8 @@ class SponseeReview extends Component {
     event.preventDefault()
     const sponseeReview = {sponsee_id: this.props.currentSponsee.id, rating: this.state.rating, body: this.state.body, facility_id: this.props.facilityId}
     this.props.addSponseeReview(sponseeReview)
-        // fetch('http://localhost:3000/sponsee_reviews', {
-        //   headers: {"Content-Type": "application/json",
-        //   "Accept":"application/json"},
-        //   method: "POST",
-        //   body: JSON.stringify({
-        //     sponsee_id: this.props.currentSponsee.id,
-        //     rating: this.state.rating,
-        //     body: this.state.body,
-        //     facility_id: this.props.facilityId
-        //   })
-        // })
-        // .then(res => res.json())
-        // .then(json => console.log(json))
+    this.props.reviewClicked()
+    
   }
 
   render(){
@@ -88,11 +79,12 @@ class SponseeReview extends Component {
       <div className="sponsorReview">
 
         <Form className="sponsorReviewForm" onSubmit={this.handleSubmit}>
-          <h3>{localStorage.getItem("username")}'s Review</h3>
-        <Form.Field className="dropDownReview">
+          <Icon className="close" size="large" style={{color: 'red', marginLeft: '95%'}}onClick={this.props.reviewClicked}/>
+        <h3>{localStorage.getItem("username")}'s Review</h3>
+        <Form.Field className="dropDownReview" required>
   rating: <Dropdown inline header='Rating' options={options} defaultValue="rating" value={this.state.rating} onChange={this.handleDropChange}/>
         </Form.Field>
-      <Form.TextArea className="reviewTextArea" placeholder="write a review" name="body" type="text" value={this.state.body} onChange={this.handleOnChange}>
+      <Form.TextArea className="reviewTextArea" placeholder="write a review" name="body" type="text" value={this.state.body} onChange={this.handleOnChange} required>
         </Form.TextArea>
         <Button className="submitButton" type='submit'>Submit</Button>
         </Form>
@@ -111,4 +103,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { addSponseeReview })(SponseeReview)
+export default connect(mapStateToProps, { addSponseeReview, getCurrentSponsee, removeCurrentSponsee })(SponseeReview)

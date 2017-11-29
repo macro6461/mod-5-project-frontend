@@ -6,7 +6,12 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
     let filteredSponsors = action.payload.filter((sponsor) => {
       return sponsor.latitude !== null && sponsor.longitude !== null
     })
-      return {...state, sponsors: filteredSponsors}
+    if (localStorage.getItem("username")){
+      const username = localStorage.getItem("username")
+      return {...state, sponsor: username, sponsors: filteredSponsors}
+    } else {
+      return {...state, sponsor: "", sponsors: filteredSponsors}
+    }
     case "RENDER_ADD_SPONSOR":
     localStorage.setItem('jwt', action.payload.jwt)
     localStorage.setItem('role', action.payload.sponsor.role)
@@ -14,17 +19,16 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
 
       return {sponsors: state.sponsors.concat(action.payload.sponsor), sponsor: action.payload.sponsor.username, role: action.payload.sponsor.role, error: null, isSponsorEdited: false}
     case "LOGIN_SPONSOR":
-
+    debugger
     localStorage.setItem('jwt', action.payload.jwt)
     localStorage.setItem('role', action.payload.role)
-    localStorage.setItem('username', action.payload.sponsor)
+    const username = localStorage.setItem('username', action.payload.sponsor)
       //not changing the state necesarilly
-      return {...state, sponsor: action.payload.sponsor, role: action.payload.role, error: null}
+      return {...state, sponsor: action.payload, role: action.payload.role, error: null}
     case "REMOVE_SPONSOR_LOGIN":
     localStorage.clear()
       return {...state, sponsor: action.payload, role: action.payload, error: null}
     case "RENDER_ADD_SPONSOR_FAILED":
-
       return {...state, error: action.payload.error}
     case "REMOVE_SPONSOR_ERROR":
       return {...state, error: action.payload}
@@ -39,6 +43,8 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
         return sponsor.username === action.payload
       })
       return {...state, sponsor: sponsor}
+    case "REMOVE_CURRENT_SPONSOR":
+      return{...state, sponsor: ""}
     case "DELETE_SPONSOR_ACCOUNT":
       var index = state.sponsors.indexOf(action.payload)
       var stateSponsors = state.sponsors.splice(index, 1)

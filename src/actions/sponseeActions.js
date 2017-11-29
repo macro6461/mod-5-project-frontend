@@ -72,7 +72,7 @@ export function getCurrentSponseeRole(data){
 
 
 export function loginSponsee(sponsee){
-
+  debugger
   return (dispatch) => {
     fetch('http://localhost:3000/sponsee/login', {
       method: 'POST',
@@ -83,7 +83,7 @@ export function loginSponsee(sponsee){
     }).then(res => res.json())
       .then(json => {
         if (json.sponsee === undefined){
-          dispatch(sponseeLoginError({error: "invalid login"}))
+          dispatch(sponseeLoginError({error: json.message}))
         } else{
           dispatch({
             type: "LOGIN_SPONSEE",
@@ -95,18 +95,17 @@ export function loginSponsee(sponsee){
 }
 
 export function getCurrentSponsee(data){
-
-  if (data === "sponsor"){
-    return {
-      type:"GET_CURRENT_SPONSOR",
-      payload: localStorage.getItem("username")
-    }
-  } else {
+  debugger
 
     return {
-      type: "GET_CURRENT_SPONSEE",
-      payload: localStorage.getItem("username")
+      type:"GET_CURRENT_SPONSEE",
+      payload: data
     }
+}
+
+export function removeCurrentSponsee(){
+  return{
+    type: "REMOVE_CURRENT_SPONSEE"
   }
 }
 
@@ -118,6 +117,7 @@ export function sponseeLoginError(data){
 }
 
 export function removeSponseeLogin(data){
+  debugger
   return {
     type: "REMOVE_SPONSEE_LOGIN",
     payload: data
@@ -152,6 +152,7 @@ export function fetchSponseesRequest(){
     fetch('http://localhost:3000/sponsees')
     .then(res => res.json())
     .then(json => dispatch(fetchSponseesRequestResolved(json)))
+
   }
 }
 

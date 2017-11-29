@@ -8,7 +8,7 @@ export function fetchSponsorReviewsRequest(data){
 }
 
 export function fetchSponsorReviewsRequestResolved(data){
-debugger
+  debugger
   return {
     type: "RENDER_SPONSOR_REVIEWS",
     payload: data
@@ -49,7 +49,7 @@ export function addSponsorReviewResolved(data){
 }
 
 export function fetchSponseeReviewsRequest(data){
-
+debugger
   return (dispatch) => {
     fetch('http://localhost:3000/sponsee_reviews')
     .then(res => res.json())
@@ -88,7 +88,7 @@ export function addSponseeReviewResolved(data){
   debugger
   return {
     type: "RENDER_ADD_SPONSEE_REVIEW",
-    payload: data.sponsee_review
+    payload: data
   }
 }
 

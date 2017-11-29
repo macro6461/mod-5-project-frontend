@@ -21,7 +21,7 @@ export default function reviewReducer(state={sponsorReviews: [], sponseeReviews:
       const facilitySponseeReviews = action.payload.json.filter((review) =>{
         return review.facility_id === action.payload.facility_id
       })
-        return {...state, sponsorReviews: facilitySponseeReviews}
+        return {...state, sponseeReviews: facilitySponseeReviews}
       case "RENDER_ADD_SPONSEE_REVIEW":
         return {...state, sponseeReviews: state.sponsorReviews.concat(action.payload)}
       case "REMOVE_SPONSEE_REVIEWS":

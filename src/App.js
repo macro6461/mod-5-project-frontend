@@ -4,8 +4,8 @@ import './App.css';
 import Nav from './components/Nav'
 import { getCurrentUserPosition, getCurrentPerson } from './actions/actions'
 import { fetchFacilitiesRequest } from './actions/facilityActions'
-import { fetchSponseesRequest, getCurrentSponsee } from './actions/sponseeActions'
-import { fetchSponsorsRequest, getCurrentSponsor } from './actions/sponsorActions'
+import { fetchSponseesRequest} from './actions/sponseeActions'
+import { fetchSponsorsRequest} from './actions/sponsorActions'
 // import { fetchSponsorReviewsRequest, fetchSponseeReviewsRequest } from './actions/reviewActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -27,6 +27,7 @@ class App extends Component {
     this.props.fetchSponsorsRequest()
     this.props.fetchSponseesRequest()
     this.props.fetchFacilitiesRequest()
+
     if (navigator.geolocation){
         navigator.geolocation.getCurrentPosition((position) => {
           let currentPosition = {latitude: position.coords.latitude, longitude: position.coords.longitude}
@@ -40,6 +41,7 @@ class App extends Component {
         local: true,
         username: localStorage.username
       })
+
     } else {
       this.setState({
         local: false,
@@ -96,4 +98,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default withRouter(connect(mapStateToProps, { getCurrentUserPosition, fetchFacilitiesRequest, fetchSponseesRequest, fetchSponsorsRequest, getCurrentPerson, getCurrentSponsor, getCurrentSponsee})(App))
+export default withRouter(connect(mapStateToProps, { getCurrentUserPosition, fetchFacilitiesRequest, fetchSponseesRequest, fetchSponsorsRequest, getCurrentPerson})(App))

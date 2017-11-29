@@ -1,34 +1,36 @@
 import React, { Component } from 'react'
-import { Image, Form, Button, Dropdown } from 'semantic-ui-react'
+import { Form, Button, Dropdown, Icon } from 'semantic-ui-react'
 import { addSponsorReview } from '../../actions/reviewActions'
+import { getCurrentSponsor, removeCurrentSponsor } from '../../actions/sponsorActions'
 
 import { connect } from 'react-redux'
 
 class SponsorReview extends Component {
 
   state = {
+
     rating: 1,
     body: "",
     facility_id: ""
   }
 
   componentDidMount = () => {
-    console.log(this.props)
+    debugger
+    const username = localStorage.getItem("username")
+    this.props.getCurrentSponsor(username)
   }
 
   handleOnChange = (event) => {
-
     this.setState({
       [event.target.name]: event.target.value,
 
     })
   }
 
-  handleDropChange = (event) => {
-    console.log(event.target.children[0].innerText)
 
+  handleDropChange = (event) => {
     this.setState({
-      rating: parseInt(event.target.children[0].innerText)
+      rating: parseInt(event.target.innerText)
     })
   }
 
@@ -36,9 +38,8 @@ class SponsorReview extends Component {
     event.preventDefault()
     const sponsorReview = {sponsor_id: this.props.currentSponsor.id, rating: this.state.rating, body: this.state.body, facility_id: this.props.facilityId}
     this.props.addSponsorReview(sponsorReview)
-    this.setState({
-      
-    })
+    this.props.reviewClicked()
+
   }
 
   render(){
@@ -77,13 +78,14 @@ class SponsorReview extends Component {
     return(
 
       <div className="sponsorReview">
-
+        <h1>Sponsor Review</h1>
         <Form className="sponsorReviewForm" onSubmit={this.handleSubmit}>
-          <h3>{localStorage.getItem("username")}'s's Review</h3>
-        <Form.Field className="dropDownReview">
+          <Icon className="close" size="large" style={{color: 'red', marginLeft: '95%'}}onClick={this.props.reviewClicked}/>
+        <h3>{localStorage.getItem("username")}'s Review</h3>
+        <Form.Field className="dropDownReview" required>
   rating: <Dropdown inline header='Rating' options={options} defaultValue="rating" value={this.state.rating} onChange={this.handleDropChange}/>
         </Form.Field>
-      <Form.TextArea className="reviewTextArea" placeholder="write a review" name="body" type="text" value={this.state.body} onChange={this.handleOnChange}>
+      <Form.TextArea className="reviewTextArea" placeholder="write a review" name="body" type="text" value={this.state.body} onChange={this.handleOnChange} required>
         </Form.TextArea>
         <Button className="submitButton" type='submit'>Submit</Button>
         </Form>
@@ -102,4 +104,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {addSponsorReview})(SponsorReview)
+export default connect(mapStateToProps, {addSponsorReview, getCurrentSponsor, removeCurrentSponsor})(SponsorReview)

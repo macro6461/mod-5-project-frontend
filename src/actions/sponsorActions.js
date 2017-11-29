@@ -57,7 +57,7 @@ export function renderAddSponsor(data){
 }
 
 export function loginSponsor(sponsor){
-
+debugger
   return (dispatch) => {
     fetch('http://localhost:3000/sponsor/login', {
       method: 'POST',
@@ -95,18 +95,16 @@ export function removeSponsorError(){
 }
 
 export function getCurrentSponsor(data){
-
-  if (data === "sponsee"){
+  debugger
     return {
-      type:"GET_CURRENT_SPONSEE",
-      payload: localStorage.getItem("username")
-    }
-  } else {
+      type:"GET_CURRENT_SPONSOR",
+      payload: data
+  }
+}
 
-    return {
-      type: "GET_CURRENT_SPONSOR",
-      payload: localStorage.getItem("username")
-    }
+export function removeCurrentSponsor(){
+  return{
+    type: "REMOVE_CURRENT_SPONSOR"
   }
 }
 
@@ -163,7 +161,7 @@ export function fetchSponsorsRequest(){
     fetch('http://localhost:3000/sponsors')
     .then(res => res.json())
     .then(json => dispatch(fetchSponsorsRequestResolved(json)))
-    .then(()=>{dispatch(getCurrentSponsor(localStorage.getItem("role")))})
+
   }
 }
 

@@ -96,7 +96,7 @@ h1 {
   margin: 3%;
   width: 40%;
   background-color: black;
-  opacity: 0.6;
+  opacity: 0.7;
   -webkit-animation: slide-from-left1 3s;
 }
 
@@ -107,7 +107,7 @@ h1 {
   margin: 3%;
   width: 40%;
   background-color: black;
-  opacity: 0.6;
+  opacity: 0.7;
   -webkit-animation: slide-from-left1 3s;
 }
 
@@ -118,7 +118,7 @@ h1 {
   margin: 3%;
   width: 40%;
   background-color: black;
-  opacity: 0.6;
+  opacity: 0.7;
   -webkit-animation: slide-from-left1 3s;
 }
 
@@ -126,9 +126,7 @@ h1 {
 font-family: 'Avenir Next' !important;
   color: white;
   width: 100%;
-
   z-index: 10;
-
   transition: 1s;
   left: -1000px;
 
@@ -139,7 +137,6 @@ font-family: 'Avenir Next' !important;
   width: 100%;
 font-family: 'Avenir Next' !important;
   z-index: 10;
-
   transition: 1s;
   left: -1000px;
   /*-webkit-animation-delay: 3s;*/
@@ -150,7 +147,6 @@ font-family: 'Avenir Next' !important;
   width: 100%;
 font-family: 'Avenir Next' !important;
   z-index: 10;
-
   transition: 1s;
   left: -1000px;
 
@@ -166,7 +162,7 @@ font-family: 'Avenir Next' !important;
   }
   100%{
     transform: translate(0px, 0%);
-    opacity: 0.6;
+    opacity: 0.7;
   }
 }
 
@@ -177,7 +173,7 @@ font-family: 'Avenir Next' !important;
   }
   100%{
     transform: translate(0px, 0%);
-    opacity: 0.6;
+    opacity: 0.7;
   }
 }
 
@@ -188,7 +184,7 @@ font-family: 'Avenir Next' !important;
   }
   100%{
     transform: translate(0px, 0%);
-    opacity: 0.6;
+    opacity: 0.7;
   }
 }
 
@@ -205,31 +201,31 @@ font-family: 'Avenir Next' !important;
   margin: 3%;
   width: 40%;
   background-color: black;
-  opacity: 0.6;
+  opacity: 0.7;
   -webkit-animation: fadeinWelcome 3s;
   /*animation-delay: 6s;*/
 }
 
 @-moz-keyframes fadeinWelcome {
     from { opacity: 0; }
-    to   { opacity: 0.6; }
+    to   { opacity: 0.7; }
 }
 
 /* Safari, Chrome and Opera > 0.72.0.7 */
 @-webkit-keyframes fadeinWelcome {
     from { opacity: 0; }
-    to   { opacity: 0.6; }
+    to   { opacity: 0.7; }
 }
 
 /* Internet Explorer */
 @-ms-keyframes fadeinWelcome {
     from { opacity: 0; }
-    to   { opacity: 0.6; }
+    to   { opacity: 0.7; }
 }
 
 @-moz-keyframes fadeinHomeDiv1 {
     from { opacity: 0; }
-    to   { opacity: 0.6; }
+    to   { opacity: 0.7; }
 }
 
 /* Safari, Chrome and Opera > 12.1 */
@@ -306,10 +302,17 @@ font-family: 'Avenir Next' !important;
 }
 
 .reviewBack{
-  padding: 1.5% !important;
+  color: black !important;
+  border: solid 1px black !important;
+  background-color: white !important;
+  padding: 0 !important;
+  padding-top: 0.5% !important;
+  padding-bottom: 0.5% !important;
   font-size: 1vw !important;
-  width: 10% !important;
-  margin-left: 90% !important;
+  width: 4% !important;
+  margin-left: 99% !important;
+  margin-top: 0 !important;
+  margin-bottom: 2% !important;
 }
 
 .sponseeCard {
@@ -489,7 +492,7 @@ font-family: 'Avenir Next' !important;
 }
 
 .reviewList{
-  height: 200px;
+  height: 400px;
   overflow: scroll;
 }
 
