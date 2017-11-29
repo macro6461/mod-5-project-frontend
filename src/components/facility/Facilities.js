@@ -121,16 +121,24 @@ class Facilities extends Component {
         return parseInt(a.distance.split(" ")[0]) - parseInt(b.distance.split(" ")[0])
       }
     })
-
-    return (
-      sortedFacilities.map((facility, index) => {
-        if (facility === null){
-          null
-        } else {
-          return <FacilityCard distance={facility.distance} cardClick={this.cardClick} hover={this.state.hover} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng} key={index} facility={facility} facilities={this.props.facilities}/>
-        }
-      })
-    )
+    if (this.props.currentPosition.lat === "" || this.props.currentPosition.lng === ""){
+      return (
+        <div style={{position: 'fixed', left: "8%", top: "50%" }}>
+        <div className="loader"></div>
+        {/* <h1 >loading facilities...</h1> */}
+      </div>
+      )
+    } else {
+      return (
+        sortedFacilities.map((facility, index) => {
+          if (facility === null || this.props.currentPosition === null || this.props.currentPosition.lat === "" || this.props.currentPosition.lng === ""){
+            null
+          } else {
+            return <FacilityCard distance={facility.distance} cardClick={this.cardClick} hover={this.state.hover} currentLatitude={this.props.currentPosition.lat} currentLongitude={this.props.currentPosition.lng} key={index} facility={facility} facilities={this.props.facilities}/>
+          }
+        })
+      )
+    }
   }
 
   cardClick = (data) => {
@@ -207,14 +215,6 @@ class Facilities extends Component {
         <br/>
         <br/>
         <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-
 
       <div ref="facilitiesRef" onScroll={this.handleScroll} className="facilities">
         {newFacilities}

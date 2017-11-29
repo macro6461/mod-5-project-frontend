@@ -6,6 +6,7 @@ import { getCurrentUserPosition, getCurrentPerson } from './actions/actions'
 import { fetchFacilitiesRequest } from './actions/facilityActions'
 import { fetchSponseesRequest, getCurrentSponsee } from './actions/sponseeActions'
 import { fetchSponsorsRequest, getCurrentSponsor } from './actions/sponsorActions'
+// import { fetchSponsorReviewsRequest, fetchSponseeReviewsRequest } from './actions/reviewActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Icon } from 'semantic-ui-react'
@@ -22,21 +23,10 @@ class App extends Component {
     currentPosition: ""
   }
 
-  getCurrentSponsorRole = () => {
-    let sponsor = localStorage.getItem("username")
-    let currentSponsor = this.props.sponsors.find((sponsor)=>{
-      return sponsor.username === sponsor
-    })
-
-  }
-
   componentDidMount = () => {
-
-
     this.props.fetchSponsorsRequest()
     this.props.fetchSponseesRequest()
     this.props.fetchFacilitiesRequest()
-    // this.getCurrentSponsorRole()
     if (navigator.geolocation){
         navigator.geolocation.getCurrentPosition((position) => {
           let currentPosition = {latitude: position.coords.latitude, longitude: position.coords.longitude}
@@ -97,7 +87,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentPerson: state.currentReducer.currentPerson,
+    currentSponsor: state.sponsorsReducer.sponsor,
+    currentSponsee: state.sponseesReducer.sponsee,
     sponsees: state.sponseesReducer.sponsees,
     sponsors: state.sponsorsReducer.sponsors,
     currentPosition: state.currentReducer.currentPosition
@@ -105,4 +96,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default withRouter(connect(mapStateToProps, { getCurrentUserPosition, fetchFacilitiesRequest, fetchSponseesRequest, fetchSponsorsRequest, getCurrentPerson, getCurrentSponsor, getCurrentSponsee })(App))
+export default withRouter(connect(mapStateToProps, { getCurrentUserPosition, fetchFacilitiesRequest, fetchSponseesRequest, fetchSponsorsRequest, getCurrentPerson, getCurrentSponsor, getCurrentSponsee})(App))

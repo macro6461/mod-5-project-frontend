@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { Card, Icon, Button, Popup } from 'semantic-ui-react'
 import ReviewsContainer from '../review/ReviewsContainer'
+import { connect } from 'react-redux'
+import { removeSponsorReviews } from '../../actions/reviewActions'
 
 
-export default class FacilityCard extends Component{
+class FacilityCard extends Component{
 
   state = {
     insurance: false,
     reviews: false,
-    facilitySponsorReviews: ""
+    facilitySponsorReviews: "",
+    facilitySponseeReviews: ""
   }
 
   showInsurance = () => {
@@ -17,26 +20,33 @@ export default class FacilityCard extends Component{
     })
   }
 
-  showReviews = () => {
+  showReviews = (e) => {
     this.setState({
       reviews: !this.state.reviews
     })
   }
 
   componentDidMount = () => {
-    fetch('http://localhost:3000/sponsor_reviews')
-    .then(res => res.json())
-    .then(json => this.filterSponsorReviews(json))
+    this.filterSponsorReviews(this.props.sponsorReviews)
+    this.filterSponseeReviews(this.props.sponseeReviews)
   }
 
   filterSponsorReviews = (data) => {
 
     let facilitySponsorReviews = data.filter((sponsorReview)=>{
-
       return sponsorReview.facility_id === this.props.facility.id
     })
     this.setState({
       facilitySponsorReviews: facilitySponsorReviews
+    })
+  }
+
+  filterSponseeReviews = (data) => {
+    let facilitySponseeReviews = data.filter((sponseeReview)=>{
+      return sponseeReview.facility_id === this.props.facility.id
+    })
+    this.setState({
+      facilitySponseeReviews: facilitySponseeReviews
     })
   }
 
@@ -46,17 +56,13 @@ export default class FacilityCard extends Component{
   }
 
   render(){
-
+    console.log(this.state.facilitySponsorReviews)
     const phone = "tel:" + this.props.facility.phone
     const insurance = this.props.facility.insurance.split(" ")
     let insurances
     if (insurance.length > 1 ){
-
-
       insurances = insurance.join(" ")
     } else {
-
-
       insurances = insurance[0]
     }
 
@@ -65,7 +71,7 @@ export default class FacilityCard extends Component{
       <div>
       {this.state.reviews === false
         ? null
-        : <ReviewsContainer name="reviewsContainer" facility={this.props.facility} sponsorReviews={this.state.facilitySponsorReviews} showReviews={this.showReviews}/>
+        : <ReviewsContainer name="reviewsContainer" facility={this.props.facility} filterSponsorReviews={this.filterSponsorReviews} sponsorReviews={this.state.facilitySponsorReviews} sponseeReviews={this.state.facilitySponseeReviews} showReviews={this.showReviews} removeSponsorReviews={this.props.removeSponsorReviews}/>
       }
       </div>
       <div onClick={this.handleOnClick}>
@@ -102,3 +108,18 @@ export default class FacilityCard extends Component{
     )
   }
 }
+
+
+const mapStateToProps = (state) => {
+  return {
+    sponsorReviews: state.reviewReducer.sponsorReviews,
+    sponseeReviews: state.reviewReducer.sponseeReviews,
+    currentSponsor: state.sponsorsReducer.sponsor,
+    currentSponsee: state.sponseesReducer.sponsee,
+    sponsees: state.sponseesReducer.sponsees,
+    sponsors: state.sponsorsReducer.sponsors,
+    currentPosition: state.currentReducer.currentPosition
+  }
+}
+
+export default connect(mapStateToProps, {removeSponsorReviews})(FacilityCard)

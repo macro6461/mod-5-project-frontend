@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Image, Form, Button, Dropdown } from 'semantic-ui-react'
+import { addSponsorReview } from '../../actions/reviewActions'
 
 import { connect } from 'react-redux'
 
@@ -32,22 +33,12 @@ class SponsorReview extends Component {
   }
 
   handleSubmit = (event) => {
-
-
     event.preventDefault()
-        fetch('http://localhost:3000/sponsor_reviews', {
-          headers: {"Content-Type": "application/json",
-          "Accept":"application/json"},
-          method: "POST",
-          body: JSON.stringify({
-            sponsor_id: this.props.currentSponsor.id,
-            rating: this.state.rating,
-            body: this.state.body,
-            facility_id: this.props.facilityId
-          })
-        })
-        .then(res => res.json())
-        .then(json => console.log(json))
+    const sponsorReview = {sponsor_id: this.props.currentSponsor.id, rating: this.state.rating, body: this.state.body, facility_id: this.props.facilityId}
+    this.props.addSponsorReview(sponsorReview)
+    this.setState({
+      
+    })
   }
 
   render(){
@@ -88,7 +79,7 @@ class SponsorReview extends Component {
       <div className="sponsorReview">
 
         <Form className="sponsorReviewForm" onSubmit={this.handleSubmit}>
-          <h3>{this.props.currentSponsor.username}'s Review</h3>
+          <h3>{localStorage.getItem("username")}'s's Review</h3>
         <Form.Field className="dropDownReview">
   rating: <Dropdown inline header='Rating' options={options} defaultValue="rating" value={this.state.rating} onChange={this.handleDropChange}/>
         </Form.Field>
@@ -111,4 +102,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(SponsorReview)
+export default connect(mapStateToProps, {addSponsorReview})(SponsorReview)

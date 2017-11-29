@@ -3,36 +3,27 @@ import { Image, Form, Button, Dropdown, Card } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import SponsorReview from './sponsorReview'
 import SponseeReview from './sponseeReview'
+import { fetchSponsorReviewsRequest, fetchSponseeReviewsRequest, removeSponsorReviews, removeSponseeReviews } from '../../actions/reviewActions'
 
 class ReviewsContainer extends Component {
 
   state = {
-    facilitySponsorReviews: "",
+    facilitySponsorReviews: [],
+    facilitySponseeReviews: [],
     role: localStorage.getItem("role"),
     signedIn: false,
     reviewClicked: false
   }
 
-  filterSponsorReviews = (data) => {
-
-    let facilitySponsorReviews = data.filter((sponsorReview)=>{
-
-      return sponsorReview.facility_id === this.props.facility.id
-    })
-        debugger
-      this.setState({
-        facilitySponsorReviews: facilitySponsorReviews
-      })
-  }
-
   checkReviewClicked = () => {
-
     this.setState({
       reviewClicked: !this.state.reviewClicked
     }, () => this.reviewType())
   }
 
   componentDidMount = () => {
+    this.props.fetchSponsorReviewsRequest(this.props.facility.id)
+    this.props.fetchSponseeReviewsRequest(this.props.facility.id)
     if (localStorage.getItem("role") === null || localStorage.getItem("role") === undefined){
       this.setState({
         signedIn: false
@@ -40,46 +31,30 @@ class ReviewsContainer extends Component {
     } else {
       this.setState({
         signedIn: true
-      }, () => {
-        debugger
-        fetch('http://localhost:3000/sponsor_reviews')
-        .then(res => res.json())
-        .then(json => this.filterSponsorReviews(json))
       })
     }
   }
 
   findSponsor = (data) => {
-    const sponsor = this.props.sponsors.find((sponsor)=>{
-      return sponsor.id === data.sponsor_id
-    })
-    return (<p>{sponsor.username}</p>)
+    if (data.sponsee_id){
+      this.findSponsee(data)
+    } else{
+      debugger
+      const sponsor = this.props.sponsors.find((sponsor)=>{
+        debugger
+        return sponsor.id === data.sponsor_id
+      })
+      return (<p>{sponsor.username}</p>)
+    }
   }
 
-  checkReviews = (data) => {
-    let averageRating = 0
-    let rating = 0
-    if (data === undefined || data === null ){
-      return this.state.facilitySponsorReviews
-    } else {
-      return data.map((review) => {
-        debugger
-        const sponsor = this.findSponsor(review)
-        rating = review.rating
-        averageRating += rating
-        debugger
-        return (
-          <div>
-          <div className="individualSponsorReview">
-          <p className="ratingP">{rating}/5</p>
-          <p>"{review.body}" <em>{sponsor}</em></p>
-          <p>{review.created_at.split("T")[0]}</p>
-          </div>
-          <br/>
-          </div>
-        )
-      })
-    }
+  findSponsee = (data) => {
+    debugger
+    const sponsee = this.props.sponsees.find((sponsee)=>{
+      //debugger
+      return sponsee.id === data.sponsee_id
+    })
+    return (<p>{sponsee.username}</p>)
   }
 
   reviewType = () => {
@@ -87,29 +62,54 @@ class ReviewsContainer extends Component {
     if (this.state.role === "sponsor"){
       return <SponsorReview facilityId={this.props.facility.id}/>
     } else if (this.state.role === "sponsee"){
-      return <SponseeReview facilityId={this.props.facility.id}/>
+      return <SponseeReview facilityId={this.props.facility.id} />
     }
   }
 
+  removeAndShow = () => {
+    this.props.removeSponseeReviews()
+    this.props.removeSponsorReviews()
+    this.props.showReviews()
+  }
+
   render(){
-    const reviews = this.state.facilitySponsorReviews
+    const sponsorReviews = this.props.sponsorReviews.map((review) => {
+      debugger
+      const sponsor = this.findSponsor(review)
+      return(
+        <div>
+        <div className="individualSponsorReview">
+        <p className="ratingP">{review.rating}/5</p>
+        <p>"{review.body}" <em>{sponsor}</em></p>
+        <p>{review.created_at.split("T")[0]}</p>
+        </div>
+        <br/>
+        </div>
+      )
+    })
+    const sponseeReviews = this.props.sponseeReviews.map((review) => {
+      debugger
+      const sponsee = this.findSponsee(review)
+      return(
+        <div>
+        <div className="individualSponsorReview">
+        <p className="ratingP">{review.rating}/5</p>
+        <p>"{review.body}" <em>{sponsee}</em></p>
+        <p>{review.created_at.split("T")[0]}</p>
+        </div>
+        <br/>
+        </div>
+      )
+    })
 
     const reviewType = this.reviewType()
-    const facilitySponsorReviews = this.state.facilitySponsorReviews && this.state.facilitySponsorReviews.length > 1 ? this.state.facilitySponsorReviews : "be the first to review!"
-
-    // const orderedReviews = this.checkReviews(reviews).sort(function(a, b){
-    //   return new Date(b.created_at) - new Date(a.created_at)
-    // })
-    console.log(reviews)
-    console.log(facilitySponsorReviews)
-    console.log(this.props.sponsorReviews)
     return(
       <div>
         <div className="container">
         </div>
       <div className="reviewsContainerCard">
         <Card className="reviewsContainerCardInt">
-          <Button className="reviewBack" onClick={this.props.showReviews}>back</Button>
+          <Button className="reviewBack" onClick={this.removeAndShow}>back</Button>
           <h3>Reviews for {this.props.facility.name}</h3>
           {this.state.signedIn === false
             ? <Button className="writeAReview">please sign in to write a review</Button>
@@ -119,13 +119,17 @@ class ReviewsContainer extends Component {
             ? null
             : reviewType
           }
-          {/* {this.props.sponsorReviews} */}
-          {this.state.facilitySponsorReviews === "" || this.state.facilitySponsorReviews === undefined
-            ? <h4>be the first to review!</h4>
-            : <div className="reviewList">
-                {this.checkReviews(reviews)}
+          {this.props.sponsorReviews.length === 0 && this.props.sponseeReviews.length === 0
+            ? <div>
+              <br/>
+              <p>be the first review!</p>
               </div>
+            : <div className="reviewList">
+              {sponsorReviews}
+              {sponseeReviews}
+            </div>
           }
+
         </Card>
       </div>
     </div>
@@ -133,8 +137,11 @@ class ReviewsContainer extends Component {
   }
 }
 
+
 const mapStateToProps = (state) => {
   return {
+    sponsorReviews: state.reviewReducer.sponsorReviews,
+    sponseeReviews: state.reviewReducer.sponseeReviews,
     currentSponsor: state.sponsorsReducer.sponsor,
     currentSponsee: state.sponseesReducer.sponsee,
     sponsees: state.sponseesReducer.sponsees,
@@ -143,4 +150,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(ReviewsContainer)
+export default connect(mapStateToProps, { fetchSponsorReviewsRequest, fetchSponseeReviewsRequest, removeSponsorReviews, removeSponseeReviews })(ReviewsContainer)
