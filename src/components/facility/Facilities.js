@@ -31,25 +31,9 @@ class Facilities extends Component {
     })
     this.props.removeFacilityMapPosition()
     this.props.removeFacilityMapZoom()
-    // this.testScroll()
-    if (ExecutionEnvironment.canUseDOM) {
-      document.documentElement.addEventListener('scroll', this.handleScroll);
-    }
+
   }
 
-  // testScroll = () => {
-  //   if (this.refs.facilitiesRef === undefined) {
-  //     return null
-  //   } else{
-  //     let scrollHeight = this.refs.facilitiesRef.scrollHeight
-  //     let clientHeight = this.refs.facilitiesRef.clientHieght
-  //     window.onscroll = function(){
-  //       // console.log(window.)
-  //     }
-  //   }
-  //
-  //
-  // }
 
   setGeoState = (data) => {
     this.setState({

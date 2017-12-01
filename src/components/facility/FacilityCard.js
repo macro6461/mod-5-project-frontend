@@ -11,7 +11,8 @@ class FacilityCard extends Component{
     insurance: false,
     reviews: false,
     facilitySponsorReviews: "",
-    facilitySponseeReviews: ""
+    facilitySponseeReviews: "",
+    submitted: false
   }
 
   showInsurance = () => {
@@ -20,7 +21,26 @@ class FacilityCard extends Component{
     })
   }
 
-  showReviews = (e) => {
+  handleSubmittedModal = () => {
+    this.setState({
+      submitted: true
+    }, () => {this.changeSubmittedModal()})
+  }
+
+  changeSubmittedState = () => {
+    debugger
+    this.setState({
+      submitted: false
+    })
+  }
+
+  changeSubmittedModal = () => {
+    debugger
+    let changeSubmittedStateStored = this.changeSubmittedState
+    setTimeout(function(){changeSubmittedStateStored()}, 3000)
+  }
+
+  showReviews = () => {
     this.setState({
       reviews: !this.state.reviews
     })
@@ -71,7 +91,11 @@ class FacilityCard extends Component{
       <div>
       {this.state.reviews === false
         ? null
-        : <ReviewsContainer name="reviewsContainer" facility={this.props.facility} filterSponsorReviews={this.filterSponsorReviews} sponsorReviews={this.state.facilitySponsorReviews} sponseeReviews={this.state.facilitySponseeReviews} showReviews={this.showReviews} removeSponsorReviews={this.props.removeSponsorReviews}/>
+        : <ReviewsContainer submittedModal={this.handleSubmittedModal} name="reviewsContainer" facility={this.props.facility} filterSponsorReviews={this.filterSponsorReviews} sponsorReviews={this.state.facilitySponsorReviews} sponseeReviews={this.state.facilitySponseeReviews} showReviews={this.showReviews} removeSponsorReviews={this.props.removeSponsorReviews}/>
+      }
+      {this.state.submitted
+        ? <div className="thanksForReview">thanks for the review!<Icon className="checkmark box" size="large"/></div>
+        : null
       }
       </div>
       <div onClick={this.handleOnClick}>

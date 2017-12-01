@@ -6,6 +6,8 @@ import SponsorReview from './sponsorReview'
 import SponseeReview from './sponseeReview'
 import { fetchSponsorReviewsRequestResolved, fetchSponseeReviewsRequestResolved, removeSponsorReviews, removeSponseeReviews } from '../../actions/reviewActions'
 
+
+
 class ReviewsContainer extends Component {
 
   state = {
@@ -23,13 +25,20 @@ class ReviewsContainer extends Component {
     }, () => this.reviewType())
   }
 
+
   componentDidMount = () => {
+    debugger
     fetch('http://localhost:3000/sponsee_reviews')
     .then(res => res.json())
     .then(json => this.props.fetchSponseeReviewsRequestResolved({json: json, facility_id: this.props.facility.id}))
+
+
     fetch('http://localhost:3000/sponsor_reviews')
     .then(res => res.json())
     .then(json => this.props.fetchSponsorReviewsRequestResolved({json: json, facility_id: this.props.facility.id}))
+
+
+
     if (localStorage.getItem("role") === null || localStorage.getItem("role") === undefined){
       this.setState({
         signedIn: false
@@ -39,6 +48,7 @@ class ReviewsContainer extends Component {
         signedIn: true
       })
     }
+
   }
 
   findSponsor = (data) => {
@@ -47,7 +57,7 @@ class ReviewsContainer extends Component {
         debugger
         return sponsor.id === data.sponsor_id
       })
-      return (<p>{sponsor.username} (sponsor)</p>)
+      return (<p>-{sponsor.username} (sponsor)</p>)
     }
 
 
@@ -56,16 +66,18 @@ class ReviewsContainer extends Component {
     const sponsee = this.props.sponsees.find((sponsee)=>{
       return sponsee.id === data.sponsee_id
     })
-    return (<p>{sponsee.username} (sponsee)</p>)
+    return (<p>-{sponsee.username} (sponsee)</p>)
   }
 
   reviewType = () => {
     if (this.state.role === "sponsor"){
-      return <SponsorReview facilityId={this.props.facility.id} reviewClicked={this.checkReviewClicked}/>
+      return <SponsorReview facilityId={this.props.facility.id} reviewClicked={this.checkReviewClicked} showReviews={this.props.showReviews} submittedModal={this.props.submittedModal}/>
     } else if (this.state.role === "sponsee"){
-      return <SponseeReview facilityId={this.props.facility.id} reviewClicked={this.checkReviewClicked} />
+      return <SponseeReview facilityId={this.props.facility.id} reviewClicked={this.checkReviewClicked} showReviews={this.props.showReviews} submittedModal={this.props.submittedModal}/>
     }
   }
+
+
 
   removeAndShow = () => {
     this.props.removeSponseeReviews()
@@ -74,37 +86,68 @@ class ReviewsContainer extends Component {
   }
 
   render(){
-    const finalSponsorReviews = this.props.sponsorReviews.map((review) => {
+
+    let sponsorAverage = 0
+    let sponseeAverage = 0
+
+    let filteredSponsorReviews = this.props.sponsorReviews.filter(function(review) {
+      return review.sponsor_id
+    })
+
+    let finalSponsorReviews = filteredSponsorReviews.map((review) => {
       debugger
         const sponsor = this.findSponsor(review)
+        sponsorAverage += review.rating
         return(
           <div>
           <div className="individualSponsorReview">
           <p className="ratingP">{review.rating}/5</p>
-          <p>"{review.body}" <em>{sponsor}</em></p>
+        <br/>
+        <p>"{review.body}" <em>-{sponsor}</em></p>
           <p>{review.created_at.split("T")[0]}</p>
           </div>
           <br/>
           </div>
       )
     })
-    const finalSponseeReviews = this.props.sponseeReviews.map((review) => {
-      debugger
-        const sponsee = this.findSponsee(review)
-        return(
-          <div>
-          <div className="individualSponsorReview">
-          <p className="ratingP">{review.rating}/5</p>
-          <p>"{review.body}" <em>{sponsee}</em></p>
-          <p>{review.created_at.split("T")[0]}</p>
-          </div>
-          <br/>
-          </div>
-        )
+
+    let filteredSponseeReviews = this.props.sponseeReviews.filter(function(review) {
+      return review.sponsee_id
     })
-    console.log(finalSponsorReviews)
-    console.log(finalSponseeReviews)
-    const reviewType = this.reviewType()
+
+    let finalSponseeReviews = filteredSponseeReviews.map((review) => {
+      const sponsee = this.findSponsee(review)
+      const finalSponsee = "-" + sponsee
+      sponseeAverage += review.rating
+      return(
+        <div>
+        <div className="individualSponsorReview">
+        <p className="ratingP">{review.rating}/5</p>
+      <br/>
+    <p>"{review.body}" <em>{sponsee}</em></p>
+        <p>{review.created_at.split("T")[0]}</p>
+        </div>
+        <br/>
+        </div>
+      )
+    })
+
+
+  const reviewType = this.reviewType()
+  const totalAverage = () => {
+      if (sponseeAverage === 0 && sponsorAverage === 0){
+      return 0
+    } else if (sponseeAverage === 0){
+      return (sponsorAverage / this.props.sponsorReviews.length)
+    } else if (sponsorAverage === 0){
+      return (sponseeAverage / this.props.sponseeReviews.length)
+    } else if (sponsorAverage > 0 && sponseeAverage > 0){
+      return (((sponseeAverage / this.props.sponseeReviews.length) + (sponsorAverage / this.props.sponsorReviews.length)) / 2)
+    }
+  }
+
+
+
     return(
       <div>
         <div className="container">
@@ -114,6 +157,14 @@ class ReviewsContainer extends Component {
           <br/>
         <Icon className="close" size="large" style={{color: 'red', marginLeft: '99%'}}onClick={this.removeAndShow}/>
           <h3>Reviews for {this.props.facility.name}</h3>
+        {totalAverage() === 0
+          ? <h3>No rating</h3>
+          : <h3>average rating: {totalAverage().toFixed(1)}/5</h3>
+        }
+        { this.props.sponsorReviews.length + this.props.sponseeReviews.length === 0
+          ? <h3>No Reviews</h3>
+          : <h3>{this.props.sponsorReviews.length + this.props.sponseeReviews.length} reviews</h3>
+        }
           {this.state.signedIn === false
             ? <div>
               <p>please sign in to write a review</p>
@@ -133,8 +184,11 @@ class ReviewsContainer extends Component {
               </div>
             : <div className="reviewList">
                 <div>
-                  {finalSponsorReviews}
-                  {finalSponseeReviews}
+                   <div>
+                      {finalSponsorReviews}
+                      {finalSponseeReviews}
+                    </div>
+
                 </div>
               </div>
           }

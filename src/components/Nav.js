@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import {browserLocation} from 'browser-location'
 import NextStepLogo from '../TheNextStepLogo3.png'
 
-let localRole = ""
+
 
 class Nav extends Component {
   constructor(props){

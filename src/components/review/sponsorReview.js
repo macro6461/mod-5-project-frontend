@@ -39,6 +39,8 @@ class SponsorReview extends Component {
     const sponsorReview = {sponsor_id: this.props.currentSponsor.id, rating: this.state.rating, body: this.state.body, facility_id: this.props.facilityId}
     this.props.addSponsorReview(sponsorReview)
     this.props.reviewClicked()
+    this.props.showReviews()
+    this.props.submittedModal()
 
   }
 

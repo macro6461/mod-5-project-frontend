@@ -80,7 +80,7 @@ class SponseeLogIn extends Component {
     : <div>
       <br/>
       <br/>
-      <br/>
+
     <h3> Sponsee Login </h3>
   <Form className="loginForm" onSubmit={this.handleSubmit}>
             {this.props.error === null

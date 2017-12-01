@@ -452,10 +452,10 @@ font-family: 'Avenir Next' !important;
   opacity: 1;
   padding: 1%;
   width: 100%;
-  height: 550px;
+  height: 75%;
   background-color: none;
   position: fixed;
-  top: 15%;
+  top: 10%;
   z-index: 99;
 }
 
@@ -692,6 +692,30 @@ h3 {
   width: 100%;
 }
 
+.thanksForReview{
+  border-radius: 10px;
+  border: solid 1px black;
+  background-color: AliceBlue;
+  padding: 1%;
+  position: fixed;
+  top: 20%;
+  left: 40%;
+  width: 20%;
+  box-shadow: 4px 4px 2px #888888 !important;
+  -webkit-animation: thanksFade 2s;
+  animation-delay: 2s
+}
+
+@-webkit-keyframes thanksFade {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes thanksFade {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
 .signUpForm{
   font-family: 'Avenir Next' !important;
   opacity: 1 !important;
@@ -703,7 +727,7 @@ h3 {
   /*padding-top: 6% !important;*/
   padding: 4% !important;
   width: 50% !important;
-  height: 650px !important;
+  height: 100% !important;
 }
 
 .writeAReview{
