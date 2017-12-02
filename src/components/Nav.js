@@ -50,6 +50,7 @@ checkLoggedIn = () => {
 
   render(){
     // this.checkLoggedIn()
+    debugger
     const sponsorOrSponseeOrUndefined = () =>{
       if (this.props.sponsorRole === '' && this.props.sponseeRole === ''){
           return (

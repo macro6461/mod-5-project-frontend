@@ -6,7 +6,7 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
     let filteredSponsees = action.payload.filter((sponsee) => {
       return sponsee.latitude !== null && sponsee.longitude !== null
     })
-    if (localStorage.getItem("username")){
+    if (localStorage.getItem("role") === "sponsee"){
       const username = localStorage.getItem("username")
       return {...state, sponsee: username, sponsees: filteredSponsees}
     } else {

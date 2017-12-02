@@ -101,9 +101,9 @@ class ReviewsContainer extends Component {
         return(
           <div>
           <div className="individualSponsorReview">
-          <p className="ratingP">{review.rating}/5</p>
+          <p className="ratingP">{review.rating}/5<span style={{color: "gold",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>&#9733;</span></p>
         <br/>
-        <p>"{review.body}" <em>-{sponsor}</em></p>
+        <p>"{review.body}" <em>{sponsor}</em></p>
           <p>{review.created_at.split("T")[0]}</p>
           </div>
           <br/>
@@ -122,9 +122,9 @@ class ReviewsContainer extends Component {
       return(
         <div>
         <div className="individualSponsorReview">
-        <p className="ratingP">{review.rating}/5</p>
-      <br/>
-    <p>"{review.body}" <em>{sponsee}</em></p>
+        <p className="ratingP">{review.rating}/5<span style={{color: "gold",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>&#9733;</span></p>
+        <br/>
+        <p>"{review.body}" <em>{sponsee}</em></p>
         <p>{review.created_at.split("T")[0]}</p>
         </div>
         <br/>
@@ -146,7 +146,15 @@ class ReviewsContainer extends Component {
     }
   }
 
-
+const reviews = () => {
+  if (this.props.sponsorReviews.length + this.props.sponseeReviews.length === 0){
+    return <h3>No Reviews</h3>
+  } else if (this.props.sponsorReviews.length + this.props.sponseeReviews.length === 1){
+    return <h3>1 Review</h3>
+  } else {
+    return <h3>{this.props.sponsorReviews.length + this.props.sponseeReviews.length} reviews</h3>
+  }
+}
 
     return(
       <div>
@@ -159,12 +167,9 @@ class ReviewsContainer extends Component {
           <h3>Reviews for {this.props.facility.name}</h3>
         {totalAverage() === 0
           ? <h3>No rating</h3>
-          : <h3>average rating: {totalAverage().toFixed(1)}/5</h3>
+          : <h3>average rating: {totalAverage().toFixed(1)}/5 <span style={{color: "gold",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>&#9733;</span></h3>
         }
-        { this.props.sponsorReviews.length + this.props.sponseeReviews.length === 0
-          ? <h3>No Reviews</h3>
-          : <h3>{this.props.sponsorReviews.length + this.props.sponseeReviews.length} reviews</h3>
-        }
+        {reviews()}
           {this.state.signedIn === false
             ? <div>
               <p>please sign in to write a review</p>

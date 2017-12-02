@@ -176,7 +176,7 @@ console.log(this.props.currentSponsee)
         <br/>
         <br/>
         <br/>
-      <h3> Welcome Sponsee {this.props.currentSponsee}!</h3>
+      <h3> Welcome Sponsee {localStorage.getItem("username")}!</h3>
         <p>You are now logged in.</p>
       <Link to="/sponsees"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
       <Button className="deleteButton" onClick={this.confirmDelete}>Delete Account</Button>

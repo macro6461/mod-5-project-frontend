@@ -153,6 +153,18 @@ class SponsorLoggedIn extends Component {
     )
   }
 
+  changeStarColor = (event) => {
+    debugger
+    console.log(console.log(event.target.style.color))
+    if (event.target.style.color === "yellow"){
+      debugger
+      event.target.style.color = "white"
+    } else if (event.target.style.color === "white"){
+      debugger
+      event.target.style.color = "yellow"
+    }
+  }
+
   render(){
     const finalSponsees = this.state.sponsees && this.state.sponsees.length > 0 ? (this.state.sponsees) : (this.props.sponsees)
     const sponseesData = finalSponsees.map((sponsee, index) => {
@@ -176,10 +188,9 @@ class SponsorLoggedIn extends Component {
         <br/>
         <br/>
         <br/>
-      {this.props.currentSponsor === localStorage.getItem("username")
-        ? <h3> Welcome Sponsor {this.props.currentSponsor}!</h3>
-        : <h3> Welcome Sponsor {localStorage.username}!</h3>
-      }
+
+        <h3> Welcome Sponsor {localStorage.username}!</h3>
+
         <p>You are now logged in.</p>
       <Link to="/sponsors"><Button onClick={this.removeLogin}>Sign Out</Button></Link>
       <Button className="deleteButton" onClick={this.confirmDelete}>Delete Account</Button>

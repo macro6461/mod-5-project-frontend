@@ -6,7 +6,7 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
     let filteredSponsors = action.payload.filter((sponsor) => {
       return sponsor.latitude !== null && sponsor.longitude !== null
     })
-    if (localStorage.getItem("username")){
+    if (localStorage.getItem("role") === "sponsor"){
       const username = localStorage.getItem("username")
       return {...state, sponsor: username, sponsors: filteredSponsors}
     } else {
@@ -27,7 +27,7 @@ export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: 
       return {...state, sponsor: action.payload, role: action.payload.role, error: null}
     case "REMOVE_SPONSOR_LOGIN":
     localStorage.clear()
-      return {...state, sponsor: action.payload, role: action.payload, error: null}
+      return {...state, sponsor: "", role: action.payload, error: null}
     case "RENDER_ADD_SPONSOR_FAILED":
       return {...state, error: action.payload.error}
     case "REMOVE_SPONSOR_ERROR":

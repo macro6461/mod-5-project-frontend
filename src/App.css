@@ -551,7 +551,7 @@ h3 {
 
 .facilityCard {
   font-family: 'Avenir Next' !important;
-  margin-top: 2%;
+  margin-top: 0% !important;
   height: 20%;
   padding: 4% !important;
   border: solid 2px black;
@@ -692,13 +692,14 @@ h3 {
   width: 100%;
 }
 
+
 .thanksForReview{
   border-radius: 10px;
   border: solid 1px black;
   background-color: AliceBlue;
   padding: 1%;
   position: fixed;
-  top: 20%;
+  top: 50%;
   left: 40%;
   width: 20%;
   box-shadow: 4px 4px 2px #888888 !important;

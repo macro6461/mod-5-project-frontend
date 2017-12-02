@@ -3,6 +3,7 @@ import { Card, Icon, Button, Popup } from 'semantic-ui-react'
 import ReviewsContainer from '../review/ReviewsContainer'
 import { connect } from 'react-redux'
 import { removeSponsorReviews } from '../../actions/reviewActions'
+import { removeFacilityMapZoom, removeFacilityMapPosition } from '../../actions/facilityActions'
 
 
 class FacilityCard extends Component{
@@ -37,7 +38,7 @@ class FacilityCard extends Component{
   changeSubmittedModal = () => {
     debugger
     let changeSubmittedStateStored = this.changeSubmittedState
-    setTimeout(function(){changeSubmittedStateStored()}, 3000)
+    setTimeout(function(){changeSubmittedStateStored()}, 3900)
   }
 
   showReviews = () => {
@@ -70,7 +71,12 @@ class FacilityCard extends Component{
     })
   }
 
-  handleOnClick = () => {
+  handleOnLeave = () => {
+    this.props.removeFacilityMapZoom()
+    this.props.removeFacilityMapPosition()
+  }
+
+  handleOnEnter = () => {
     let facility = this.props.facility
     this.props.cardClick({facility: facility, zoom: 17})
   }
@@ -98,7 +104,7 @@ class FacilityCard extends Component{
         : null
       }
       </div>
-      <div onClick={this.handleOnClick}>
+      <div className="facilityCardDiv"onMouseEnter={this.handleOnEnter}>
       <Card className="facilityCard">
         <br/>
         <Button className="reviews" onClick={this.showReviews}>reviews</Button>
@@ -146,4 +152,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {removeSponsorReviews})(FacilityCard)
+export default connect(mapStateToProps, {removeSponsorReviews, removeFacilityMapZoom, removeFacilityMapPosition})(FacilityCard)

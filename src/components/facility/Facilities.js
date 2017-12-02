@@ -31,7 +31,6 @@ class Facilities extends Component {
     })
     this.props.removeFacilityMapPosition()
     this.props.removeFacilityMapZoom()
-
   }
 
 
@@ -200,7 +199,7 @@ class Facilities extends Component {
         <br/>
         <br/>
 
-      <div ref="facilitiesRef" onScroll={this.handleScroll} className="facilities">
+      <div ref="facilitiesRef" className="facilities">
         {newFacilities}
       </div>
       <br/>
