@@ -148,7 +148,7 @@ class ReviewsContainer extends Component {
 
 const reviews = () => {
   if (this.props.sponsorReviews.length + this.props.sponseeReviews.length === 0){
-    return <h3>No Reviews</h3>
+    return <h3>be the first review!</h3>
   } else if (this.props.sponsorReviews.length + this.props.sponseeReviews.length === 1){
     return <h3>1 Review</h3>
   } else {
@@ -183,10 +183,7 @@ const reviews = () => {
             : reviewType
           }
           {this.props.sponsorReviews.length === 0 && this.props.sponseeReviews.length === 0
-            ? <div>
-              <br/>
-              <p>be the first review!</p>
-              </div>
+            ? null
             : <div className="reviewList">
                 <div>
                    <div>
