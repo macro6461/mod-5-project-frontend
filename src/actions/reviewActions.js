@@ -97,3 +97,45 @@ export function removeSponseeReviews(){
     type: "REMOVE_SPONSEE_REVIEWS"
   }
 }
+
+export function deleteSponseeReview(data){
+  return (dispatch) => {
+    fetch(`http://localhost:3000/sponsee_reviews/${data.id}`, {
+        headers: {"Content-Type": "application/json",
+        "Accept":"application/json"},
+        method: "DELETE",
+        body: JSON.stringify({
+          id: data.id
+        })
+      })
+    .then(() => dispatch(sendSponseeReviewDeleteData(data)))
+  }
+}
+
+export function sendSponseeReviewDeleteData(data){
+  return {
+    type: "DELETE_SPONSEE_REVIEW",
+    payload: data
+  }
+}
+
+export function deleteSponsorReview(data){
+  return (dispatch) => {
+    fetch(`http://localhost:3000/sponsor_reviews/${data.id}`, {
+        headers: {"Content-Type": "application/json",
+        "Accept":"application/json"},
+        method: "DELETE",
+        body: JSON.stringify({
+          id: data.id
+        })
+      })
+    .then(() => dispatch(sendSponsorReviewDeleteData(data)))
+  }
+}
+
+export function sendSponsorReviewDeleteData(data){
+  return {
+    type: "DELETE_SPONSOR_REVIEW",
+    payload: data
+  }
+}

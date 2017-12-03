@@ -25,14 +25,11 @@ export default class Home extends Component {
       div3()
     }, 4000)
     setTimeout(function(){
-
       description()
-    }, 6000)
+    }, 7000)
   }
 
   changeHomeDiv2Opacity = () => {
-
-
       this.setState({
         div2Display: 'block'
       })
@@ -46,7 +43,6 @@ export default class Home extends Component {
   }
 
   changeHomeDescription = () => {
-
     this.setState({
       description: 'block'
     })
@@ -59,9 +55,6 @@ export default class Home extends Component {
         <br/>
         <br/>
         <br/>
-
-
-      {/* <Image src={NextStepLogo} alt="embrace"/> */}
       <Image className="openImg" src={NYC_from_WTC} alt="embrace"/>
     <div id="homeDiv1opacity">
     <div className="homeDiv1">

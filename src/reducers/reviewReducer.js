@@ -27,6 +27,14 @@ export default function reviewReducer(state={sponsorReviews: [], sponseeReviews:
       case "REMOVE_SPONSEE_REVIEWS":
       debugger
         return {...state, sponseeReviews: []}
+      case "DELETE_SPONSEE_REVIEW":
+        var index = state.sponseeReviews.indexOf(action.payload)
+        var stateSponseeReviews = state.sponseeReviews.splice(index, 1)
+          return {...state, sponseeReviews: stateSponseeReviews}
+      case "DELETE_SPONSOR_REVIEW":
+        var index = state.sponsorReviews.indexOf(action.payload)
+        var stateSponsorReviews = state.sponsorReviews.splice(index, 1)
+          return {...state, sponsorReviews: stateSponsorReviews}
     default:
       return state
   }

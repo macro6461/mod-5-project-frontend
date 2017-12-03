@@ -26,9 +26,14 @@ const iconStyle = {
 
 
 const InfoBox = (props) => {
-  console.log(props)
-  return (<Popup trigger={<Icon className="building icon" size='big' style={{transform: 'matrix(-1, 0, 0, 1, 10, 0)'}}/>} content={props.facility} position='top center' style={{backgroundColor: 'AliceBlue', border: 'solid 1px light', textAlign: 'center'}}/>)
-
+  let googleMapLocation = "https://maps.google.com/?q=" + props.lat + ", " + props.lng
+  let windowGoogleMap = `window.location= + ${googleMapLocation}`
+console.log(props)
+return (
+  <div>
+    <Popup trigger={<a target="_blank" href={googleMapLocation}><Icon onClick={windowGoogleMap} className="building icon" size='big' style={{transform: 'matrix(-1, 0, 0, 1, 10, 0)'}}/></a>} content={props.facility} position='top center' style={{marginLeft: '8px', backgroundColor: 'AliceBlue', border: 'solid 1px light', textAlign: 'center'}}/>
+  </div>
+  )
 }
 
 const CurrentPin = ({text}) => {
@@ -49,7 +54,8 @@ class FacilitiesMap extends React.Component {
     center: "",
     zoom: this.props.zoom,
     hover: false,
-    currentPosition: false
+    currentPosition: false,
+    infoBox: false
   }
 
   handleOnClick = () => {
@@ -79,7 +85,6 @@ class FacilitiesMap extends React.Component {
 
 
   onChildMouseEnter = (num, childProps) => {
-    console.log("hovered")
     if (childProps.facility === undefined){
       return null
     } else {
@@ -97,6 +102,7 @@ class FacilitiesMap extends React.Component {
     if (childProps.facility === undefined){
       return null
     } else {
+
       this.setState({
         lat: "",
         lng: "",
@@ -105,8 +111,11 @@ class FacilitiesMap extends React.Component {
     }
   }
 
-  setPinAsCenter = () => {
+  InfoBoxOnClick = () => {
     console.log("clicked")
+    this.setState({
+      infoBox: !this.state.infoBox
+    })
   }
 
   removeCenterAndZoom = () => {
@@ -116,17 +125,20 @@ class FacilitiesMap extends React.Component {
 
   render() {
 
+    let googleMapLocation = "https://maps.google.com/?q=" + this.props.lat + ", " + this.props.lng
+    let windowGoogleMap = `window.location= + ${googleMapLocation}`
+
     const setCenter = this.props.currentFacilityPosition === "" || this.props.currentFacilityPosition === undefined ? (this.state.center) : (this.props.currentFacilityPosition)
 
     const setZoom = this.props.currentFacilityZoom === "" || this.props.currentFacilityZoom === undefined ? (this.props.zoom) : (this.props.currentFacilityZoom)
 
-    const infoBox = this.state.hover === true ? <InfoBox onClick={()=>this.setPinAsCenter({lat: this.state.lat, lng: this.state.lng})} lat={this.state.lat} lng={this.state.lng} facility={this.state.facilityName}/> : null
+    const infoBox = this.state.hover === true ? <InfoBox lat={this.state.lat} lng={this.state.lng} facility={this.state.facilityName} googleMapLocation={googleMapLocation} /> : null
 
     const facilityPins = this.props.facilities.map((facility, index) => {
       if (facility.latitude === null || facility.longitude === null){
         return null
       } else{
-        return <FacilityPin style={{width: '50px', height: '50px'}} key={index} onChildMouseEnter={this.onChildMouseEnter} onChildMouseLeave={this.onChildMouseLeave} handlePinClick={this.handleOnClick} facility={facility} hover={this.state.hover} lat={facility.latitude} lng={facility.longitude}/>
+        return <FacilityPin style={{width: '50px', height: '50px'}} key={index} onChildMouseEnter={this.onChildMouseEnter} onChildMouseLeave={this.onChildMouseLeave} facility={facility} hover={this.state.hover} lat={facility.latitude} lng={facility.longitude} />
       }
     })
     return (
@@ -161,6 +173,7 @@ class FacilitiesMap extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    currentPosition: state.currentReducer.currentPosition,
     currentFacilityPosition: state.facilitiesReducer.currentFacilityPosition,
     currentFacilityZoom: state.facilitiesReducer.currentFacilityZoom
   }

@@ -82,7 +82,7 @@ class FacilityCard extends Component{
   }
 
   render(){
-    console.log(this.state.facilitySponsorReviews)
+    console.log(this.props)
     const phone = "tel:" + this.props.facility.phone
     const insurance = this.props.facility.insurance.split(" ")
     let insurances
@@ -91,6 +91,8 @@ class FacilityCard extends Component{
     } else {
       insurances = insurance[0]
     }
+
+    let googleMapLocation = "https://maps.google.com/maps/dir/?q=" + this.props.facility.latitude + ", " + this.props.facility.longitude
 
     return(
       <div style={{width: '20%', marginBottom: '20px'}}>
@@ -107,7 +109,7 @@ class FacilityCard extends Component{
       <div className="facilityCardDiv"onMouseEnter={this.handleOnEnter}>
       <Card className="facilityCard">
         <br/>
-        <Button className="reviews" onClick={this.showReviews}>reviews</Button>
+      <p className="reviews" onClick={this.showReviews}><Icon className="pencil" size="large"/>reviews</p>
       <br/>
         <h2>{this.props.facility.name}</h2>
         <h3>{this.props.facility.address}</h3>
@@ -116,6 +118,8 @@ class FacilityCard extends Component{
         : <h4>Distance: {this.props.distance}</h4>
       }
       <a className="moreInfo" href={this.props.facility.url} target="_blank">website</a>
+    <br/>
+      <a className="moreInfo" target="_blank" href={googleMapLocation}>directions</a>
     <br/>
     <br/>
     {this.props.facility.phone === null

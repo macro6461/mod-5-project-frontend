@@ -48,7 +48,6 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
         localStorage.clear()
           return {sponsees: state.sponsees, sponsee: "", role: "", error: null, isSponseeEdited: false}
       case "SUBMIT_EDIT_SPONSEE":
-
         var oldSponsee = state.sponsees.find(sponsee => sponsee.id === action.payload.id)
         var index = state.sponsees.indexOf(oldSponsee)
         state.sponsees[index] = action.payload

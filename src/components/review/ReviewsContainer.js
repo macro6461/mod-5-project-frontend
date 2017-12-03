@@ -4,7 +4,7 @@ import { Image, Form, Button, Dropdown, Card, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import SponsorReview from './sponsorReview'
 import SponseeReview from './sponseeReview'
-import { fetchSponsorReviewsRequestResolved, fetchSponseeReviewsRequestResolved, removeSponsorReviews, removeSponseeReviews } from '../../actions/reviewActions'
+import { fetchSponsorReviewsRequestResolved, fetchSponseeReviewsRequestResolved, removeSponsorReviews, removeSponseeReviews, deleteSponseeReview, deleteSponsorReview  } from '../../actions/reviewActions'
 
 
 
@@ -77,7 +77,9 @@ class ReviewsContainer extends Component {
     }
   }
 
-
+  deleteSponsorReview = () => {
+    console.log(this.props)
+  }
 
   removeAndShow = () => {
     this.props.removeSponseeReviews()
@@ -96,7 +98,7 @@ class ReviewsContainer extends Component {
 
     let finalSponsorReviews = filteredSponsorReviews.map((review) => {
       debugger
-        const sponsor = this.findSponsor(review)
+        let sponsor = this.findSponsor(review)
         sponsorAverage += review.rating
         return(
           <div>
@@ -106,6 +108,10 @@ class ReviewsContainer extends Component {
         <p>"{review.body}" <em>{sponsor}</em></p>
           <p>{review.created_at.split("T")[0]}</p>
           </div>
+          {sponsor === localStorage.getItem("username")
+            ? <p onClick={this.deleteSponsorReview}>delete review</p>
+            : null
+          }
           <br/>
           </div>
       )
@@ -127,6 +133,10 @@ class ReviewsContainer extends Component {
         <p>"{review.body}" <em>{sponsee}</em></p>
         <p>{review.created_at.split("T")[0]}</p>
         </div>
+        {sponsee === localStorage.getItem("username")
+          ? <p onClick={this.deleteSponseeReview}>delete review</p>
+          : null
+        }
         <br/>
         </div>
       )
@@ -215,4 +225,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchSponsorReviewsRequestResolved, fetchSponseeReviewsRequestResolved, removeSponsorReviews, removeSponseeReviews })(ReviewsContainer)
+export default connect(mapStateToProps, { fetchSponsorReviewsRequestResolved, fetchSponseeReviewsRequestResolved, removeSponsorReviews, removeSponseeReviews, deleteSponseeReview, deleteSponsorReview })(ReviewsContainer)

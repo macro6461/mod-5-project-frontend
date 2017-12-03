@@ -473,11 +473,9 @@ font-family: 'Avenir Next' !important;
 }
 
 .reviews {
-  border: solid 1px black !important;
   color: black !important;
-  background-color: lightblue !important;
   font-size: 1vw !important;
-  margin-left: 55% !important;
+  margin-left: 65% !important;
   width: 40% !important;
 }
 
@@ -534,8 +532,8 @@ font-family: 'Avenir Next' !important;
 }
 
 .reviews:hover{
+  transform: scale(1.1);
   color: black !important;
-  background-color: AliceBlue !important;
 }
 
 .backH3{
