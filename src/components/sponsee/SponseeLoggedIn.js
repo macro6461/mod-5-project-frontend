@@ -92,12 +92,10 @@ class SponseeLoggedIn extends Component {
   deleteAccount = () => {
     let currentSponsee = localStorage.getItem("username")
     let deleteSponsee = this.props.sponsees.find((sponsee)=>{
-
       return sponsee.username === currentSponsee
     })
       this.props.deleteSponseeAccount(deleteSponsee)
   }
-
   openModal = (data) => {
 
     this.setState({

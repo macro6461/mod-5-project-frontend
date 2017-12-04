@@ -13,7 +13,8 @@ class FacilityCard extends Component{
     reviews: false,
     facilitySponsorReviews: "",
     facilitySponseeReviews: "",
-    submitted: false
+    submitted: false,
+    deleted: false
   }
 
   showInsurance = () => {
@@ -22,10 +23,37 @@ class FacilityCard extends Component{
     })
   }
 
+  handleDeletedModal = () => {
+    debugger
+    this.setState({
+      deleted: true
+    }, () => {this.changeDeletedModal()})
+  }
+
+  changeDeletedState = () => {
+    debugger
+    this.setState({
+      deleted: false
+    })
+  }
+
+  changeDeletedModal = () => {
+    debugger
+    let changeDeletedStateStored = this.changeDeletedState
+    setTimeout(function(){changeDeletedStateStored()}, 3900)
+  }
+
   handleSubmittedModal = () => {
+    debugger
     this.setState({
       submitted: true
     }, () => {this.changeSubmittedModal()})
+  }
+
+  changeSubmittedModal = () => {
+    debugger
+    let changeSubmittedStateStored = this.changeSubmittedState
+    setTimeout(function(){changeSubmittedStateStored()}, 3900)
   }
 
   changeSubmittedState = () => {
@@ -35,13 +63,8 @@ class FacilityCard extends Component{
     })
   }
 
-  changeSubmittedModal = () => {
-    debugger
-    let changeSubmittedStateStored = this.changeSubmittedState
-    setTimeout(function(){changeSubmittedStateStored()}, 3900)
-  }
-
   showReviews = () => {
+    debugger
     this.setState({
       reviews: !this.state.reviews
     })
@@ -99,10 +122,14 @@ class FacilityCard extends Component{
       <div>
       {this.state.reviews === false
         ? null
-        : <ReviewsContainer submittedModal={this.handleSubmittedModal} name="reviewsContainer" facility={this.props.facility} filterSponsorReviews={this.filterSponsorReviews} sponsorReviews={this.state.facilitySponsorReviews} sponseeReviews={this.state.facilitySponseeReviews} showReviews={this.showReviews} removeSponsorReviews={this.props.removeSponsorReviews}/>
+        : <ReviewsContainer name="reviewsContainer" deletedModal={this.handleDeletedModal} submittedModal={this.handleSubmittedModal} facility={this.props.facility} filterSponsorReviews={this.filterSponsorReviews} sponsorReviews={this.state.facilitySponsorReviews} sponseeReviews={this.state.facilitySponseeReviews} showReviews={this.showReviews} removeSponsorReviews={this.props.removeSponsorReviews}/>
       }
       {this.state.submitted
         ? <div className="thanksForReview">thanks for the review!<Icon className="checkmark box" size="large"/></div>
+        : null
+      }
+      {this.state.deleted
+        ? <div className="thanksForReview">your review has been deleted<Icon className="checkmark box" size="large"/></div>
         : null
       }
       </div>

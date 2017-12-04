@@ -70,14 +70,37 @@ class ReviewsContainer extends Component {
 
   reviewType = () => {
     if (this.state.role === "sponsor"){
-      return <SponsorReview facilityId={this.props.facility.id} reviewClicked={this.checkReviewClicked} showReviews={this.props.showReviews} submittedModal={this.props.submittedModal}/>
+      return <SponsorReview facilityId={this.props.facility.id} reviewClicked={this.checkReviewClicked} showReviews={this.props.showReviews} submittedModal={this.props.submittedModal} deletedModal={this.props.deletedModal}/>
     } else if (this.state.role === "sponsee"){
-      return <SponseeReview facilityId={this.props.facility.id} reviewClicked={this.checkReviewClicked} showReviews={this.props.showReviews} submittedModal={this.props.submittedModal}/>
+      return <SponseeReview facilityId={this.props.facility.id} reviewClicked={this.checkReviewClicked} showReviews={this.props.showReviews} submittedModal={this.props.submittedModal} deletedModal={this.props.deletedModal}/>
     }
   }
 
-  deleteSponsorReview = () => {
-    console.log(this.props)
+  confirmDeleteSponsorReview = (data) => {
+    var result = window.confirm("Are you sure you want to delete your account?");
+    if (result) {
+      this.deleteSponsorReview(data)
+    }
+  }
+
+  confirmDeleteSponseeReview = (data) => {
+    var result = window.confirm("Are you sure you want to delete your account?");
+    if (result) {
+      this.deleteSponseeReview(data)
+    }
+  }
+
+
+  deleteSponsorReview = (data) => {
+    this.props.showReviews()
+    this.props.deleteSponsorReview(data)
+    this.props.deletedModal()
+  }
+
+  deleteSponseeReview = (data) => {
+    this.props.showReviews()
+    this.props.deleteSponseeReview(data)
+    this.props.deletedModal()
   }
 
   removeAndShow = () => {
@@ -110,7 +133,7 @@ class ReviewsContainer extends Component {
         <p>"{review.body}" <em>{sponsor.username}</em></p>
           <p>{review.created_at.split("T")[0]}</p>
         {sponsor.username === localStorage.getItem("username")
-          ? <p style={{color: 'red'}} onClick={this.deleteSponsorReview}>delete</p>
+          ? <p style={{color: 'red'}} onClick={() => {this.confirmDeleteSponsorReview(review)}}>delete</p>
           : null
         }
           </div>
@@ -137,7 +160,7 @@ class ReviewsContainer extends Component {
       <p><em>{sponsee.username}</em></p>
         <p>{review.created_at.split("T")[0]}</p>
       {sponsee.username === localStorage.getItem("username")
-      ? <p style={{color: 'red'}} onClick={this.deleteSponseeReview}>delete</p>
+      ? <p style={{color: 'red'}} onClick={() => {this.confirmDeleteSponseeReview(review)}}>delete</p>
       : null
       }
         </div>
