@@ -52,13 +52,12 @@ class ReviewsContainer extends Component {
   }
 
   findSponsor = (data) => {
-      debugger
-      const sponsor = this.props.sponsors.find((sponsor)=>{
-        debugger
-        return sponsor.id === data.sponsor_id
-      })
-      return (<p>-{sponsor.username} (sponsor)</p>)
-    }
+    debugger
+    const sponsor = this.props.sponsors.find((sponsor)=>{
+      return sponsor.id === data.sponsor_id
+    })
+    return sponsor
+  }
 
 
   findSponsee = (data) => {
@@ -66,7 +65,7 @@ class ReviewsContainer extends Component {
     const sponsee = this.props.sponsees.find((sponsee)=>{
       return sponsee.id === data.sponsee_id
     })
-    return (<p>-{sponsee.username} (sponsee)</p>)
+    return sponsee
   }
 
   reviewType = () => {
@@ -96,22 +95,25 @@ class ReviewsContainer extends Component {
       return review.sponsor_id
     })
 
+
     let finalSponsorReviews = filteredSponsorReviews.map((review) => {
       debugger
         let sponsor = this.findSponsor(review)
         sponsorAverage += review.rating
+        debugger
         return(
           <div>
           <div className="individualSponsorReview">
           <p className="ratingP">{review.rating}/5<span style={{color: "gold",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>&#9733;</span></p>
+          <br/>
         <br/>
-        <p>"{review.body}" <em>{sponsor}</em></p>
+        <p>"{review.body}" <em>{sponsor.username}</em></p>
           <p>{review.created_at.split("T")[0]}</p>
+        {sponsor.username === localStorage.getItem("username")
+          ? <p style={{color: 'red'}} onClick={this.deleteSponsorReview}>delete</p>
+          : null
+        }
           </div>
-          {sponsor === localStorage.getItem("username")
-            ? <p onClick={this.deleteSponsorReview}>delete review</p>
-            : null
-          }
           <br/>
           </div>
       )
@@ -122,21 +124,23 @@ class ReviewsContainer extends Component {
     })
 
     let finalSponseeReviews = filteredSponseeReviews.map((review) => {
-      const sponsee = this.findSponsee(review)
-      const finalSponsee = "-" + sponsee
+      let sponsee = this.findSponsee(review)
       sponseeAverage += review.rating
+
       return(
         <div>
         <div className="individualSponsorReview">
         <p className="ratingP">{review.rating}/5<span style={{color: "gold",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>&#9733;</span></p>
         <br/>
-        <p>"{review.body}" <em>{sponsee}</em></p>
+      <br/>
+        <p>"{review.body}"</p>
+      <p><em>{sponsee.username}</em></p>
         <p>{review.created_at.split("T")[0]}</p>
+      {sponsee.username === localStorage.getItem("username")
+      ? <p style={{color: 'red'}} onClick={this.deleteSponseeReview}>delete</p>
+      : null
+      }
         </div>
-        {sponsee === localStorage.getItem("username")
-          ? <p onClick={this.deleteSponseeReview}>delete review</p>
-          : null
-        }
         <br/>
         </div>
       )

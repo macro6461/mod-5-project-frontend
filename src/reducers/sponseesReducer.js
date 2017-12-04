@@ -56,7 +56,7 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
         var index = state.sponsees.indexOf(oldSponsee)
         state.sponsees[index] = action.payload
         localStorage.setItem('username', action.payload.username)
-          return {...state, sponsees: state.sponsees, sponsee: action.payload.username, error: null, isSponseeEdited: false}
+          return {...state, sponsees: state.sponsees, error: null, isSponseeEdited: false}
       case "EDIT_SPONSEE_FAILED":
         return {...state, error: action.payload.error, isSponseeEdited: true}
       case "IS_SPONSEE_EDITED":
