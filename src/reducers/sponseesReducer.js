@@ -8,7 +8,11 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
     })
     if (localStorage.getItem("role") === "sponsee"){
       const username = localStorage.getItem("username")
-      return {...state, sponsee: username, sponsees: filteredSponsees}
+      let sponsee = filteredSponsees.find((sponsee) => {
+        debugger
+        return sponsee.username === username
+      })
+      return {...state, sponsee: sponsee, sponsees: filteredSponsees}
     } else {
       return {...state, sponsee: "", sponsees: filteredSponsees}
     }
@@ -22,7 +26,7 @@ export default function sponseesReducer(state={sponsees: [], sponsee: "", role: 
       localStorage.setItem('jwt', action.payload.jwt)
       localStorage.setItem('role', action.payload.sponsee.role)
       localStorage.setItem('username', action.payload.sponsee.username)
-      return {...state, sponsee: action.payload.sponsee.username, role: action.payload.sponsee.role}
+      return {...state, sponsee: action.payload.sponsee, role: action.payload.sponsee.role}
       case "REMOVE_SPONSEE_LOGIN":
       localStorage.clear()
         return {...state, sponsee: action.payload, role: action.payload, error: null}

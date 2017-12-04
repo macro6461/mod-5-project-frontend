@@ -275,11 +275,11 @@ class Facilities extends Component {
      <br/>
 
    <Form className="sortFacilities">
-     city
-     <Dropdown onChange={this.handleCityDropChange} placeholder='Albany' fluid search selection options={cityOptions}/>
-   <br/>
      insurance
-      <Dropdown onChange={this.handleInsuranceDropChange} placeholder='aetna' fluid search selection options={insuranceOptions}/>
+      <Dropdown name="insuranceSearch" onChange={this.handleInsuranceDropChange} placeholder='aetna' fluid search selection options={insuranceOptions} value={this.state.insuranceSearch}/>
+    <br/>
+    city
+    <Dropdown name="citySearch" value={this.state.citySearch} onChange={this.handleCityDropChange} placeholder='Albany' fluid search selection options={cityOptions}/>
   </Form>
         <br/>
         <br/>
