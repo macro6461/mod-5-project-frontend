@@ -481,18 +481,21 @@ font-family: 'Avenir Next' !important;
 
 .reviewsContainerCard{
   z-index: 1000 !important;
-  width: 80%;
+  width: 100%;
   height: auto;
   padding: 2%;
+  padding-left: 0;
+  padding-right: 0;
   margin: 2%;
   position: fixed;
-  left: 25%;
-  top: 5%;
+  left: 20%;
+  top: 2%;
+
 }
 
 .reviewList{
   height: 400px;
-  overflow: scroll;
+
 }
 
 .submitButton{
@@ -583,16 +586,7 @@ h3 {
   text-align: left !important;
 }
 
-/*.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
 
-.App-title {
-  font-size: 1.5em;
-}*/
 
 .loginForm {
   font-family: 'Avenir Next' !important;
@@ -743,17 +737,37 @@ h3 {
 }
 
 .reviewsContainerCardInt{
+
   height: 10% !important;
   width: 60% !important;
   padding: 4% !important;
   padding-top: 1% !important;
 }
 
+.sponsorReviewOuter{
+  height: 400px;
+  overflow-y: scroll;
+  width: 100%;
+}
+
 .individualSponsorReview {
-  margin-left: 10%;
   margin-top: 5%;
   padding: 2%;
-  width: 80%;
+  width: 100%;
+  border: solid 1px black;
+  border-radius: 10px;
+}
+
+.sponseeReviewOuter{
+  height: 400px;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.individualSponseeReview {
+  margin-top: 5%;
+  padding: 2%;
+  width: 100%;
   border: solid 1px black;
   border-radius: 10px;
 }

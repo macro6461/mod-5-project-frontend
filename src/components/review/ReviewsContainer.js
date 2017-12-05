@@ -125,7 +125,7 @@ class ReviewsContainer extends Component {
         sponsorAverage += review.rating
         debugger
         return(
-          <div>
+        <div >
           <div className="individualSponsorReview">
           <p className="ratingP">{review.rating}/5<span style={{color: "gold",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>&#9733;</span></p>
           <br/>
@@ -149,10 +149,9 @@ class ReviewsContainer extends Component {
     let finalSponseeReviews = filteredSponseeReviews.map((review) => {
       let sponsee = this.findSponsee(review)
       sponseeAverage += review.rating
-
       return(
-        <div>
-        <div className="individualSponsorReview">
+        <div >
+        <div className="individualSponseeReview">
         <p className="ratingP">{review.rating}/5<span style={{color: "gold",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>&#9733;</span></p>
         <br/>
       <br/>
@@ -224,12 +223,27 @@ const reviews = () => {
             : <div className="reviewList">
                 <div>
                    <div>
-                      {finalSponsorReviews}
-                      {finalSponseeReviews}
-                    </div>
+                     <br/>
+                   <div style={{float: 'left', width: '49%', overflow: 'hidden'}}>
+                     <h3>Sponsor Reviews</h3>
+                        <div className="sponsorReviewOuter">
 
+                          {finalSponsorReviews}
+                          <br/>
+                        </div>
+                      </div>
+                      <div style={{float: 'right', width: '49%', overflow: 'hidden'}}>
+                        <h3>Sponsee Reviews</h3>
+                      <div className="sponseeReviewOuter">
+
+                          {finalSponseeReviews}
+                          <br/>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+
           }
 
         </Card>
