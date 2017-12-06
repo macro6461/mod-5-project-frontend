@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link, Route, withRouter, Redirect } from 'react-router-dom'
-import { Image, Form, Button, Dropdown, Card, Icon } from 'semantic-ui-react'
+import { Image, Form, Button, Dropdown, Card, Icon, Radio } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import SponsorReview from './sponsorReview'
 import SponseeReview from './sponseeReview'
@@ -199,6 +199,7 @@ const reviews = () => {
       <div className="reviewsContainerCard">
         <Card className="reviewsContainerCardInt">
           <br/>
+
         <Icon className="close" size="large" style={{color: 'red', marginLeft: '99%'}}onClick={this.removeAndShow}/>
           <h3>Reviews for {this.props.facility.name}</h3>
         {totalAverage() === 0
@@ -221,6 +222,8 @@ const reviews = () => {
           {this.props.sponsorReviews.length === 0 && this.props.sponseeReviews.length === 0
             ? null
             : <div className="reviewList">
+              <br/>
+            Sponsor Reviews <Radio toggle/> Sponsee Reviews
                 <div>
                    <div>
                      <br/>
