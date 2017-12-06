@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link, Route, withRouter, Redirect } from 'react-router-dom'
-import { Image, Form, Button, Dropdown, Card, Icon, Radio } from 'semantic-ui-react'
+import { Image, Form, Button, Dropdown, Card, Icon, Radio, Divider } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import SponsorReview from './sponsorReview'
 import SponseeReview from './sponseeReview'
@@ -16,7 +16,8 @@ class ReviewsContainer extends Component {
     facilitySponseeReviews: [],
     role: localStorage.getItem("role"),
     signedIn: false,
-    reviewClicked: false
+    reviewClicked: false,
+    toggle: false
   }
 
   checkReviewClicked = () => {
@@ -109,6 +110,12 @@ class ReviewsContainer extends Component {
     this.props.showReviews()
   }
 
+  handleToggleChange = () => {
+    this.setState({
+      toggle: !this.state.toggle
+    })
+  }
+
   render(){
 
     let sponsorAverage = 0
@@ -126,18 +133,21 @@ class ReviewsContainer extends Component {
         debugger
         return(
         <div >
+          <Divider inverted/>
           <div className="individualSponsorReview">
-          <p className="ratingP">{review.rating}/5<span style={{color: "gold",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>&#9733;</span></p>
+          <p className="ratingP">{review.rating}/5<span style={{color: "gold",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black", marginRight: '0'}}>&#9733;</span></p><em>{sponsor.username} said:</em>
           <br/>
         <br/>
-        <p>"{review.body}" <em>{sponsor.username}</em></p>
-          <p>{review.created_at.split("T")[0]}</p>
+      <p style={{marginLeft: '15%', marginRight: '10%'}}>"{review.body}"</p>
+
+    <p style={{marginLeft: '5%'}}>{review.created_at.split("T")[0]}</p>
         {sponsor.username === localStorage.getItem("username")
-          ? <p style={{color: 'red'}} onClick={() => {this.confirmDeleteSponsorReview(review)}}>delete</p>
+          ? <p style={{color: 'red', marginLeft: '5%'}} onClick={() => {this.confirmDeleteSponsorReview(review)}}>delete</p>
           : null
         }
           </div>
           <br/>
+        <Divider inverted />
           </div>
       )
     })
@@ -151,12 +161,13 @@ class ReviewsContainer extends Component {
       sponseeAverage += review.rating
       return(
         <div >
+          <Divider inverted/>
         <div className="individualSponseeReview">
         <p className="ratingP">{review.rating}/5<span style={{color: "gold",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}}>&#9733;</span></p>
         <br/>
       <br/>
         <p>"{review.body}"</p>
-      <p><em>{sponsee.username}</em></p>
+        <p><em>{sponsee.username}</em></p>
         <p>{review.created_at.split("T")[0]}</p>
       {sponsee.username === localStorage.getItem("username")
       ? <p style={{color: 'red'}} onClick={() => {this.confirmDeleteSponseeReview(review)}}>delete</p>
@@ -164,6 +175,8 @@ class ReviewsContainer extends Component {
       }
         </div>
         <br/>
+      <Divider inverted/>
+
         </div>
       )
     })
@@ -223,11 +236,31 @@ const reviews = () => {
             ? null
             : <div className="reviewList">
               <br/>
-            Sponsor Reviews <Radio toggle/> Sponsee Reviews
+            <div style={{fontSize: '1vw'}}>
+            Sponsor Reviews <Radio toggle onChange={this.handleToggleChange}/> Sponsee Reviews
+          </div>
+          <br/>
+            {this.state.toggle === false
+              ? <div style={{width: '100%', overflow: 'hidden'}}>
+                <h3>Sponsor Reviews</h3>
+                   <div className="sponsorReviewOuter">
+                     {finalSponsorReviews}
+                     <br/>
+                   </div>
+                 </div>
+              : <div style={{width: '100%', overflow: 'hidden'}}>
+                <h3>Sponsee Reviews</h3>
+                   <div className="sponsorReviewOuter">
+                     {finalSponseeReviews}
+                     <br/>
+                   </div>
+                 </div>
+
+            }
                 <div>
                    <div>
                      <br/>
-                   <div style={{float: 'left', width: '49%', overflow: 'hidden'}}>
+                   {/* <div style={{float: 'left', width: '49%', overflow: 'hidden'}}>
                      <h3>Sponsor Reviews</h3>
                         <div className="sponsorReviewOuter">
 
@@ -242,7 +275,7 @@ const reviews = () => {
                           {finalSponseeReviews}
                           <br/>
                       </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

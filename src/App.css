@@ -733,6 +733,7 @@ h3 {
 
 .ratingP{
   float: left;
+
   /*margin-bottom: 0 !important;*/
 }
 
@@ -745,7 +746,7 @@ h3 {
 }
 
 .sponsorReviewOuter{
-  height: 400px;
+  height: 320px;
   overflow-y: scroll;
   width: 100%;
 }
@@ -754,12 +755,13 @@ h3 {
   margin-top: 5%;
   padding: 2%;
   width: 100%;
-  border: solid 1px black;
+  /*background-color: AliceBlue;*/
+
   border-radius: 10px;
 }
 
 .sponseeReviewOuter{
-  height: 400px;
+  height: 320px;
   overflow-y: scroll;
   width: 100%;
 }
@@ -768,7 +770,7 @@ h3 {
   margin-top: 5%;
   padding: 2%;
   width: 100%;
-  border: solid 1px black;
+  /*background-color: AliceBlue;*/
   border-radius: 10px;
 }
 
