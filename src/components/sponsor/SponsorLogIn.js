@@ -92,9 +92,7 @@ class SponsorLogIn extends Component {
 <br/>
 <br/>
 <br/>
-<br/>
-<br/>
-<br/>
+
 </div>
 }
     { this.state.clicked === true

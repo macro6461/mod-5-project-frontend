@@ -97,14 +97,11 @@ class SponseeLogIn extends Component {
       </Form.Field>
       <Button type='submit'>Submit</Button>
     </Form>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 </div>
 }
 { this.state.clicked === true

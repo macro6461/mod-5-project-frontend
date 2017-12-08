@@ -28,6 +28,10 @@ h1 {
   margin-left: 1% !important;
 }
 
+.bioInput{
+  width: 100% !important;
+}
+
 .pleaseTryAgain{
   font-family: 'Avenir Next' !important;
   color: red;
@@ -720,8 +724,19 @@ h3 {
   border: solid 2px lightblue !important;
   /*padding-top: 6% !important;*/
   padding: 4% !important;
+  padding-bottom: 42% !important;
+  padding-top: 1% !important;
   width: 50% !important;
   height: 100% !important;
+}
+
+.save {
+  margin-left: 44% !important;
+  width: 10% !important;
+}
+
+.signUpInput {
+  width: 10% !important;
 }
 
 .writeAReview{

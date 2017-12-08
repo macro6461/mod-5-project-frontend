@@ -52,7 +52,7 @@ export default class Home extends Component {
     return(
 
       <div className="home">
-        <br/>
+        
         <br/>
         <br/>
       <Image className="openImg" src={NYC_from_WTC} alt="embrace"/>

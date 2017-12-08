@@ -126,7 +126,7 @@ class ReviewsContainer extends Component {
     })
 
 
-    let finalSponsorReviews = filteredSponsorReviews.map((review) => {
+    let finalSponsorReviews = this.props.sponsorReviews.length === 0 ? <p>No Sponsor Reviews</p> : filteredSponsorReviews.map((review) => {
       debugger
         let sponsor = this.findSponsor(review)
         sponsorAverage += review.rating
@@ -147,7 +147,7 @@ class ReviewsContainer extends Component {
         }
           </div>
           <br/>
-        <Divider inverted />
+        <Divider inverted/>
           </div>
       )
     })
@@ -156,7 +156,7 @@ class ReviewsContainer extends Component {
       return review.sponsee_id
     })
 
-    let finalSponseeReviews = filteredSponseeReviews.map((review) => {
+    let finalSponseeReviews = this.props.sponseeReviews.length === 0 ? <p>No Sponsee Reviews</p> : filteredSponseeReviews.map((review) => {
       let sponsee = this.findSponsee(review)
       sponseeAverage += review.rating
       return(
@@ -257,27 +257,6 @@ const reviews = () => {
                  </div>
 
             }
-                <div>
-                   <div>
-                     <br/>
-                   {/* <div style={{float: 'left', width: '49%', overflow: 'hidden'}}>
-                     <h3>Sponsor Reviews</h3>
-                        <div className="sponsorReviewOuter">
-
-                          {finalSponsorReviews}
-                          <br/>
-                        </div>
-                      </div>
-                      <div style={{float: 'right', width: '49%', overflow: 'hidden'}}>
-                        <h3>Sponsee Reviews</h3>
-                      <div className="sponseeReviewOuter">
-
-                          {finalSponseeReviews}
-                          <br/>
-                      </div>
-                      </div> */}
-                    </div>
-                  </div>
                 </div>
 
           }
