@@ -6,6 +6,7 @@ import FacilityPin from './FacilityPin'
 import { Icon, Popup, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { removeFacilityMapZoom, removeFacilityMapPosition } from '../../actions/facilityActions'
+import apiKey from '../../config'
 
 
 const boxStyle = {
@@ -124,7 +125,7 @@ class FacilitiesMap extends React.Component {
   }
 
   render() {
-
+    console.log(apiKey.API_KEY)
     let googleMapLocation = "https://maps.google.com/?q=" + this.props.lat + ", " + this.props.lng
     let windowGoogleMap = `window.location= + ${googleMapLocation}`
 
@@ -144,7 +145,7 @@ class FacilitiesMap extends React.Component {
     return (
        <GoogleMapReact
          bootstrapURLKeys={{
-           key:'AIzaSyBg7ZOFcWttJvTq1H_tnV8q13lPjQUiW1c',
+           key: apiKey.API_KEY,
            language: 'en',
          }}
         defaultCenter={this.props.center}
