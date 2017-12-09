@@ -1,0 +1,806 @@
+body{
+  font-family: 'Avenir Next' !important;
+  background-color: AliceBlue !important;
+  height: 100%;
+  position: relative !important;
+}
+
+.App {
+  position: relative;
+  text-align: center;
+}
+
+
+h1 {
+  text-align: center;
+  padding: 0;
+}
+
+.shorterInput{
+  font-family: 'Avenir Next' !important;
+  width: 15% !important;
+  margin-left: 1% !important;
+}
+
+.mediumInput{
+  font-family: 'Avenir Next' !important;
+  width: 25% !important;
+  margin-left: 1% !important;
+}
+
+.bioInput{
+  width: 100% !important;
+}
+
+.pleaseTryAgain{
+  font-family: 'Avenir Next' !important;
+  color: red;
+  text-shadow: 0.2px 0.2px black;
+}
+
+.notFound{
+  font-family: 'Avenir Next' !important;
+  color: red;
+  text-shadow: 0.2px 0.2px black;
+}
+
+.loader {
+  border: 20px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 20px solid #3498db;
+  width: 100px;
+  height: 100px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+  margin-left: 50%;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.googleMap{
+  width: 64%;
+  height: 80%;
+  position: fixed;
+  left: 30%;
+  top: 14%;
+  border: solid 1px black;
+  box-shadow: 4px 4px 2px #888888 !important;
+}
+
+.openImg {
+
+  position: fixed !important;
+  z-index: -2 !important;
+  top: 0 !important;
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+  /*border-radius: 10px !important;*/
+  box-shadow: 8px 8px 2px #888888 !important;
+  -webkit-animation: fadein 4s; /* Safari, Chrome and Opera > 14.1 */
+       -moz-animation: fadein 4s; /* Firefox < 16 */
+        -ms-animation: fadein 4s; /* Internet Explorer */
+         -o-animation: fadein 4s; /* Opera < 14.1 */
+            animation: fadein 4s;
+
+}
+
+
+#homeDiv1opacity{
+  font-family: 'Avenir Next' !important;
+  padding: 4%;
+  border-radius: 10px;
+  margin: 3%;
+  width: 40%;
+  background-color: black;
+  opacity: 0.7;
+  -webkit-animation: slide-from-left1 3s;
+}
+
+#homeDiv2opacity{
+  font-family: 'Avenir Next' !important;
+  padding: 4%;
+  border-radius: 10px;
+  margin: 3%;
+  width: 40%;
+  background-color: black;
+  opacity: 0.7;
+  -webkit-animation: slide-from-left1 3s;
+}
+
+#homeDiv3opacity{
+  font-family: 'Avenir Next' !important;
+  padding: 4%;
+  border-radius: 10px;
+  margin: 3%;
+  width: 40%;
+  background-color: black;
+  opacity: 0.7;
+  -webkit-animation: slide-from-left1 3s;
+}
+
+.homeDiv1{
+font-family: 'Avenir Next' !important;
+  color: white;
+  width: 100%;
+  z-index: 10;
+  transition: 1s;
+  left: -1000px;
+
+}
+
+.homeDiv2{
+  color: white;
+  width: 100%;
+font-family: 'Avenir Next' !important;
+  z-index: 10;
+  transition: 1s;
+  left: -1000px;
+  /*-webkit-animation-delay: 3s;*/
+}
+
+.homeDiv3{
+  color: white;
+  width: 100%;
+font-family: 'Avenir Next' !important;
+  z-index: 10;
+  transition: 1s;
+  left: -1000px;
+
+}
+
+
+
+
+@-webkit-keyframes slide-from-left1 {
+  0%{
+    transform: translate(-1000px, 0%);
+    opacity: 0;
+  }
+  100%{
+    transform: translate(0px, 0%);
+    opacity: 0.7;
+  }
+}
+
+@-webkit-keyframes slide-from-left2 {
+  0%{
+    transform: translate(-1000px, 0%);
+    opacity: 0;
+  }
+  100%{
+    transform: translate(0px, 0%);
+    opacity: 0.7;
+  }
+}
+
+@-webkit-keyframes slide-from-left3 {
+  0%{
+    transform: translate(-1000px, 0%);
+    opacity: 0;
+  }
+  100%{
+    transform: translate(0px, 0%);
+    opacity: 0.7;
+  }
+}
+
+.homeDescription{
+  font-family: 'Avenir Next' !important;
+  position: fixed;
+  top: 25%;
+  right: 5%;
+  width: 40%;
+  color: white;
+  z-index: 10;
+  padding: 4%;
+  border-radius: 10px;
+  margin: 3%;
+  width: 40%;
+  background-color: black;
+  opacity: 0.7;
+  -webkit-animation: fadeinWelcome 3s;
+  /*animation-delay: 6s;*/
+}
+
+@-moz-keyframes fadeinWelcome {
+    from { opacity: 0; }
+    to   { opacity: 0.7; }
+}
+
+/* Safari, Chrome and Opera > 0.72.0.7 */
+@-webkit-keyframes fadeinWelcome {
+    from { opacity: 0; }
+    to   { opacity: 0.7; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadeinWelcome {
+    from { opacity: 0; }
+    to   { opacity: 0.7; }
+}
+
+@-moz-keyframes fadeinHomeDiv1 {
+    from { opacity: 0; }
+    to   { opacity: 0.7; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadeinHomeDiv1 {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadeinHomeDiv1 {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-moz-keyframes fadeinHomeDiv2 {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadeinHomeDiv2 {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadeinHomeDiv2 {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-moz-keyframes fadeinHomeDiv3 {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadeinHomeDiv3 {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadeinHomeDiv3 {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.sponseeDiv{
+  font-family: 'Avenir Next' !important;
+  margin-left: 30%;
+  margin-right: auto;
+  display: inline-block;
+}
+
+.deleteButton{
+  color: white !important;
+  background-color: red !important;
+}
+
+.backButton{
+  float: right !important;
+}
+
+
+.sponsorP{
+  font-family: 'Avenir Next' !important;
+  font-size: 20px !important;
+  width: 250px;
+  word-wrap: break-word;
+  position: absolute;
+  bottom: 90px;
+  left: 10%;
+}
+
+.reviewBack{
+  color: black !important;
+  border: solid 1px black !important;
+  background-color: white !important;
+  padding: 0 !important;
+  padding-top: 0.5% !important;
+  padding-bottom: 0.5% !important;
+  font-size: 1vw !important;
+  width: 4% !important;
+  margin-left: 99% !important;
+  margin-top: 0 !important;
+  margin-bottom: 2% !important;
+}
+
+.sponseeCard {
+  font-family: 'Avenir Next' !important;
+  position: relative;
+  border-radius: 10px;
+  background-color: white;
+  height: 300px !important;
+  width: 300px !important;
+  border: solid 2px black !important;
+  padding: 2% !important;
+  margin: 1% !important;
+  float: left;
+}
+
+.homeHeader{
+  font-weight: normal;
+  font-family: 'Avenir Next' !important;
+  font-size: 1.2vw;
+}
+
+.homeBigHeader{
+  font-weight: normal;
+  font-family: 'Avenir Next' !important;
+  font-size: 1.6vw;
+}
+
+.homeSmallerHeader{
+  font-weight: normal;
+  font-family: 'Avenir Next' !important;
+  font-size: 0.9vw
+}
+
+.sponseeModal {
+  font-family: 'Avenir Next' !important;
+  font-size: 2vw;
+  position: fixed;
+  z-index: 100;
+  top: 20%;
+  left: 20%;
+  width: 60%;
+  height: 70%;
+  border-radius: 10px;
+  background-color: white;
+  /*height: 300px !important;
+  width: 300px !important;*/
+  border: solid 2px black !important;
+  padding: 2% !important;
+  margin: 1% !important;
+}
+
+.sponseeModal h2 {
+  font-family: 'Avenir Next' !important;
+  font-size: 4vw;
+}
+
+.facilityCard h2 {
+  font-family: 'Avenir Next' !important;
+  font-size: 2vw !important;
+  margin-top: 1% !important;
+}
+
+.facilityCard h4 {
+  font-family: 'Avenir Next' !important;
+  font-size: 1vw !important;
+  margin-top: 1% !important;
+}
+
+.container{
+  font-family: 'Avenir Next' !important;
+  opacity: 0.8;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+
+.sponseeCard:hover{
+  background-color: lightblue;
+}
+
+.sponseeEdit{
+  font-family: 'Avenir Next' !important;
+  z-index: 1000 !important;
+}
+
+.navbar{
+  width: 100%;
+  background-color: lightblue;
+}
+
+.editForm{
+  font-family: 'Avenir Next' !important;
+  background-color: AliceBlue;
+  padding: 4%;
+  margin-left: 0;
+  position: fixed !important;
+  z-index: 1000 !important;
+  top: 20% !important;
+  left: 20% !important;
+  width: 60% !important;
+  height: auto;
+  border-radius: 10px;
+}
+
+.sponseeCardHeader{
+  font-family: 'Avenir Next' !important;
+}
+
+.mailto{
+
+  text-decoration: none !important;
+  position: absolute;
+  bottom: 10px;
+  left: 46%;
+}
+
+.distance {
+  position: absolute;
+  bottom: 40px;
+  left: 25%;
+}
+
+.mailto:hover {
+  transform: scale(1.3)
+}
+
+.moreInfo{
+  text-decoration: none;
+  font-size: 1.5vw;
+}
+
+.signUp {
+  opacity: 1;
+  padding: 1%;
+  width: 100%;
+  height: 75%;
+  background-color: none;
+  position: fixed;
+  top: 10%;
+  z-index: 99;
+}
+
+
+
+.moreInfo:hover{
+  font-size: 1.4vw;
+  text-decoration: underline;
+}
+
+.insuranceButton{
+  width: 50% !important;
+  font-size: 1vw !important;
+}
+
+.reviews {
+  color: black !important;
+  font-size: 1vw !important;
+  margin-left: 65% !important;
+  width: 40% !important;
+}
+
+.phoneAnchor:hover{
+  transform: scale(1.1);
+}
+
+.reviewsContainerCard{
+  z-index: 1000 !important;
+  width: 100%;
+  height: auto;
+  padding: 2%;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 2%;
+  position: fixed;
+  left: 20%;
+  top: 2%;
+
+}
+
+.reviewList{
+  height: 400px;
+
+}
+
+.submitButton{
+  font-size: 1vw !important;
+}
+
+.reviewTextArea{
+  font-size: 1vw !important;
+  width: 50% !important;
+  height: 20% !important;
+  margin-left: 25% !important;
+}
+
+.dropDownReview{
+  font-size: 1vw !important;
+  margin-right: 0 !important;
+  margin-left: 25% !important;
+  width: 50% !important;
+}
+
+.sponsorReview{
+  border-radius: 10px;
+  margin-top: 2%;
+  padding: 2%;
+  border: solid 2px black;
+  background-color: AliceBlue;
+  position: fixed;
+  left: 26%;
+  top: 10%;
+  z-index: 1000;
+  width: 52%;
+  height: 40%;
+}
+
+.sponsorReviewForm{
+  border-radius: 10px;
+}
+
+.reviews:hover{
+  transform: scale(1.1);
+  color: black !important;
+}
+
+.backH3{
+  color: AliceBlue !important;
+}
+
+h3 {
+  margin-top: 0 !important;
+  font-weight: normal;
+  font-family: 'Avenir Next' !important;
+  font-size: 1vw !important;
+  padding-top: 0px !important;
+}
+
+.facilityCard {
+  font-family: 'Avenir Next' !important;
+  margin-top: 0% !important;
+  height: 20%;
+  padding: 4% !important;
+  border: solid 2px black;
+  width: 110% !important;
+}
+
+.facilities {
+  margin-left: 3%;
+  width: 110%;
+}
+
+.facilityCard:hover{
+  background-color: lightblue !important;
+}
+
+.sort{
+  position: fixed !important;
+  left: 2% !important;
+  top: 30% !important;
+  width: 20% !important;
+  border: none !important;
+  text-align: left !important;
+}
+
+.sortFacilities{
+  width: 20% !important;
+  border: none !important;
+  margin-left: 4%;
+  float: left !important;
+  text-align: left !important;
+}
+
+
+
+.loginForm {
+  font-family: 'Avenir Next' !important;
+  border: solid 2px lightblue !important;
+  border-radius: 10px;
+  margin-left: 40%;
+  padding: 4%;
+  width: 20%;
+  height: auto;
+  box-shadow: 4px 4px 2px #888888 !important;
+}
+
+
+
+.infoBoxP{
+  font-size: 15px;
+}
+
+.facilityPin{
+  border: solid 1px black;
+  width: 10px;
+  height: 10px;
+  background-color: red !important;
+  border-radius: 10px;
+}
+
+.madeFooter{
+  position: absolute;
+  bottom: 10px;
+  left: 45%;
+  font-size: 10px;
+}
+
+.currentPin{
+  border: solid 2px red;
+  width: 15px;
+  height: 15px;
+  background-color: blue !important;
+  border-radius: 10px;
+}
+
+.sortForm{
+  font-family: 'Avenir Next' !important;
+  margin-left: 36%;
+  border: none !important;
+  padding: 4%;
+  width: 100%;
+  box-shadow: none !important;
+}
+
+.pinImage{
+  width: 2%;
+}
+
+.phone {
+  width: 2% !important;
+}
+
+.phone:hover{
+  transform: scale(1.2);
+}
+
+.navLogo{
+  position: fixed;
+  top: 2px;
+  right: 10px;
+  width: 180px;
+  margin-top: 0;
+  float: right;
+
+}
+
+.navDiv{
+  position: fixed;
+  top: 0px;
+  z-index: 1000;
+  background-color: lightblue!important;
+  height: 62px !important;
+  width: 100% !important;
+  box-shadow: 2px 2px 1px #888888 !important;
+}
+
+.link:hover{
+  background-color: white;
+  border-radius: 10px;
+
+}
+
+.sortSponsees{
+  font-family: 'Avenir Next' !important;
+  margin-left: 0%;
+  text-align: left;
+  padding-top: 1% !important;
+  padding-bottom: 0% !important;
+  border: none !important;
+  width: 100%;
+}
+
+
+.thanksForReview{
+  border-radius: 10px;
+  border: solid 1px black;
+  background-color: AliceBlue;
+  padding: 1%;
+  position: fixed;
+  top: 50%;
+  left: 40%;
+  width: 20%;
+  box-shadow: 4px 4px 2px #888888 !important;
+  -webkit-animation: thanksFade 2s;
+  animation-delay: 2s
+}
+
+@-webkit-keyframes thanksFade {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes thanksFade {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.signUpForm{
+  font-family: 'Avenir Next' !important;
+  opacity: 1 !important;
+  z-index: 100;
+  margin-left: 25% !important;
+  background-color: AliceBlue;
+  border-radius: 10px;
+  border: solid 2px lightblue !important;
+  /*padding-top: 6% !important;*/
+  padding: 4% !important;
+  padding-bottom: 42% !important;
+  padding-top: 1% !important;
+  width: 50% !important;
+  height: 100% !important;
+}
+
+.save {
+  margin-left: 44% !important;
+  width: 10% !important;
+}
+
+.signUpInput {
+  width: 10% !important;
+}
+
+.writeAReview{
+  padding: 1.5% !important;
+  font-size: 1vw !important;
+  width: 24% !important;
+  margin-left: 38% !important;
+}
+
+.ratingP{
+  float: left;
+
+  /*margin-bottom: 0 !important;*/
+}
+
+.reviewsContainerCardInt{
+
+  height: 10% !important;
+  width: 60% !important;
+  padding: 4% !important;
+  padding-top: 1% !important;
+}
+
+.sponsorReviewOuter{
+  height: 320px;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.individualSponsorReview {
+  margin-top: 5%;
+  padding: 2%;
+  width: 100%;
+  /*background-color: AliceBlue;*/
+
+  border-radius: 10px;
+}
+
+.sponseeReviewOuter{
+  height: 320px;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.individualSponseeReview {
+  margin-top: 5%;
+  padding: 2%;
+  width: 100%;
+  /*background-color: AliceBlue;*/
+  border-radius: 10px;
+}
+
+.link {
+  color: black !important;
+  height: 45px;
+  font-size: 20px;
+  display: inline-block;
+  float: left;
+  padding-bottom: 0;
+  margin-top: 5px;
+  margin-left: 1%;
+  padding: 1%;
+}
