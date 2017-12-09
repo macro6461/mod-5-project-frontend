@@ -15,7 +15,6 @@ import NextStepLogo from '../TheNextStepLogo3.png'
 class Nav extends Component {
   constructor(props){
     super(props)
-    this.state ={
       clicked: false,
       showClass: true,
       role: ""
