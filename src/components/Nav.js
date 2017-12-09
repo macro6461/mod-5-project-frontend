@@ -88,7 +88,7 @@ checkLoggedIn = () => {
         <img className="navLogo" src={NextStepLogo}/>
         {sponsorOrSponseeOrUndefined()}
       <Link className="link" to=`${baseUrl}/facilities` onClick={this.removeErrors}>Facilities</Link>
-      <Link className="link" to="/" onClick={this.removeErrors}>Home</Link>
+      <Link className="link" to=`${baseUrl}/` onClick={this.removeErrors}>Home</Link>
       </div>
     <Route exact path=`${baseUrl}/` component = {Home} />
 
