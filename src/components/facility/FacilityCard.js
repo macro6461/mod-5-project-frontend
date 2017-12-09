@@ -144,21 +144,21 @@ class FacilityCard extends Component{
         ? <h4>No Data</h4>
         : <h4>Distance: {this.props.distance}</h4>
       }
-      <a className="moreInfo" href={this.props.facility.url} target="_blank">website</a>
+      <a className="moreInfo" href={this.props.facility.url} target="_blank"><Icon className="world"/>website</a>
     <br/>
-      <a className="moreInfo" target="_blank" href={googleMapLocation}>directions</a>
+      <a className="moreInfo" target="_blank" href={googleMapLocation}><Icon className="location arrow"/>directions</a>
     <br/>
-    <br/>
+
     {this.props.facility.phone === null
       ? null
-      : <a href={phone}><Icon className="phone" size="big"/></a>
+      : <a href={phone} className="phoneAnchor"><Icon className="phone" size="big"/></a>
     }
       <br/>
       <div>
         <Popup
           style={{fontSize: '1.2vw', zIndex: '1'}}
           on='click'
-          trigger={<Button className="insuranceButton" content='insurance' />}
+          trigger={<Button className="insuranceButton"><Icon className="drivers license outline" style={{float: 'left'}}/>insurance</Button>}
           content={insurances}
           position='right center'
         />

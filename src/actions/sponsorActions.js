@@ -1,5 +1,5 @@
 export function addSponsor(sponsor){
-
+debugger
   return (dispatch) => {
     fetch('http://localhost:3000/sponsors', {
       headers: {"Content-Type": "application/json",

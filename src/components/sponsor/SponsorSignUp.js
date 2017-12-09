@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { addSponsor, removeSponsorError } from '../../actions/sponsorActions'
 import { connect } from 'react-redux';
 import SponsorLogIn from './SponsorLogIn'
-import { Button, Checkbox, Form, Icon} from 'semantic-ui-react'
+import { Button, Checkbox, Form, Icon, Dropdown} from 'semantic-ui-react'
 
 const options = [
   { key: 'male', text: 'male'},
@@ -96,14 +96,14 @@ class SponsorSignUp extends Component {
           <Form.Group widths='equal'>
             <Form.Input className="mediumInput" label='Username' name="username" value={this.state.username} onChange={this.handleOnChange} required/>
           <Form.Input className="mediumInput" label='Password' type="password" name="password" value={this.state.password} onChange={this.handleOnChange} required/>
-        <Form.Input className="mediumInput" label='Gender' type="text" name="gender" value={this.state.gender} onChange={this.handleOnChange} required/>
+          <Form.Input className="mediumInput" label='Gender' type="text" name="gender" value={this.state.gender} onChange={this.handleOnChange} required/>
            <Form.Input className="shorterInput" label='Age' type="text" name="age" value={this.state.age} onChange={this.handleOnChange} required/>
           </Form.Group>
           <Form.Group widths='equal'>
             <Form.Input className="mediumInput" label='Street' name="street" value={this.state.street} onChange={this.handleOnChange} required/>
           <Form.Input className="mediumInput" label='City' name="city" value={this.state.city} onChange={this.handleOnChange} required/>
         <Form.Input className="shorterInput" label='State' name="state" value={this.state.state}  onChange={this.handleOnChange} maxLength="2" required/>
-      <Form.Input className="mediumInput" label='Zip' name="zip" value={this.state.zip}  onChange={this.handleOnChange} maxLength="5" required/>
+        <Form.Input className="mediumInput" label='Zip' name="zip" value={this.state.zip}  onChange={this.handleOnChange} maxLength="5" required/>
           </Form.Group>
           <p>*address will not be public</p>
           <Form.TextArea label='About' name="bio" className="bioInput" value={this.state.bio} placeholder='Tell us more about you...' onCount={this.checkBioCount} onChange={this.handleOnChange} maxLength="200" required/>

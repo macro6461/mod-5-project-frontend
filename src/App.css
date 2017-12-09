@@ -472,7 +472,7 @@ font-family: 'Avenir Next' !important;
 }
 
 .insuranceButton{
-  width: 40% !important;
+  width: 50% !important;
   font-size: 1vw !important;
 }
 
@@ -481,6 +481,10 @@ font-family: 'Avenir Next' !important;
   font-size: 1vw !important;
   margin-left: 65% !important;
   width: 40% !important;
+}
+
+.phoneAnchor:hover{
+  transform: scale(1.1);
 }
 
 .reviewsContainerCard{
@@ -650,7 +654,7 @@ h3 {
 }
 
 .phone:hover{
-  transform: scale(1.5);
+  transform: scale(1.2);
 }
 
 .navLogo{
