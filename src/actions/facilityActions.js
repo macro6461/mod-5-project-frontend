@@ -1,7 +1,9 @@
+const baseUrl = 'https://stormy-cliffs-45704.herokuapp.com'
+
 export function fetchFacilitiesRequest(){
 
   return (dispatch) =>{
-    fetch('http://localhost:3000/facilities')
+    fetch(`${baseUrl}/facilities`)
     .then(res => res.json())
     .then(json => dispatch(fetchFacilitiesRequestResolved(json)))
   }

@@ -1,7 +1,9 @@
+const baseUrl = 'https://stormy-cliffs-45704.herokuapp.com'
+
 export function fetchSponsorReviewsRequest(data){
 
   return (dispatch) => {
-    fetch('http://localhost:3000/sponsor_reviews')
+    fetch(`${baseUrl}/sponsor_reviews`)
     .then(res => res.json())
     .then(json => dispatch(fetchSponsorReviewsRequestResolved({json: json, facility_id: data})))
   }
@@ -24,7 +26,7 @@ export function removeSponsorReviews(){
 export function addSponsorReview(data){
   debugger
   return (dispatch) => {
-    fetch('http://localhost:3000/sponsor_reviews', {
+    fetch(`${baseUrl}/sponsor_reviews`, {
       headers: {"Content-Type": "application/json",
       "Accept":"application/json"},
       method: "POST",
@@ -51,7 +53,7 @@ export function addSponsorReviewResolved(data){
 export function fetchSponseeReviewsRequest(data){
 debugger
   return (dispatch) => {
-    fetch('http://localhost:3000/sponsee_reviews')
+    fetch(`${baseUrl}/sponsee_reviews`)
     .then(res => res.json())
     .then(json => dispatch(fetchSponseeReviewsRequestResolved({json: json, facility_id: data})))
   }
@@ -68,7 +70,7 @@ debugger
 export function addSponseeReview(data){
   debugger
   return (dispatch) => {
-    fetch('http://localhost:3000/sponsee_reviews', {
+    fetch(`${baseUrl}/sponsee_reviews`, {
       headers: {"Content-Type": "application/json",
       "Accept":"application/json"},
       method: "POST",
@@ -100,7 +102,7 @@ export function removeSponseeReviews(){
 
 export function deleteSponseeReview(data){
   return (dispatch) => {
-    fetch(`http://localhost:3000/sponsee_reviews/${data.id}`, {
+    fetch(`${baseUrl}/sponsee_reviews/${data.id}`, {
         headers: {"Content-Type": "application/json",
         "Accept":"application/json"},
         method: "DELETE",
@@ -122,7 +124,7 @@ export function sendSponseeReviewDeleteData(data){
 export function deleteSponsorReview(data){
   debugger
   return (dispatch) => {
-    fetch(`http://localhost:3000/sponsor_reviews/${data.id}`, {
+    fetch(`${baseUrl}sponsor_reviews/${data.id}`, {
         headers: {"Content-Type": "application/json",
         "Accept":"application/json"},
         method: "DELETE",

@@ -6,7 +6,7 @@ import SponsorReview from './sponsorReview'
 import SponseeReview from './sponseeReview'
 import { fetchSponsorReviewsRequestResolved, fetchSponseeReviewsRequestResolved, removeSponsorReviews, removeSponseeReviews, deleteSponseeReview, deleteSponsorReview  } from '../../actions/reviewActions'
 
-
+const baseUrl = 'https://stormy-cliffs-45704.herokuapp.com'
 
 class ReviewsContainer extends Component {
 
@@ -29,12 +29,12 @@ class ReviewsContainer extends Component {
 
   componentDidMount = () => {
     debugger
-    fetch('http://localhost:3000/sponsee_reviews')
+    fetch(`${baseUrl}/sponsee_reviews`)
     .then(res => res.json())
     .then(json => this.props.fetchSponseeReviewsRequestResolved({json: json, facility_id: this.props.facility.id}))
 
 
-    fetch('http://localhost:3000/sponsor_reviews')
+    fetch(`${baseUrl}/sponsor_reviews`)
     .then(res => res.json())
     .then(json => this.props.fetchSponsorReviewsRequestResolved({json: json, facility_id: this.props.facility.id}))
 

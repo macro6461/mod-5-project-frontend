@@ -1,7 +1,9 @@
+const baseUrl = 'https://stormy-cliffs-45704.herokuapp.com'
+
 export function addSponsee(sponsee){
 
   return (dispatch) => {
-    fetch('http://localhost:3000/sponsees', {
+    fetch(`${baseUrl}/sponsees`, {
       headers: {"Content-Type": "application/json",
       "Accept":"application/json"},
       method: "POST",
@@ -74,7 +76,7 @@ export function getCurrentSponseeRole(data){
 export function loginSponsee(sponsee){
   debugger
   return (dispatch) => {
-    fetch('http://localhost:3000/sponsee/login', {
+    fetch(`${baseUrl}/sponsee/login`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -126,7 +128,7 @@ export function removeSponseeLogin(data){
 
 export function deleteSponseeAccount(data){
   return (dispatch) => {
-    fetch(`http://localhost:3000/sponsees/${data.id}`, {
+    fetch(`${baseUrl}/sponsees/${data.id}`, {
         headers: {"Content-Type": "application/json",
         "Accept":"application/json"},
         method: "DELETE",
@@ -149,7 +151,7 @@ export function sendDeleteData(data){
 
 export function fetchSponseesRequest(){
   return (dispatch) =>{
-    fetch('http://localhost:3000/sponsees')
+    fetch(`${baseUrl}/sponsees`)
     .then(res => res.json())
     .then(json => dispatch(fetchSponseesRequestResolved(json)))
 
@@ -166,7 +168,7 @@ export function fetchSponseesRequestResolved(data){
 export function editSponsee(data){
 
   return (dispatch) =>{
-    fetch(`http://localhost:3000/sponsees/${data.id}`, {
+    fetch(`${baseUrl}/sponsees/${data.id}`, {
         headers: {"Content-Type": "application/json",
         "Accept":"application/json"},
         method: "POST",
