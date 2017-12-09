@@ -6,6 +6,7 @@
   "dependencies": {
     "browser-location": "^1.0.1",
     "exenv": "^1.2.2",
+    "gh-pages": "^1.1.0",
     "google-map-react": "^0.25.0",
     "haversine": "^1.0.2",
     "react": "^16.0.0",
@@ -24,6 +25,8 @@
     "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }
