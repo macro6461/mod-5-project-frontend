@@ -14,11 +14,12 @@ import NextStepLogo from '../TheNextStepLogo3.png'
 
 class Nav extends Component {
 
-  state = {
+  state ={
       clicked: false,
       showClass: true,
       role: ""
-  }
+    }
+
 
   componentDidMount = () =>{
     if (localStorage.getItem("role") === null || localStorage.getItem("role") === undefined){
@@ -35,9 +36,9 @@ class Nav extends Component {
 
 checkLoggedIn = () => {
     if (localStorage.role === "sponsor"){
-      return <Redirect to=`/sponsors`/>
+      return <Redirect to="/sponsors"/>
     } else if (localStorage.role === "sponsee") {
-      return <Redirect to=`/sponsees`/>
+      return <Redirect to="/sponsees"/>
     }
 }
 
@@ -53,31 +54,31 @@ checkLoggedIn = () => {
       if (this.props.sponsorRole === '' && this.props.sponseeRole === ''){
           return (
             <div>
-              <Link className="link" to=`/sponsors` onClick={this.removeErrors}>Sponsor</Link><Link className="link" to=`/sponsees` onClick={this.removeErrors}>Sponsee</Link>
+              <Link className="link" to="/sponsors" onClick={this.removeErrors}>Sponsor</Link><Link className="link" to="/sponsees" onClick={this.removeErrors}>Sponsee</Link>
             </div>
           )
       } else if (this.props.sponsorRole === undefined && this.props.sponseeRole === undefined){
         return (
           <div>
-            <Link className="link" to=`/sponsors` onClick={this.removeErrors}>Sponsor</Link><Link className="link" to=`/sponsees` onClick={this.removeErrors}>Sponsee</Link>
+            <Link className="link" to="/sponsors" onClick={this.removeErrors}>Sponsor</Link><Link className="link" to="/sponsees" onClick={this.removeErrors}>Sponsee</Link>
           </div>
         )
       }
       else if (this.props.sponsorRole === null && this.props.sponseeRole === null){
         return (
           <div>
-            <Link className="link" to=`/sponsors` onClick={this.removeErrors}>Sponsor</Link><Link className="link" to=`/sponsees` onClick={this.removeErrors}>Sponsee</Link>
+            <Link className="link" to="/sponsors" onClick={this.removeErrors}>Sponsor</Link><Link className="link" to="/sponsees" onClick={this.removeErrors}>Sponsee</Link>
           </div>
         )
       } else if (this.props.sponsorRole === "sponsor" && this.props.sponseeRole === ""){
         return(
         <div>
-          <Link className="link" to=`/sponsors` onClick={this.removeErrors}>Sponsor</Link>
+          <Link className="link" to="/sponsors" onClick={this.removeErrors}>Sponsor</Link>
         </div>
       )
       } else if (this.props.sponsorRole === "" && this.props.sponseeRole === "sponsee" ){
         return (
-          <Link className="link" to=`/sponsees` onClick={this.removeErrors}>Sponsee</Link>
+          <Link className="link" to="/sponsees" onClick={this.removeErrors}>Sponsee</Link>
         )
       }
     }
@@ -86,28 +87,28 @@ checkLoggedIn = () => {
       <div className="navDiv">
         <img className="navLogo" src={NextStepLogo}/>
         {sponsorOrSponseeOrUndefined()}
-      <Link className="link" to=`/facilities` onClick={this.removeErrors}>Facilities</Link>
-      <Link className="link" to=`/` onClick={this.removeErrors}>Home</Link>
+      <Link className="link" to="/facilities" onClick={this.removeErrors}>Facilities</Link>
+      <Link className="link" to="/" onClick={this.removeErrors}>Home</Link>
       </div>
-    <Route exact path=`/` component = {Home} />
+    <Route exact path="/" component = {Home} />
 
-    <Route exact path=`/sponsors` render={(props) => {
+    <Route exact path='/sponsors' render={(props) => {
 
           if (localStorage.getItem('role') === "sponsor" || localStorage.getItem('role') === null){
             return (<SponsorHome remove={this.props.remove} submit={this.props.submit}/>)
           } else {
-            return (<Redirect to=`/sponsees/`>)
+            return (<Redirect to='/sponsees'/>)
           }
         }}/>
-      <Route exact path=`/sponsees` render={(props) => {
+      <Route exact path='/sponsees' render={(props) => {
               // this.checkLoggedIn()
               if (localStorage.getItem('role') === "sponsee" || localStorage.getItem('role') === null){
                 return (<SponseeHome remove={this.props.remove} submit={this.props.submit}/>)
               } else {
-                return (<Redirect to=`/sponsors`/>)
+                return (<Redirect to='/sponsors'/>)
               }
             }}/>
-      <Route exact path=`/facilities` render={(props) => (
+      <Route exact path='/facilities' render={(props) => (
             <Facilities remove={this.props.remove} submit={this.props.submit}/>
           )}/>
           </div>
