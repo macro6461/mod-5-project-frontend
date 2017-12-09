@@ -2,7 +2,7 @@
   "name": "mod-5-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/macro6461/the-next-step/public",
+  "homepage": "https://macro6461.github.io/the-next-step/public",
   "dependencies": {
     "browser-location": "^1.0.1",
     "exenv": "^1.2.2",
