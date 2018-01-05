@@ -98,7 +98,7 @@ class SponsorReview extends Component {
       <span className="star" id="2" style={{width: "4px", color: "white", margin: "2px",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}} onMouseEnter={this.changeStarColor}>&#9733;</span><span className="star" id="3" style={{width: "4px", color: "white", margin: "2px",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}} onMouseEnter={this.changeStarColor}>&#9733;</span><span className="star" id="4" style={{width: "4px", color: "white", margin: "2px",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}} onMouseEnter={this.changeStarColor}>&#9733;</span><span className="star" id="5" style={{width: "4px", color: "white", margin: "2px",  textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"}} onMouseEnter={this.changeStarColor}>&#9733;</span>
       </div>
 
-      <Form.TextArea className="reviewTextArea" placeholder="write a review" name="body" type="text" value={this.state.body} onChange={this.handleOnChange} required>
+      <Form.TextArea className="reviewTextArea" placeholder="write a review" name="body" type="text" value={this.state.body} onChange={this.handleOnChange} maxLength="200" required>
         </Form.TextArea>
         <Button className="submitButton" type='submit'>Submit</Button>
         </Form>

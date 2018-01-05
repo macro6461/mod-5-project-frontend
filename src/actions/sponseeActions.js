@@ -1,4 +1,4 @@
-const baseUrl = 'https://stormy-cliffs-45704.herokuapp.com'
+const baseUrl = 'http://localhost:3000'
 
 export function addSponsee(sponsee){
 

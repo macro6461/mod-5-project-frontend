@@ -1,8 +1,10 @@
 export default function sponsorsReducer(state={sponsors: [], sponsor: "", role: "", error: null, isSponsorEdited: false}, action){
   switch(action.type){
     case "FETCH_SPONSORS":
+
       return {...state, sponsors: action.payload}
     case "RENDER_SPONSORS":
+    debugger
     let filteredSponsors = action.payload.filter((sponsor) => {
       return sponsor.latitude !== null && sponsor.longitude !== null
     })

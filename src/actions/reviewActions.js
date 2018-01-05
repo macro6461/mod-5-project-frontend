@@ -1,4 +1,4 @@
-const baseUrl = 'https://stormy-cliffs-45704.herokuapp.com'
+const baseUrl = 'http://localhost:3000'
 
 export function fetchSponsorReviewsRequest(data){
 
@@ -124,7 +124,7 @@ export function sendSponseeReviewDeleteData(data){
 export function deleteSponsorReview(data){
   debugger
   return (dispatch) => {
-    fetch(`${baseUrl}sponsor_reviews/${data.id}`, {
+    fetch(`${baseUrl}/sponsor_reviews/${data.id}`, {
         headers: {"Content-Type": "application/json",
         "Accept":"application/json"},
         method: "DELETE",

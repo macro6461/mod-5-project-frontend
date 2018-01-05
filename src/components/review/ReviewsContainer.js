@@ -6,7 +6,7 @@ import SponsorReview from './sponsorReview'
 import SponseeReview from './sponseeReview'
 import { fetchSponsorReviewsRequestResolved, fetchSponseeReviewsRequestResolved, removeSponsorReviews, removeSponseeReviews, deleteSponseeReview, deleteSponsorReview  } from '../../actions/reviewActions'
 
-const baseUrl = 'https://stormy-cliffs-45704.herokuapp.com'
+const baseUrl = 'http://localhost:3000'
 
 class ReviewsContainer extends Component {
 
@@ -54,7 +54,7 @@ class ReviewsContainer extends Component {
 
   findSponsor = (data) => {
     debugger
-    const sponsor = this.props.sponsors.find((sponsor)=>{
+    let sponsor = this.props.sponsors.find((sponsor)=>{
       return sponsor.id === data.sponsor_id
     })
     return sponsor

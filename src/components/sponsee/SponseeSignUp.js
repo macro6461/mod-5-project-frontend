@@ -27,6 +27,7 @@ class SponseeSignUp extends Component {
   }
 
   handleSubmit = (event) => {
+    debugger
     event.preventDefault()
     let sponsee = {username: this.state.username, password: this.state.password, age: this.state.age, gender: this.state.gender, bio: this.state.bio, email: this.state.email, street: this.state.street, city: this.state.city, state: this.state.state, zip: this.state.zip}
     this.props.addSponsee(sponsee)

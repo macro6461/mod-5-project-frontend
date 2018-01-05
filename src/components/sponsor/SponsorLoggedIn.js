@@ -75,7 +75,7 @@ class SponsorLoggedIn extends Component {
     this.props.removeSponsorError()
     let currentSponsor = localStorage.getItem('username')
     let editSponsor = this.props.sponsors.find((sponsor)=>{
-
+      debugger
       return sponsor.username === currentSponsor
     })
     this.setState({
@@ -205,26 +205,13 @@ class SponsorLoggedIn extends Component {
           <Form.Field>
               <label>
                 gender:
-                <input
-                name="genderSearch"
-                style={{marginLeft: 10 + "px"}}
-                type="text"
-                onChange={this.filterOnChange}
-
-                value={this.state.genderSearch}
-              />
+                <input name="genderSearch" style={{marginLeft: 10 + "px"}} type="text" onChange={this.filterOnChange} value={this.state.genderSearch}/>
               </label>
         </Form.Field>
         <Form.Field>
               <label>
                 age:
-                <input
-                name="ageSearch"
-                style={{marginLeft: 10 + "px"}}
-                type="text"
-                onChange={this.filterOnChange}
-                value={this.state.ageSearch}
-              />
+                <input name="ageSearch" style={{marginLeft: 10 + "px"}} type="text" onChange={this.filterOnChange} value={this.state.ageSearch}/>
               </label>
         </Form.Field>
         <a style={{marginLeft: '2%', fontSize: '1vw'}} href="#top">Back to top of page</a>
@@ -235,11 +222,11 @@ class SponsorLoggedIn extends Component {
       <br/>
       <br/>
       <br/>
-    <h3>Here are some potential sponsees! When you're ready, send them a message. <Icon className="smile" size="large"/> </h3>
+    <h3>Here are some potential sponsees! When youre ready, send them a message. <Icon className="smile" size="large"/> </h3>
       <div className="sponseeDiv">
         {newSponsees}
       </div>
-      </div>
+    </div>
     )
   }
 }

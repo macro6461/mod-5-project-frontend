@@ -1,4 +1,4 @@
-const baseUrl = 'https://stormy-cliffs-45704.herokuapp.com'
+const baseUrl = 'http://localhost:3000'
 
 export function addSponsor(sponsor){
 debugger
@@ -159,6 +159,7 @@ export function sendDeleteData(data){
 }
 
 export function fetchSponsorsRequest(){
+  debugger
   return (dispatch) => {
     fetch(`${baseUrl}/sponsors`)
     .then(res => res.json())
@@ -168,6 +169,7 @@ export function fetchSponsorsRequest(){
 }
 
 export function fetchSponsorsRequestResolved(data){
+  debugger
   return {
     type: "RENDER_SPONSORS",
     payload: data
